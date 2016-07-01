@@ -5,6 +5,7 @@ SPARK TEST 20160630
 ref :  https://www.codementor.io/spark/tutorial/python-spark-sql-dataframes
 ref :  https://spark.apache.org/docs/latest/sql-programming-guide.html#creating-dataframes
 ref :  https://github.com/jadianes/spark-py-notebooks/blob/master/nb2-rdd-basics/nb2-rdd-basics.ipynb
+ref :  http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html    (KDD Cup 1999 Data)
 
 visit sparkUI via http://192.168.0.91:4041
 
