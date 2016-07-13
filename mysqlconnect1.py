@@ -9,3 +9,6 @@ a.execute(sql)
 
 for k in a:
 	print (k)
+	
+	
+	
