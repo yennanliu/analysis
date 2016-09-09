@@ -6,6 +6,7 @@ ref :  https://www.codementor.io/spark/tutorial/python-spark-sql-dataframes
 ref :  https://spark.apache.org/docs/latest/sql-programming-guide.html#creating-dataframes
 ref :  https://github.com/jadianes/spark-py-notebooks/blob/master/nb2-rdd-basics/nb2-rdd-basics.ipynb
 ref :  http://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html    (KDD Cup 1999 Data)
+ref :  https://spark.apache.org/docs/1.6.0/sql-programming-guide.html
 
 visit sparkUI via http://192.168.0.91:4041
 
@@ -70,6 +71,26 @@ print "Data collected in {} seconds".format(round(tt,3))
 print "There are {} 'normal' interactions".format(normal_count)
 
 
+
+=======================
+
+
+# ref :  https://spark.apache.org/docs/1.6.0/sql-programming-guide.html
+
+
+
+from pyspark.sql import SparkSession
+
+
+df = spark.read.json("examples/src/main/resources/people.json")
+df.show()
+
+df.printSchema()
+
+df.select("name").show()
+
+
+df = spark.sql("SELECT * FROM table")
 
 
 
