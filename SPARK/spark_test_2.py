@@ -2,6 +2,9 @@
 '''
 ref https://databricks.com/blog/2015/08/12/from-pandas-to-apache-sparks-dataframe.html
 ref https://spark.apache.org/docs/0.9.1/python-programming-guide.html
+ref https://medium.com/@chris_bour/6-differences-between-pandas-and-spark-dataframes-1380cec394d2#.2vimrmb83
+
+SPARK-csv :  https://github.com/databricks/spark-csv
 
 '''
 
@@ -64,6 +67,20 @@ df[(df.B > 0) & (df.A < 2)].show()
 # SPARK dataframe to pandas dataframe 
 
 pdf = df.toPandas()
+
+
+
+# Transfer RDD to SPARK dataframe   
+# (pyspark.rdd.RDD - > pyspark.sql.dataframe.DataFrame)
+# ref : http://stackoverflow.com/questions/32742004/create-spark-dataframe-can-not-infer-schema-for-type-type-float
+
+df = sc.textFile("/Users/GGV/Desktop/cs-training.csv")
+df_ = df.map(lambda x: (x, )).toDF()
+df_show()
+
+
+
+
 
 
 
