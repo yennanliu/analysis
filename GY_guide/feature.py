@@ -80,11 +80,11 @@ def get_avg_value(df):
     avg_keyword_click = pd.DataFrame(df_.groupby(['Keyword_ID']).agg(np.mean)['Clicks']).reset_index()
     avg_keyword_click.columns = ['Keyword_ID','avg_keyword_click']
     # merge 
-    df_ = pd.merge(df_, avg_account_click, on=['Account_ID'], how='inner')
-    df_ = pd.merge(df_, avg_campaign_click, on=['Campaign_ID'], how='inner')
-    df_ = pd.merge(df_, avg_ad_click, on=['Ad_group_ID'], how='inner')
-    df_ = pd.merge(df_, avg_keyword_click, on=['Keyword_ID'], how='inner')
-    return df_
+    df__ = pd.merge(df_, avg_account_click, on=['Account_ID'], how='inner')
+    df__ = pd.merge(df__, avg_campaign_click, on=['Campaign_ID'], how='inner')
+    df__ = pd.merge(df__, avg_ad_click, on=['Ad_group_ID'], how='inner')
+    df__ = pd.merge(df__, avg_keyword_click, on=['Keyword_ID'], how='inner')
+    return df__
 
 
 
