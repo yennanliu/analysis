@@ -88,5 +88,37 @@ def get_avg_value(df):
 
 
 
+def get_num_parameter(df):
+    df_ = df.copy()
+    # get counts of campaigns on accounts 
+    campaign_count = df_.groupby(['Account_ID','Campaign_ID'])\
+                        .agg('count')['Clicks']\
+                        .reset_index()
+    campaign_count.columns = ['Account_ID','Campaign_ID','campaign_count']
+    # merge back 
+    df__ = pd.merge(df_, campaign_count, on=['Account_ID','Campaign_ID'], how='inner')
+    return df__
+    
+
+
+def get_num_parameter_(df):
+    df_ = df.copy()
+    count_list = ['Keyword_ID', 'Ad_group_ID', 'Campaign_ID']
+    #col = ['{}_count'.format(x)  for x in  count_list ]
+    # get counts of variables on accounts 
+    for item in count_list:
+        colname = '{}_count'.format(item)
+        temp = df_.groupby(['Account_ID',item])\
+                  .agg('count')['Clicks']\
+                  .reset_index()
+        temp.columns = ['Account_ID',item,colname]
+    # merge back 
+        df_ = pd.merge(df_, temp, on=['Account_ID',item], how='inner')
+    return df_
+    
+    
+
+
+
 
 
