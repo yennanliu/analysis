@@ -42,6 +42,28 @@ def best_combination(df):
 
 
 
+def best_parameter(df):
+	# get  best combination of campaign, ad_group... with given account_id
+	# on max revenue 
+    df_ = df.copy()
+    account = list(set(df_.Account_ID))
+    output = pd.DataFrame()
+    for id in account:
+        dfx = df_train[df_train['Account_ID'] ==id]
+        dfx.loc[dfx['Revenue'].idxmax()]
+        dfx_ = pd.DataFrame(dfx.loc[dfx['Revenue'].idxmax()][0:7]).T
+        col_ = [x + '_best' if x != 'Account_ID' else x for x in dfx_.columns ]
+        dfx_.columns = col_
+        #print (dfx_.head(1))
+        output = output.append(dfx_)
+    # merge back 
+    df_ = pd.merge(df_, output, on=['Account_ID'], how='inner')
+    return df_
+
+
+
+
+
 def get_avg_value(df):
     df_ = df.copy()
     # get avg value
