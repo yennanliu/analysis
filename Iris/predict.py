@@ -2,6 +2,7 @@
 
 # data prepare 
 import pandas as pd, numpy as np 
+import sys
 
 
 def species_encode(x):
@@ -40,10 +41,27 @@ def train(df,model):
     print (confusion_matrix(y_true, y_pred))
     #print (clf_)
     return clf_
-     
+
+def predict(model, **kwargs):
+	pass 
+
+def test_():
+	df_iris = load_data()
+	clf_tree = tree.DecisionTreeRegressor()
+	train(df_iris,clf_tree)
+	print (sys.argv[1:])
+	print (clf_tree.predict(sys.argv[1:]))
+
+#def test():
+#	#for arg in sys.argv: 
+#	#	print (arg)
+#	print (sys.argv[1:])
+
 
 if __name__ == '__main__':
 
+	test_()
+	"""
 	clf_tree = tree.DecisionTreeRegressor()
 	clf_rf = RandomForestClassifier()
 	clf_logistic = linear_model.LogisticRegression(C=1e5)
@@ -51,6 +69,7 @@ if __name__ == '__main__':
 
 	for model in [clf_tree,clf_rf,clf_logistic]:
 		model = train(df_iris,model )
+	"""
 
 
 
