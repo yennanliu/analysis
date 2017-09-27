@@ -22,10 +22,10 @@ def preprocess_data():
 
 
 def linear_model(playercount,df,Promo,weekday):
-	# predict revenue with simple linear model
-	# e.g. linear_model(5000,df_merge,'NA','Thursday') => array([[ 824.88648426]])
-	# e.g. linear_model(6000,df_merge,'A','Friday') => array([[ 1243.2655368]])
-	df_ = df.copy()
+    # predict revenue with simple linear model
+    # e.g. linear_model(5000,df_merge,'NA','Thursday') => array([[ 824.88648426]])
+    # e.g. linear_model(6000,df_merge,'A','Friday') => array([[ 1243.2655368]])
+    df_ = df.copy()
     df__ = df_[(df_.Promo ==Promo)&(df_.weekday_ ==weekday)]
     # aggregrate data 
     df__ = df__.groupby('Date').agg({'Playerid':'count', 'Revenue': 'sum'}).reset_index()
