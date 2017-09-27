@@ -19,6 +19,7 @@ def preprocess_data():
 	df_merge = df_merge.fillna('NA')
 	df_merge.loc[:, 'weekday'] = df_merge['Date'].dt.weekday
 	df_merge.loc[:, 'weekday_'] = df_merge['weekday'].map(lambda x: weekday(x) )
+	return df_merge
 
 
 def linear_model(playercount,df,Promo,weekday):
@@ -36,6 +37,7 @@ def linear_model(playercount,df,Promo,weekday):
     print (regr)
     # predict with linear model  
     predict = regr.predict(playercount)
+    print (predict)
     return predict
 
 # help function 
@@ -56,6 +58,9 @@ def weekday(x):
     if x== 6 :
         return 'Sunday'
 
+if __name__ == '__main__':
 
+	df_merge = preprocess_data()
+	linear_model(6000,df_merge,'B','Saturday')
 
 
