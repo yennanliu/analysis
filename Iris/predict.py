@@ -95,7 +95,7 @@ def predict():
 	if len(sys.argv[1:]) != 4:
 		print ('plz enter iris parameters for species peediction with form : "SepalLengthCm"  "SepalWidthCm" "PetalLengthCm" "PetalWidthCm"')
 		# e.g. python predict.py 1 2 3 4 
-		# output : 
+		# output : [0]
 	else:
 		df_iris = load_data()
 		clf_tree = DecisionTreeClassifier()
