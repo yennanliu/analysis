@@ -75,20 +75,35 @@ def time_feature(df):
 	df_['min_usetime'] = pd.to_datetime(df_['min_usetime'])
 	df_['using_period'] = (df_['max_usetime'] - df_['min_usetime']).dt.days
 	df_['user_period'] = (pd.to_datetime('today') - df_['user_created_date']).dt.days
+	df_['period_no_use'] = (pd.to_datetime('today') - df_['max_usetime']).dt.days
 	print (df_.head())
 	return df_ 
 
 
+def label_feature(df):
+	df_ = df.copy()
+	df_['platform_'] = df_['platform'].map(lambda x : encode_platform(x))
+	return df_ 
+
+
+# help function 
+def encode_platform(x):
+    if x == 'ios':
+        return 0 
+    if x == 'android':
+        return 1
+    else:
+        pass 
 
 
 
 
-if __name__ == '__main__':
-	df = load_data()
-	df_ = data_preprocess(df)
-	df_ = order_value_feature(df_)
-	df_ = time_feature(df_)
-	print (df_.head())
+#if __name__ == '__main__':
+#	df = load_data()
+#	df_ = data_preprocess(df)
+#	df_ = order_value_feature(df_)
+#	df_ = time_feature(df_)
+	#print (df_.head())
 
 
 
