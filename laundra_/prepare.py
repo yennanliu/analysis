@@ -115,16 +115,6 @@ def encode_platform(x):
 
 
 
-#if __name__ == '__main__':
-#	df = load_data()
-#	df_ = data_preprocess(df)
-#	df_ = order_value_feature(df_)
-#	df_ = time_feature(df_)
-	#print (df_.head())
-
-
-
-
 
 
 
