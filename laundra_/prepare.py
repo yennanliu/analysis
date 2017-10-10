@@ -86,6 +86,23 @@ def label_feature(df):
 	return df_ 
 
 
+def finalize_user_profile(df):
+	df_ = df.copy()
+	needed_columns  = ['customer_id', 'vip', 'fraud','order_count',
+						'sum_original_value', 'sum_discount_value', 
+						'avg_original_value','avg_discount_value', 
+						'using_period','user_period', 
+						'period_no_use', 'platform_']
+
+	df_train = df_[needed_columns]
+	# drop duplicate row 
+	df_train = df_train.drop_duplicates()
+	print (df_train.head())
+	return df_train
+
+
+
+
 # help function 
 def encode_platform(x):
     if x == 'ios':
