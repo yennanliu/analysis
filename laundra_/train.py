@@ -12,6 +12,8 @@ from sklearn import cluster, tree, decomposition
 from sklearn import tree
 from sklearn.cross_validation import train_test_split
 from sklearn.externals.six import StringIO
+from sklearn.metrics import silhouette_score
+# dicision tree visualization 
 import pydotplus
 from IPython.display import Image  
 import pydotplus
@@ -66,7 +68,7 @@ def train():
 	tree_data = tree_data.dropna()
 	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=1)
 	#  build decision tree model
-	num_list = ['vip', 'fraud', 'order_count', 'sum_original_value',
+	num_list = ['fraud', 'order_count', 'sum_original_value',
             'sum_discount_value', 'avg_original_value', 'avg_discount_value',
             'using_period', 'user_period', 'period_no_use', 'platform_', 'group',
             'order_again_']
@@ -78,7 +80,25 @@ def train():
 	tree.export_graphviz(clf, out_file=dot_data, filled=True, rounded=True)
 	graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
 	Image(graph.create_png())
+	kmean_evaluate(X_std)
 
+
+
+def kmean_evaluate(X):
+    # X = X_std 
+    output = []
+    for n_cluster in range(5, 10):
+        kmean = cluster.KMeans(n_clusters=n_cluster).fit(X)
+        label = kmean.labels_
+        # using silhouette_score evaluate kmeans model 
+        # https://stackoverflow.com/questions/19197715/scikit-learn-k-means-elbow-criterion
+        sil_coeff = silhouette_score(X, label, metric='euclidean')
+        output.append(sil_coeff)
+        print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, sil_coeff))
+    plt.xlabel('# of culster (k)')
+    plt.ylabel('silhouette_score')
+    plt.title('kmeans model evaluate')
+    plt.plot(np.array(range(5, 10)),output)
 
 
 
