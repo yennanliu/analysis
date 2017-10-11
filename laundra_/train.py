@@ -31,7 +31,9 @@ def train():
 	for i in X:
  		X_std[i] = preprocessing.scale(X_std[i])
     # kmeans 
-	kmean = cluster.KMeans(n_clusters=5, max_iter=300, random_state=None)
+    # fix random_state here for same results (in dev)(same starting point)
+    ### but will make random_state = None (in product), since random intitial state can always give better results 
+	kmean = cluster.KMeans(n_clusters=5, max_iter=300, random_state=4000)
 	kmean.fit(X_std)
 	X_std['group'] = kmean.labels_
 	print (X_std)
