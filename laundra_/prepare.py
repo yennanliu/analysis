@@ -10,7 +10,7 @@ def load_data():
 
 
 def data_preprocess(df):
-    selected_columns = ['customer_id', 'age', 'gender', 'platform', 'vip',
+    selected_columns = ['customer_id', 'age', 'gender', 'platform',
                        'fraud', 'user_created_date', 'user_updated_date', 'merchant_id',
                        'operation_postcodes_group_id', 'collection_time',
                        'collection_end_time', 'delivery_time', 'delivery_end_time', 'status',
@@ -88,7 +88,7 @@ def label_feature(df):
 
 def finalize_user_profile(df):
 	df_ = df.copy()
-	needed_columns  = ['customer_id', 'vip', 'fraud','order_count',
+	needed_columns  = ['customer_id', 'fraud','order_count',
 						'sum_original_value', 'sum_discount_value', 
 						'avg_original_value','avg_discount_value', 
 						'using_period','user_period', 
