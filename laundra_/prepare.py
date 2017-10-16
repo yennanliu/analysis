@@ -58,6 +58,11 @@ def order_value_feature(df):
 	df_ = df_.merge(order_count_,on=['customer_id'], how='left')
 	df_ = df_.merge(sum_value,on=['customer_id'], how='left')
 	df_ = df_.merge(avg_value,on=['customer_id'], how='left')
+
+	# actual total spent value 
+	df_['sum_spend_value']  = df_['sum_original_value'] -  df_['sum_discount_value']
+	# make total value < 0 as 0 since they may never pay minus value 
+	df_['sum_spend_value'] =  df_['sum_spend_value'].apply(lambda x : 0 if x < 0 else x )
 	print (df_.head())
 	return df_
 
@@ -90,6 +95,7 @@ def finalize_user_profile(df):
 	df_ = df.copy()
 	needed_columns  = ['customer_id', 'fraud','order_count',
 						'sum_original_value', 'sum_discount_value', 
+						'sum_spend_value',
 						'avg_original_value','avg_discount_value', 
 						'using_period','user_period', 
 						'period_no_use', 'platform_']

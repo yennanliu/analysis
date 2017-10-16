@@ -69,9 +69,9 @@ def train():
 	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=1)
 	#  build decision tree model
 	num_list = ['fraud', 'order_count', 'sum_original_value',
-            'sum_discount_value', 'avg_original_value', 'avg_discount_value',
-            'using_period', 'user_period', 'period_no_use', 'platform_', 'group',
-            'order_again_']
+				'sum_discount_value', 'avg_original_value', 'avg_discount_value',
+				'using_period', 'user_period', 'period_no_use', 'platform_', 'group',
+				'order_again_']
 	clf = tree.DecisionTreeClassifier(max_leaf_nodes=10, min_samples_leaf=200)
 	clf = clf.fit(tree_train[num_list], tree_train['order_again_'])
 	print (clf.score(tree_test[num_list], tree_test['order_again_']))
