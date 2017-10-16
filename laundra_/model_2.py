@@ -19,7 +19,7 @@ from IPython.display import Image
 import pydotplus
 
 #
-from prepare import *
+from data_prepare import *
 
 
 
@@ -110,13 +110,6 @@ def train():
 	###
 
 
-
-
-def order_again(x):
-    if x > 2:
-        return 1
-    else:
-        return 0 
 
 
 if __name__ == '__main__':
