@@ -19,7 +19,7 @@ from IPython.display import Image
 import pydotplus
 
 #
-from prepare import *
+from data_prepare import *
 
 
 

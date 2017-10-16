@@ -5,7 +5,8 @@ import pandas as pd, numpy as np
 
 
 def load_data():
-	df = pd.read_csv('/Users/yennanliu/analysis/laundra_/train1010.csv')
+	df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/train1010.csv')
+	#df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/train1016_lesscolumn.csv')
 	return  df 
 
 
