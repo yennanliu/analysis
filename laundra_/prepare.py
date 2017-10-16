@@ -106,9 +106,17 @@ def finalize_user_profile(df):
 	print (df_train.head())
 	return df_train
 
+	
+
 def data_clean(df):
     # remove users have 0 orders 
-    return df[df.order_count !=0]
+    df_  = df[(df.order_count !=0) & (df.order_count > 0)] 
+    df_ = df_[(df_['sum_original_value'] < df_['sum_original_value'].quantile(0.99))&
+              (df_['sum_original_value'] > df_['sum_original_value'].quantile(0.01))]
+    return df_
+
+
+
 
 
 
