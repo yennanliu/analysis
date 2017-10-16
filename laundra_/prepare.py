@@ -41,28 +41,28 @@ def order_value_feature(df):
 	order_count_ = pd.DataFrame(df_.groupby(['customer_id']) 
 	                 .count()['created_at'])\
 	                 .reset_index()
-	order_count_.columns = ['customer_id', 'order_count']
 
 	sum_value = df_.groupby(['customer_id'])\
 	               .sum()[['original_value', 'discount_value']]\
 	               .reset_index()
-	sum_value.columns = ['customer_id', 'sum_original_value','sum_discount_value']    
-
 
 	avg_value = df_.groupby(['customer_id'])\
 	               .mean()[['original_value', 'discount_value']]\
 	               .reset_index()
+	# rename columns                
+	order_count_.columns = ['customer_id', 'order_count']
+	sum_value.columns = ['customer_id', 'sum_original_value','sum_discount_value']  
+	avg_value.columns = ['customer_id', 'avg_original_value','avg_discount_value']   
 	avg_value.columns = ['customer_id', 'avg_original_value','avg_discount_value']    
-
 	# merge 
 	df_ = df_.merge(order_count_,on=['customer_id'], how='left')
 	df_ = df_.merge(sum_value,on=['customer_id'], how='left')
 	df_ = df_.merge(avg_value,on=['customer_id'], how='left')
-
 	# actual total spent value 
 	df_['sum_spend_value']  = df_['sum_original_value'] -  df_['sum_discount_value']
 	# make total value < 0 as 0 since they may never pay minus value 
 	df_['sum_spend_value'] =  df_['sum_spend_value'].apply(lambda x : 0 if x < 0 else x )
+	df_['avg_spend_value'] =  df_['sum_spend_value']/ df_['order_count']
 	print (df_.head())
 	return df_
 
@@ -95,7 +95,7 @@ def finalize_user_profile(df):
 	df_ = df.copy()
 	needed_columns  = ['customer_id', 'fraud','order_count',
 						'sum_original_value', 'sum_discount_value', 
-						'sum_spend_value',
+						'sum_spend_value','avg_spend_value',
 						'avg_original_value','avg_discount_value', 
 						'using_period','user_period', 
 						'period_no_use', 'platform_']
