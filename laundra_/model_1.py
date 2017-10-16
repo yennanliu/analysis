@@ -128,13 +128,28 @@ def kmean_evaluate(X):
     plt.plot(np.array(cluster_range),output)
     plt.show()
 
+def kmean_model_tuning(X):
+    # X = X_std 
+	output = []
+	cluster_range = range(3, 15)
+	max_iter = range(290,300)
+	for n_cluster in cluster_range:
+		for iter_ in max_iter:
+			kmean = cluster.KMeans(n_clusters=n_cluster, max_iter=iter_, random_state=4000).fit(X)
+        #kmean = cluster.KMeans(n_clusters=n_cluster).fit(X)
+			label = kmean.labels_
+        # using silhouette_score evaluate kmeans model 
+        # https://stackoverflow.com/questions/19197715/scikit-learn-k-means-elbow-criterion
+			sil_coeff = silhouette_score(X, label, metric='euclidean')
+			output.append(sil_coeff)
+	print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, sil_coeff))
+	plt.xlabel('# of culster (k)')
+	plt.ylabel('silhouette_score')
+	plt.title('kmeans model evaluate')
+	plt.plot(np.array(cluster_range),output)
+	plt.show()
 
 
-def order_again(x):
-    if x > 2:
-        return 1
-    else:
-        return 0 
 
 
 if __name__ == '__main__':

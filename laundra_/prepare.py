@@ -131,6 +131,14 @@ def encode_platform(x):
 
 
 
+def order_again(x):
+    if x > 2:
+        return 1
+    else:
+        return 0 
+
+
+
 
 
 
