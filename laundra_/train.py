@@ -47,13 +47,21 @@ def train():
     # kmeans 
     # fix random_state here for same results (in dev)(same starting point)
     ### but will make random_state = None (in product), since random intitial state can always give better results 
-	kmean = cluster.KMeans(n_clusters=5, max_iter=300, random_state=4000)
+	kmean = cluster.KMeans(n_clusters=6, max_iter=300, random_state=4000)
 	kmean.fit(X_std)
 	X_std['group'] = kmean.labels_
 	df_train['group'] = kmean.labels_
 	print (X_std)
-	print (df_train.groupby('group').mean())
+	#############
 
+	# print classify results as table 
+	group_outcome = df_train.groupby('group').mean()  
+	group_user_count =  df_train.groupby('group').count()['customer_id'].reset_index().set_index('group')
+	group_user_count.columns = ['group_user_count']
+	group_outcome_ = group_outcome.join(group_user_count, how='inner')
+	print (group_outcome_.iloc[:,1:])
+
+	#############
 	# PCA
 	pca = decomposition.PCA(n_components=2, whiten=True)
 	pca.fit(X_std)
@@ -103,6 +111,7 @@ def kmean_evaluate(X):
     plt.ylabel('silhouette_score')
     plt.title('kmeans model evaluate')
     plt.plot(np.array(cluster_range),output)
+    plt.show()
 
 
 
