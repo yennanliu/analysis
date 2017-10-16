@@ -93,7 +93,7 @@ def label_feature(df):
 
 def finalize_user_profile(df):
 	df_ = df.copy()
-	needed_columns  = ['customer_id', 'fraud','order_count',
+	needed_columns  = ['customer_id', 'order_count',
 						'sum_original_value', 'sum_discount_value', 
 						'sum_spend_value','avg_spend_value',
 						'avg_original_value','avg_discount_value', 
@@ -106,7 +106,7 @@ def finalize_user_profile(df):
 	print (df_train.head())
 	return df_train
 
-	
+
 
 def data_clean(df):
     # remove users have 0 orders 

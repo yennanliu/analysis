@@ -52,6 +52,7 @@ def train():
 	X_std['group'] = kmean.labels_
 	df_train['group'] = kmean.labels_
 	print (X_std)
+	print (df_train.groupby('group').mean())
 
 	# PCA
 	pca = decomposition.PCA(n_components=2, whiten=True)
@@ -60,6 +61,8 @@ def train():
 	X_std['y'] = pca.fit_transform(X_std)[:, 1]
 	plt.scatter(X_std['x'], X_std['y'],c = X_std.group)
 	plt.show()
+
+
 	# DT (decision tree)
 	# can be any cluster group, just hard code group = 1 here  
 	tree_data = df_train[df_train['group']==1]
@@ -68,7 +71,7 @@ def train():
 	tree_data = tree_data.dropna()
 	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=1)
 	#  build decision tree model
-	num_list = ['fraud', 'order_count', 'sum_original_value',
+	num_list = ['order_count', 'sum_original_value',
 				'sum_discount_value', 'avg_original_value', 'avg_discount_value',
 				'using_period', 'user_period', 'period_no_use', 'platform_', 'group',
 				'order_again_']
@@ -87,7 +90,8 @@ def train():
 def kmean_evaluate(X):
     # X = X_std 
     output = []
-    for n_cluster in range(5, 10):
+    cluster_range = range(3, 15)
+    for n_cluster in cluster_range:
         kmean = cluster.KMeans(n_clusters=n_cluster).fit(X)
         label = kmean.labels_
         # using silhouette_score evaluate kmeans model 
@@ -98,7 +102,7 @@ def kmean_evaluate(X):
     plt.xlabel('# of culster (k)')
     plt.ylabel('silhouette_score')
     plt.title('kmeans model evaluate')
-    plt.plot(np.array(range(5, 10)),output)
+    plt.plot(np.array(cluster_range),output)
 
 
 
