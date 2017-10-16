@@ -63,6 +63,18 @@ def train():
 
 	#############
 	# PCA
+    # plot number of pricipal elments VS explained variance
+	pca = decomposition.PCA(n_components=10, whiten=True)
+	pca.fit(X_std)
+	fig, ax = plt.subplots(figsize=(14, 5))
+	sns.set(font_scale=1)
+	plt.step(range(10), pca.explained_variance_ratio_.cumsum())
+	plt.ylabel('Explained variance', fontsize = 14)
+	plt.xlabel('Principal components', fontsize = 14)
+	plt.legend(loc='upper left', fontsize = 13)
+	plt.show()
+	# use 2 pricipal elments
+	plt.style.use('classic')
 	pca = decomposition.PCA(n_components=2, whiten=True)
 	pca.fit(X_std)
 	X_std['x'] = pca.fit_transform(X_std)[:, 0]
