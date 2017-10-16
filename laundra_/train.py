@@ -73,24 +73,27 @@ def train():
 
 	# DT (decision tree)
 	# can be any cluster group, just hard code group = 1 here  
-	tree_data = df_train[df_train['group']==1]
 	tree_data = df_train
 	tree_data['order_again_'] = tree_data.order_count.apply(lambda x : order_again(x))
 	tree_data = tree_data.dropna()
-	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=1)
+	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=200)
 	#  build decision tree model
-	num_list = ['order_count', 'sum_original_value',
-				'sum_discount_value', 'avg_original_value', 'avg_discount_value',
-				'using_period', 'user_period', 'period_no_use', 'platform_', 'group',
-				'order_again_']
-	clf = tree.DecisionTreeClassifier(max_leaf_nodes=10, min_samples_leaf=200)
-	clf = clf.fit(tree_train[num_list], tree_train['order_again_'])
-	print (clf.score(tree_test[num_list], tree_test['order_again_']))
+	num_list = ['order_count', 'sum_original_value','sum_discount_value', 
+				'avg_original_value', 'avg_discount_value','using_period', 'user_period', 
+				'period_no_use', 'platform_', 'group',
+	            'order_again_']
+	#clf = tree.DecisionTreeClassifier()
+	clf = tree.DecisionTreeClassifier(max_leaf_nodes=30, min_samples_leaf=50)
+	clf = clf.fit(tree_train[num_list], tree_train['group'])
+	print (clf.score(tree_test[num_list], tree_test['group']))
 	# visualize the tree 
 	dot_data = StringIO()
-	tree.export_graphviz(clf, out_file=dot_data, filled=True, rounded=True)
+	tree.export_graphviz(clf, out_file=dot_data,feature_names=tree_train.columns ,filled=True, rounded=True)
 	graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
 	Image(graph.create_png())
+	plt.show()
+	#kmean_evaluate(X_std)
+	###
 	kmean_evaluate(X_std)
 
 
@@ -116,7 +119,7 @@ def kmean_evaluate(X):
 
 
 def order_again(x):
-    if x > 1:
+    if x > 2:
         return 1
     else:
         return 0 
