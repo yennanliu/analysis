@@ -3,7 +3,7 @@
 
 ############################## 
 # model for ensemble training #
-#							  #
+#                             #
 ##############################
 
 # analytics 
@@ -74,19 +74,6 @@ def train():
         group_outcome_ = group_outcome.join(group_user_count, how='inner')
         print (group_outcome_.iloc[:,1:])
 
-        #############
-        # PCA
-        # plot number of pricipal elments VS explained variance
-        #pca = decomposition.PCA(n_components=10, whiten=True)
-        #pca.fit(X_std)
-        #fig, ax = plt.subplots(figsize=(14, 5))
-        #sns.set(font_scale=1)
-        #plt.step(range(10), pca.explained_variance_ratio_.cumsum())
-        #plt.ylabel('Explained variance', fontsize = 14)
-        #plt.xlabel('Principal components', fontsize = 14)
-        #plt.legend(loc='upper left', fontsize = 13)
-        #plt.show()
-        # use 2 pricipal elments
         plt.style.use('classic')
         pca = decomposition.PCA(n_components=2, whiten=True)
         pca.fit(X_std)
@@ -102,16 +89,16 @@ def train():
 if __name__ == '__main__':
 	######  get data ###### 
 	svc_columns = [ 'order_count',
-				 	'sum_original_value',
-					'sum_discount_value', 
-					'sum_spend_value',
-					'avg_original_value',
-					'avg_discount_value', 
-					'avg_spend_value', 
-					'using_period', 
-					'user_period',
-					'period_no_use', 
-					'platform_']
+                    'sum_original_value',
+                    'sum_discount_value', 
+                    'sum_spend_value',
+                    'avg_original_value',
+                    'avg_discount_value', 
+                    'avg_spend_value', 
+                    'using_period', 
+                    'user_period',
+                    'period_no_use', 
+                    'platform_']
 
 	df_train, df_  = train()
 	df_train_ = df_train.dropna()
