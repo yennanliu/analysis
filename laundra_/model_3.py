@@ -89,7 +89,7 @@ def train():
 
 if __name__ == '__main__':
 	######  get data ###### 
-	svc_columns = [ 'order_count',
+    svc_columns = [ 'order_count',
                     'sum_original_value',
                     'sum_discount_value', 
                     'sum_spend_value',
@@ -101,25 +101,32 @@ if __name__ == '__main__':
                     'period_no_use', 
                     'platform_']
 
-	df_train, df_  = train()
-	df_train_ = df_train.dropna()
-	xtrain = df_train_[svc_columns]
-	ytrain = df_train_['group']
-	X_train, X_valid, y_train, y_valid = train_test_split(xtrain, ytrain,train_size=0.8, test_size=0.2)
-	###### ML  ###### 
-	print ('SVM classify')
-	print ('----------------')
-	svc = Class_Fit(clf = svm.LinearSVC)
-	svc.grid_search(parameters = [{'C':np.logspace(-2,2,10)}], Kfold = 5)
-	svc.grid_fit(X =X_train, Y = y_train)
-	svc.grid_predict(X_valid, y_valid)
-	print ('----------------')
-	print ('KNN')
-	knn = Class_Fit(clf = neighbors.KNeighborsClassifier)
-	knn.grid_search(parameters = [{'n_neighbors': np.arange(1,50,1)}], Kfold = 5)
-	knn.grid_fit(X = X_train, Y = y_train)
-	knn.grid_predict(X_valid, y_valid)
-	print ('----------------')
+    df_train, df_  = train()
+    df_train_ = df_train.dropna()
+    xtrain = df_train_[svc_columns]
+    ytrain = df_train_['group']
+    X_train, X_valid, y_train, y_valid = train_test_split(xtrain, ytrain,train_size=0.8, test_size=0.2)
+    ###### ML  ###### 
+    print ('SVM classify')
+    print ('----------------')
+    svc = Class_Fit(clf = svm.LinearSVC)
+    svc.grid_search(parameters = [{'C':np.logspace(-2,2,10)}], Kfold = 5)
+    svc.grid_fit(X =X_train, Y = y_train)
+    svc.grid_predict(X_valid, y_valid)
+    print ('----------------')
+    print ('KNN')
+    knn = Class_Fit(clf = neighbors.KNeighborsClassifier)
+    knn.grid_search(parameters = [{'n_neighbors': np.arange(1,50,1)}], Kfold = 5)
+    knn.grid_fit(X = X_train, Y = y_train)
+    knn.grid_predict(X_valid, y_valid)
+    print ('----------------')
+    print (' RF random forest ')
+    rf = Class_Fit(clf = ensemble.RandomForestClassifier)
+    param_grid = {'criterion' : ['entropy', 'gini'], 'n_estimators' : [20, 40, 60, 80, 100],
+                   'max_features' :['sqrt', 'log2']}
+    rf.grid_search(parameters = param_grid, Kfold = 5)
+    rf.grid_fit(X = X_train, Y = y_train)
+    rf.grid_predict(X_valid, y_valid)
 
 
 
