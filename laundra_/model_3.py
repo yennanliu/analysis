@@ -19,6 +19,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.externals.six import StringIO
 from sklearn.metrics import silhouette_score
 from sklearn import svm
+from sklearn import neighbors, linear_model, svm, tree, ensemble
 
 # dicision tree visualization 
 import pydotplus
@@ -106,10 +107,19 @@ if __name__ == '__main__':
 	ytrain = df_train_['group']
 	X_train, X_valid, y_train, y_valid = train_test_split(xtrain, ytrain,train_size=0.8, test_size=0.2)
 	###### ML  ###### 
+	print ('SVM classify')
+	print ('----------------')
 	svc = Class_Fit(clf = svm.LinearSVC)
 	svc.grid_search(parameters = [{'C':np.logspace(-2,2,10)}], Kfold = 5)
 	svc.grid_fit(X =X_train, Y = y_train)
 	svc.grid_predict(X_valid, y_valid)
+	print ('----------------')
+	print ('KNN')
+	knn = Class_Fit(clf = neighbors.KNeighborsClassifier)
+	knn.grid_search(parameters = [{'n_neighbors': np.arange(1,50,1)}], Kfold = 5)
+	knn.grid_fit(X = X_train, Y = y_train)
+	knn.grid_predict(X_valid, y_valid)
+	print ('----------------')
 
 
 
