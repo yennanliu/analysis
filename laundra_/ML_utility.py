@@ -33,6 +33,18 @@ class Class_Fit(object):
 
 
 
+def cluster_fit(clf , cluster_range_ , iter_range_):
+    output = []
+    cluster_range = range(cluster_range_ - 5 , cluster_range_)
+    max_iter = range(iter_range_ -5 ,iter_range_)
+    for n_cluster in cluster_range:
+        for iter_ in max_iter:
+            kmean = cluster.KMeans(n_clusters=n_cluster, max_iter=iter_, random_state=4000).fit(X)
+            label = kmean.labels_
+            sil_coeff = silhouette_score(X, label, metric='euclidean')
+            output.append(sil_coeff)
+    print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, sil_coeff))
+
 
 
 
