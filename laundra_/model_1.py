@@ -1,5 +1,13 @@
 # python 3 
 
+
+
+
+########################################  
+# simple clustering model              #
+#							  		   #
+########################################
+
 # analytics 
 import pandas as pd, numpy as np
 import seaborn  as sns 

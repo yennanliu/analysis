@@ -1,5 +1,11 @@
 # python 3 
 
+
+############################## 
+# model for ensemble training #
+#							  #
+##############################
+
 # analytics 
 import pandas as pd, numpy as np
 import seaborn  as sns 

@@ -1,5 +1,12 @@
 # python 3 
 
+
+
+########################################  
+# model for clustering tuning training #
+#							  		   #
+########################################
+
 # analytics 
 import pandas as pd, numpy as np
 import seaborn  as sns 
