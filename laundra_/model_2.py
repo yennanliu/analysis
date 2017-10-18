@@ -119,9 +119,18 @@ def train():
     tree_data = tree_data.dropna()
     tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=200)
     #  build decision tree model
-    num_list = ['order_count', 'sum_original_value','sum_discount_value','sum_spend_value',
-                'avg_original_value', 'avg_discount_value','avg_spend_value','using_period',
-                'user_period', 'period_no_use', 'platform_', 'group',
+    num_list = ['order_count', 
+                'sum_original_value',
+                'sum_discount_value',
+                'sum_spend_value',
+                'avg_original_value',
+                'avg_discount_value',
+                'avg_spend_value',
+                'using_period',
+                'user_period', 
+                'period_no_use', 
+                'platform_', 
+                'group',
                 'order_again_']
     
     #clf = tree.DecisionTreeClassifier()
