@@ -141,6 +141,32 @@ limit 100  ) sub
 ####################
 
 
+# user id and order log 
+
+select 
+c.id as customer_id,
+c.email as email, 
+c.phone,
+YEAR(CURDATE())  - year(c.date_of_birth) as age, 
+c.gender,
+c.platform, 
+c.vip,
+c.fraud,
+date(convert_tz(c.created_at,"utc","europe/london")) as created_date,
+date(convert_tz(c.updated_at,"utc","europe/london")) as updated_date,
+o.* 
+
+from 
+customers c 
+left join 
+orders o 
+on c.ID = o.customer_id 
+where 
+date(convert_tz(c.created_at,"utc","europe/london")) >=  '2017-09-01'
+and 
+date(convert_tz(c.created_at,"utc","europe/london")) <=  '2017-09-30'
+limit 1000
+
 
 
 
