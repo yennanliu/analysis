@@ -19,6 +19,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.externals.six import StringIO
 from sklearn.metrics import silhouette_score
 from sklearn import svm
+from sklearn.svm import SVC
 from sklearn import neighbors, linear_model, svm, tree, ensemble
 
 # dicision tree visualization 
@@ -127,6 +128,20 @@ if __name__ == '__main__':
     rf.grid_search(parameters = param_grid, Kfold = 5)
     rf.grid_fit(X = X_train, Y = y_train)
     rf.grid_predict(X_valid, y_valid)
+    ###### Voting  ###### 
+    rf_best  = ensemble.RandomForestClassifier(**rf.grid.best_params_)
+    knn_best = neighbors.KNeighborsClassifier(**knn.grid.best_params_)
+    svc_best = svm.LinearSVC(**svc.grid.best_params_)
+    votingC = ensemble.VotingClassifier(estimators=[('rf', rf_best),
+                                                ('knn', knn_best)], voting='soft') 
+    # traing with ensemble models 
+    votingC = votingC.fit(X_train, y_train)
+    predictions = votingC.predict(X_valid)
+    print("Precision: {:.2f} % ".format(100*metrics.accuracy_score(y_valid, predictions)))
+
+
+
+
 
 
 
