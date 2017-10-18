@@ -19,9 +19,8 @@ from IPython.display import Image
 import pydotplus
 
 #
-from data_prepare import *
-
-
+#from data_prepare import *
+from data_prepare2 import *
 
 plt.style.use('classic')
 
@@ -47,7 +46,7 @@ def train():
     # kmeans 
     # fix random_state here for same results (in dev)(same starting point)
     ### but will make random_state = None (in product), since random intitial state can always give better results 
-	kmean = cluster.KMeans(n_clusters=6, max_iter=300, random_state=4000)
+	kmean = cluster.KMeans(n_clusters=9, max_iter=300, random_state=4000)
 	kmean.fit(X_std)
 	X_std['group'] = kmean.labels_
 	df_train['group'] = kmean.labels_
