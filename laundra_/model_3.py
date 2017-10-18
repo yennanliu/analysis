@@ -8,9 +8,6 @@
 
 # analytics 
 import pandas as pd, numpy as np
-import seaborn  as sns 
-import matplotlib.pyplot as plt
-
 
 # ml 
 from sklearn import preprocessing
@@ -22,20 +19,9 @@ from sklearn import svm
 from sklearn.svm import SVC
 from sklearn import neighbors, linear_model, svm, tree, ensemble
 
-# dicision tree visualization 
-import pydotplus
-from IPython.display import Image  
-import pydotplus
-
-
 # self defined scripts 
 from data_prepare2 import *
 from ML_utility import * 
-
-
-
-plt.style.use('classic')
-
 
 
 
@@ -75,14 +61,6 @@ def train():
         group_user_count.columns = ['group_user_count']
         group_outcome_ = group_outcome.join(group_user_count, how='inner')
         print (group_outcome_.iloc[:,1:])
-
-        plt.style.use('classic')
-        pca = decomposition.PCA(n_components=2, whiten=True)
-        pca.fit(X_std)
-        X_std['x'] = pca.fit_transform(X_std)[:, 0]
-        X_std['y'] = pca.fit_transform(X_std)[:, 1]
-        plt.scatter(X_std['x'], X_std['y'],c = X_std.group)
-        plt.show()
     return df_train, df_ 
 
 
