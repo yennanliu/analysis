@@ -5,7 +5,7 @@
 
 ########################################  
 # simple clustering model              #
-#							  		   #
+#                                      #
 ########################################
 
 # analytics 
@@ -97,10 +97,16 @@ def train():
 	tree_data = tree_data.dropna()
 	tree_train, tree_test = train_test_split(tree_data, test_size=0.2, random_state=200)
 	#  build decision tree model
-	num_list = ['order_count', 'sum_original_value','sum_discount_value', 
-				'avg_original_value', 'avg_discount_value','using_period', 'user_period', 
-				'period_no_use', 'platform_', 'group',
-	            'order_again_']
+	num_list = ['order_count',
+                'sum_original_value','sum_discount_value', 
+                'avg_original_value', 
+                'avg_discount_value',
+                'using_period', 
+                'user_period', 
+                'period_no_use', 
+                'platform_', 
+                'group',
+                'order_again_']
 	#clf = tree.DecisionTreeClassifier()
 	clf = tree.DecisionTreeClassifier(max_leaf_nodes=30, min_samples_leaf=50)
 	clf = clf.fit(tree_train[num_list], tree_train['group'])
