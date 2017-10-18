@@ -2,7 +2,8 @@
 
 from sklearn.model_selection import GridSearchCV, learning_curve
 from sklearn import preprocessing, model_selection, metrics, feature_selection
-
+from sklearn import grid_search
+from sklearn.model_selection import train_test_split
 
 
 class Class_Fit(object):
@@ -36,4 +37,4 @@ class Class_Fit(object):
 
 
 
-        
+
