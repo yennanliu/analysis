@@ -54,6 +54,7 @@ class Class_train(object):
             print('----------------------')
             self.clf.fit(xtrain_[train_ind], ytrain_[train_ind])
             print (self.clf.score(xtrain_[val_ind],ytrain_[val_ind]))
+            print (self.clf.predict(xtrain_[val_ind]))
 
 
 
