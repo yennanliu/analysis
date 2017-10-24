@@ -83,20 +83,6 @@ def train():
 	print (group_outcome_.iloc[:,1:])
 	print ('')
 	print ('')
-
-	#############
-	# PCA
-	# plot number of pricipal elments VS explained variance
-	#pca = decomposition.PCA(n_components=10, whiten=True)
-	#pca.fit(X_std)
-	#fig, ax = plt.subplots(figsize=(14, 5))
-	#sns.set(font_scale=1)
-	#plt.step(range(10), pca.explained_variance_ratio_.cumsum())
-	#plt.ylabel('Explained variance', fontsize = 14)
-	#plt.xlabel('Principal components', fontsize = 14)
-	#plt.legend(loc='upper left', fontsize = 13)
-	#plt.show()
-
 	# PCA plot 
 	# use 2 pricipal elments
 	from matplotlib import colors
@@ -135,13 +121,43 @@ def train():
 	plt.title('Customer RFM variables ')
 	pyplot.show()
 
+	# random search 
+	#param_dist = random_search_parameter()
+	clf_ = tree.DecisionTreeClassifier()
+	#print (param_dist)
+	col_ = df_train.columns[1:-1]
+	# grid search 
+	ts_gs = run_gridsearch(df_train[col_],
+                       df_train['group'],
+                       clf_,
+                       param_grid)
+	print("\n-- Best Parameters:")
+	for k, v in ts_gs.items():
+		print("parameter: {:<20s} setting: {}".format(k, v))
+	# random search 
+	clf_ = tree.DecisionTreeClassifier()
+	ts_rs = run_randomsearch(df_train[col_],
+                   df_train['group'],
+                   clf_,
+                   param_dist,
+                   cv=10,
+                   n_iter_search=28)
+
+	print("\n-- Best Parameters:")
+	for k, v in ts_rs.items():
+		print("parameters: {:<20s} setting: {}".format(k, v))
 	return df_train, X_std
+	
 
 
-
-
-
-
+def random_search_parameter():
+	#print("-- Random Parameter Search via 10-fold CV")
+	param_dist = {"criterion": ["gini", "entropy"],
+	          "min_samples_split": range(15,40),
+	          "max_depth": range(8,30),
+	          "min_samples_leaf": range(10,60),
+	          "max_leaf_nodes": range(5,30)}
+	return param_dist 
 
 
 
