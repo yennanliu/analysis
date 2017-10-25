@@ -23,6 +23,7 @@ from sklearn.externals.six import StringIO
 from sklearn.metrics import silhouette_score
 from sklearn.model_selection import KFold
 from sklearn import linear_model, ensemble
+from sklearn.cross_validation import  cross_val_score
 
 #from data_prepare import *
 from utility_data_preprocess import *
@@ -121,7 +122,6 @@ def train():
 	plt.title('Customer RFM variables ')
 	pyplot.show()
 
-	# random search 
 	#param_dist = random_search_parameter()
 	clf_ = tree.DecisionTreeClassifier()
 	#print (param_dist)
