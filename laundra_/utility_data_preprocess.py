@@ -2,10 +2,23 @@
 
 import pandas as pd, numpy as np
 
+
+
 def load_data():
     # use up-to-date data 
   df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/train1018_lesscolumn.csv')
   return  df 
+
+def load_all_data():
+  df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/All_CustomersExcCorporateAccounts.csv')
+  ATO = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/ATO.csv')
+  CityPostcode = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/CityPostcodecsv.csv')
+  Latebycollectionanddelivery = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/Latebycollectionanddelivery.csv')
+  NoofTickets = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/NoofTickets.csv')
+  RecleanedOrders = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/RecleanedOrders.csv')
+  cancalledOrders = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/cancalledOrders.csv')
+  voucherused = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/voucherused.csv')
+  return df, ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused
 
 
 def data_preprocess(df):
