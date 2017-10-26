@@ -133,6 +133,26 @@ param_dist = {"criterion": ["gini", "entropy"],
 ##########
 
 
+def kmean_evaluate(X):
+    # X = X_std 
+    output = []
+    cluster_range = range(3, 15)
+    for n_cluster in cluster_range:
+        kmean = cluster.KMeans(n_clusters=n_cluster).fit(X)
+        label = kmean.labels_
+        # using silhouette_score evaluate kmeans model 
+        # https://stackoverflow.com/questions/19197715/scikit-learn-k-means-elbow-criterion
+        sil_coeff = silhouette_score(X, label,  metric='euclidean')
+        #sil_coeff = silhouette_score(X, label,  metric='manhattan')
+        output.append(sil_coeff)
+        print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, sil_coeff))
+    plt.xlabel('# of culster (k)')
+    plt.ylabel('silhouette_score')
+    plt.title('kmeans model evaluate')
+    plt.plot(np.array(cluster_range),output)
+    plt.show()
+
+
 
 def cluster_fit(clf , cluster_range_ , iter_range_):
     output = []
