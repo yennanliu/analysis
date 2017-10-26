@@ -161,19 +161,44 @@ def cluster_fit(clf , cluster_range_ , iter_range_):
 
 
 
-now = datetime.datetime.now()
-date_ = now.strftime("%Y-%m-%d")
 
 
 ####################################################
 
 
-
-def model_IO():
-  pass 
-
+now = datetime.datetime.now()
+date_ = now.strftime("%Y-%m-%d")
 
 
+class save_output(object):
+
+  def __init__(self, final_output):
+    self.final_output = final_output
+
+  def save_user_profile(self):
+    try:
+      self.final_output.to_csv('output/user_profile_{}.csv'.format(date_))
+      print ('Succefully save user profile to /output at {}'.format(date_))
+    except:
+      print ('Save failed') 
+
+  def save_user_profile_DB(self):
+    try:
+      import sqlite3
+      conn = sqlite3.connect("output/user_classfication.db")
+      self.final_output.to_sql("user_profile", conn, if_exists="replace")
+      print ('Succefully save user profile as sqlite db to /output at {}'.format(date_))
+    except:
+      print ('Save failed') 
+
+  def model_IO(self):
+    pass 
+
+
+
+
+
+####################################################
 def save_user_profile(final_output):
   try:
     final_output.to_csv('output/user_profile_{}.csv'.format(date_))

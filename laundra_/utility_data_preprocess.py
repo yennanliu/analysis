@@ -3,6 +3,49 @@
 import pandas as pd, numpy as np
 
 
+class load_all_data(object):
+  
+  def __init__(self,path=None):
+    if path:
+      self.path  = (**path)
+    else:
+      self.path = '/Users/yennanliu/analysis/laundra_/data/' 
+
+  def load_user_RFM_data(self):
+    df = pd.read_csv( self.path + 'train1018_lesscolumn.csv')
+    return  df 
+
+  def load_other_data(self):
+    ATO = pd.read_csv(self.path + 'ATO.csv')
+    CityPostcode = pd.read_csv(self.path + 'CityPostcodecsv.csv')
+    Latebycollectionanddelivery = pd.read_csv(self.path + 'Latebycollectionanddelivery.csv')
+    NoofTickets = pd.read_csv( self.path + 'NoofTickets.csv')
+    RecleanedOrders = pd.read_csv(self.path + 'RecleanedOrders.csv')
+    cancalledOrders = pd.read_csv(self.path + 'ancalledOrders.csv')
+    voucherused = pd.read_csv(self.path + 'voucherused.csv')
+    return ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused
+
+
+class data_cleaning(object):
+
+  def __init__(self,df):
+    self.df = df  
+
+  def data_clean_freq0(self):
+    df_ = self.df.copy()
+    df_ = df_[(df_.Frequency > 1)]
+    return df_ 
+
+  def data_clean_freq0_LTV0(self):
+    df_ = self.df.copy()
+    df_ = df_[(df_.Frequency > 1) & (df_.LTV > 0)]
+    return df_ 
+
+
+
+########################################################################
+
+
 
 def load_data():
     # use up-to-date data 
@@ -19,6 +62,9 @@ def load_all_data():
   cancalledOrders = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/cancalledOrders.csv')
   voucherused = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/voucherused.csv')
   return df, ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused
+
+
+
 
 
 def data_clean(df):
@@ -150,13 +196,6 @@ def finalize_user_profile(df):
 
 
 
-#def data_clean(df):
-#    # remove users have 0 orders 
-#    df_  = df[(df.order_count !=0) & (df.order_count > 0)] 
-#    df_ = df_[(df_['sum_original_value'] < df_['sum_original_value'].quantile(0.99))&
-#              (df_['sum_original_value'] > df_['sum_original_value'].quantile(0.01))]
-#    return df_
-# help function 
 def encode_platform(x):
     if x == 'ios':
         return 0 
