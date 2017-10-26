@@ -129,8 +129,7 @@ def train():
 	# grid search 
 	ts_gs = run_gridsearch(df_train[col_],
                        df_train['group'],
-                       clf_,
-                       param_grid)
+                       clf_)
 	print("\n-- Best Parameters:")
 	for k, v in ts_gs.items():
 		print("parameter: {:<20s} setting: {}".format(k, v))
@@ -139,7 +138,6 @@ def train():
 	ts_rs = run_randomsearch(df_train[col_],
                    df_train['group'],
                    clf_,
-                   param_dist,
                    cv=10,
                    n_iter_search=28)
 

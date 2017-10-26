@@ -82,51 +82,46 @@ def report(grid_scores, n_top=3):
     return top_scores[0].parameters
 
 
-def run_gridsearch(X, y, clf, param_grid, cv=10):
+def run_gridsearch(X, y, clf, cv=10):
+
+    param_grid = {"criterion": ["gini", "entropy"],
+                  "min_samples_split": [10,15,20,40],
+                  "max_depth": [10,15,30],
+                  "min_samples_leaf": [30,40,50,55,100],
+                  "max_leaf_nodes":  [35,50,60],
+                  "min_samples_leaf" : [15,20,30]}
     grid_search = GridSearchCV(clf,
                                param_grid=param_grid,
                                cv=cv)
     start = time()
     grid_search.fit(X, y)
-
     print(("\nGridSearchCV took {:.2f} "
            "seconds for {:d} candidate "
            "parameter settings.").format(time() - start,
                 len(grid_search.grid_scores_)))
-
     top_params = report(grid_search.grid_scores_, 3)
     return  top_params
 
 
-def run_randomsearch(X, y, clf, para_dist, cv=5,
-                     n_iter_search=20):
+def run_randomsearch(X, y, clf, cv=5, n_iter_search=20):
+    param_dist = {"criterion": ["gini", "entropy"],
+                  "min_samples_split": range(15,40),
+                  "max_depth": range(8,30),
+                  "min_samples_leaf": range(10,60),
+                  "max_leaf_nodes": range(5,30)}
     random_search = RandomizedSearchCV(clf,
                                        param_distributions=param_dist,
                                        n_iter=n_iter_search)
-
     start = time()
     random_search.fit(X, y)
     print(("\nRandomizedSearchCV took {:.2f} seconds "
            "for {:d} candidates parameter "
            "settings.").format((time() - start),
                                n_iter_search))
-
-    top_params = report(random_search.grid_scores_, 3)
+  top_params = report(random_search.grid_scores_, 3)
     return  top_params
 
 
-param_grid = {"criterion": ["gini", "entropy"],
-              "min_samples_split": [10,15,20,40],
-              "max_depth": [10,15,30],
-              "min_samples_leaf": [30,40,50,55,100],
-              "max_leaf_nodes":  [35,50,60],
-              "min_samples_leaf" : [15,20,30]}
-
-param_dist = {"criterion": ["gini", "entropy"],
-          "min_samples_split": range(15,40),
-          "max_depth": range(8,30),
-          "min_samples_leaf": range(10,60),
-          "max_leaf_nodes": range(5,30)}
 
 ####################################################
 
@@ -169,6 +164,11 @@ def cluster_fit(clf , cluster_range_ , iter_range_):
 now = datetime.datetime.now()
 date_ = now.strftime("%Y-%m-%d")
 
+
+####################################################
+
+
+
 def model_IO():
   pass 
 
@@ -183,7 +183,7 @@ def save_user_profile(final_output):
 
 def save_user_profile_DB(final_output):
   import sqlite3
-  conn = sqlite3.connect("user_classfication.db")
+  conn = sqlite3.connect("output/user_classfication.db")
   try:
     final_output.to_sql("user_profile", conn, if_exists="replace")
     print ('Succefully save user profile as sqlite db to /output at {}'.format(date_))
