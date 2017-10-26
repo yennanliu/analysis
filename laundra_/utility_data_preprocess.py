@@ -4,15 +4,15 @@ import pandas as pd, numpy as np
 
 
 class load_all_data(object):
-  
+
   def __init__(self,path=None):
     if path:
-      self.path  = (**path)
+      self.path  = path
     else:
       self.path = '/Users/yennanliu/analysis/laundra_/data/' 
 
   def load_user_RFM_data(self):
-    df = pd.read_csv( self.path + 'train1018_lesscolumn.csv')
+    df = pd.read_csv( self.path + 'All_CustomersExcCorporateAccounts.csv')
     return  df 
 
   def load_other_data(self):
@@ -52,7 +52,7 @@ def load_data():
   df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/train1018_lesscolumn.csv')
   return  df 
 
-def load_all_data():
+def load_all_data__():
   df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/All_CustomersExcCorporateAccounts.csv')
   ATO = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/ATO.csv')
   CityPostcode = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/CityPostcodecsv.csv')

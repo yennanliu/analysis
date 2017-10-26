@@ -28,8 +28,11 @@ from utility_ML import *
 
 
 def train():
-	df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/All_CustomersExcCorporateAccounts.csv')
-	df = data_clean_(df)
+	#df = pd.read_csv('/Users/yennanliu/analysis/laundra_/data/All_CustomersExcCorporateAccounts.csv')
+	#df = data_clean_(df)
+	#load_data_ = load_all_data()
+	df = load_all_data().load_user_RFM_data()
+	df = data_cleaning(df).data_clean_freq0_LTV0()
 	df['Recency'] = pd.to_datetime(df['Recency'])
 	df['period_no_use'] = (pd.to_datetime('today') - df['Recency']).dt.days
 	selected_col = ['customer_id', 'Frequency', 'LTV','period_no_use']
