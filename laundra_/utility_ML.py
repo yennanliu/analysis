@@ -118,7 +118,7 @@ def run_randomsearch(X, y, clf, cv=5, n_iter_search=20):
            "for {:d} candidates parameter "
            "settings.").format((time() - start),
                                n_iter_search))
-  top_params = report(random_search.grid_scores_, 3)
+    top_params = report(random_search.grid_scores_, 3)
     return  top_params
 
 

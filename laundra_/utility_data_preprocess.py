@@ -21,6 +21,46 @@ def load_all_data():
   return df, ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused
 
 
+def data_clean(df):
+    df_ = df.copy()
+    df_ = df_[df_.Frequency > 1]
+    return df_
+
+# make customer Frequency (order count) = 1 as a group 
+# make customer Frequency (order count) = 1  amd LTV = 0 (use voucher) as the other group 
+def data_clean_(df):
+    df_ = df.copy()
+    df_ = df_[(df_.Frequency > 1) & (df_.LTV > 0)]
+    return df_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################################################################
+# dev 
+
+
 def data_preprocess(df):
     #df_ = df[selected_columns]
     df_ = df.copy()
@@ -110,14 +150,12 @@ def finalize_user_profile(df):
 
 
 
-def data_clean(df):
-    # remove users have 0 orders 
-    df_  = df[(df.order_count !=0) & (df.order_count > 0)] 
-    df_ = df_[(df_['sum_original_value'] < df_['sum_original_value'].quantile(0.99))&
-              (df_['sum_original_value'] > df_['sum_original_value'].quantile(0.01))]
-    return df_
-
-
+#def data_clean(df):
+#    # remove users have 0 orders 
+#    df_  = df[(df.order_count !=0) & (df.order_count > 0)] 
+#    df_ = df_[(df_['sum_original_value'] < df_['sum_original_value'].quantile(0.99))&
+#              (df_['sum_original_value'] > df_['sum_original_value'].quantile(0.01))]
+#    return df_
 # help function 
 def encode_platform(x):
     if x == 'ios':

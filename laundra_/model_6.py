@@ -8,6 +8,8 @@
 
 # analytics 
 import pandas as pd, numpy as np
+from collections import OrderedDict
+
 import seaborn  as sns 
 import matplotlib.pyplot as plt
 from matplotlib import pyplot
@@ -28,20 +30,6 @@ from sklearn.cross_validation import  cross_val_score
 #from data_prepare import *
 from utility_data_preprocess import *
 from utility_ML import *
-
-
-
-def data_clean(df):
-    df_ = df.copy()
-    df_ = df_[df_.Frequency > 1]
-    return df_
-
-# make customer Frequency (order count) = 1 as a group 
-# make customer Frequency (order count) = 1  amd LTV = 0 (use voucher) as the other group 
-def data_clean_(df):
-    df_ = df.copy()
-    df_ = df_[(df_.Frequency > 1) & (df_.LTV > 0)]
-    return df_
 
 
 
@@ -126,39 +114,50 @@ def train():
 	clf_ = tree.DecisionTreeClassifier()
 	#print (param_dist)
 	col_ = df_train.columns[1:-1]
+	print ('Start Moddel Tuning......')
 	# grid search 
+	print ('grid search ....')
 	ts_gs = run_gridsearch(df_train[col_],
-                       df_train['group'],
-                       clf_)
+	                   df_train['group'],
+	                   clf_)
 	print("\n-- Best Parameters:")
 	for k, v in ts_gs.items():
 		print("parameter: {:<20s} setting: {}".format(k, v))
 	# random search 
+	print ('random search ....')
 	clf_ = tree.DecisionTreeClassifier()
 	ts_rs = run_randomsearch(df_train[col_],
-                   df_train['group'],
-                   clf_,
-                   cv=10,
-                   n_iter_search=28)
+	               df_train['group'],
+	               clf_,
+	               cv=10,
+	               n_iter_search=28)
 
 	print("\n-- Best Parameters:")
 	for k, v in ts_rs.items():
 		print("parameters: {:<20s} setting: {}".format(k, v))
 
 	#save_user_profile(df_train)
+	#save_user_profile_DB(df_train)
+	# map group id to group name 
+	dict_group_name = ['1st_high_value',
+	                   '2nd_high_value',
+	                   '1st_medium_value',
+	                   '2nd_medium_value',
+	                   'low_value',
+	                   'low_value_churn',
+	                   'already_churn']
+
+	group_order = df_train.groupby('group')\
+	                      .mean()\
+	                      .sort_values('LTV',ascending=False)\
+	                      .reset_index()
+	print (group_order) 
+	group_id_name = OrderedDict(zip(list(group_order.group),dict_group_name))
+	df_train['group_name']= df_train['group'].map(group_id_name)
+	df_train['group_id'] = df_train['group']
 	save_user_profile_DB(df_train)
-	#return df_train, X_std
-	
+	return df_train, X_std
 
-
-def random_search_parameter():
-	#print("-- Random Parameter Search via 10-fold CV")
-	param_dist = {"criterion": ["gini", "entropy"],
-	          "min_samples_split": range(15,40),
-	          "max_depth": range(8,30),
-	          "min_samples_leaf": range(10,60),
-	          "max_leaf_nodes": range(5,30)}
-	return param_dist 
 
 
 
