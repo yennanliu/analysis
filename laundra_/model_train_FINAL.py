@@ -23,7 +23,9 @@ from sklearn.cross_validation import  cross_val_score
 
 #from data_prepare import *
 from utility_data_preprocess import *
+from utility_analysis import * 
 from utility_ML import *
+
 
 
 
@@ -43,29 +45,22 @@ def train():
 	# standardize 
 	for i in X:
 	    X_std[i] = preprocessing.scale(X_std[i])
+	# kmeans clustering 
 	cluster_set = 7 
 	kmean = cluster.KMeans(n_clusters=cluster_set, max_iter=300, random_state=4000)
 	kmean.fit(X_std)
+	# add lebel to user table 
 	X_std['group'] = kmean.labels_
 	df_train['group'] = kmean.labels_
-
 	# print classify results as table 
 	print ('')
-	print ('')
 	print ('###### clustering mean  ######')
-	group_outcome = df_train.groupby('group').mean()  
-	group_user_count =  df_train.groupby('group').count()['customer_id'].reset_index().set_index('group')
-	group_user_count.columns = ['group_user_count']
-	group_outcome_ = group_outcome.join(group_user_count, how='inner')
+	group_outcome_ = cluster_stas(df_train,'mean')
 	print (group_outcome_.iloc[:,1:])
 	print ('')
 	print ('###### clustering median  ######')
-	group_outcome = df_train.groupby('group').median()  
-	group_user_count =  df_train.groupby('group').count()['customer_id'].reset_index().set_index('group')
-	group_user_count.columns = ['group_user_count']
-	group_outcome_ = group_outcome.join(group_user_count, how='inner')
+	group_outcome_ = cluster_stas(df_train,'median')
 	print (group_outcome_.iloc[:,1:])
-	print ('')
 	print ('')
 
 	#param_dist = random_search_parameter()

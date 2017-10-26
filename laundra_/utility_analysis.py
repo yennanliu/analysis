@@ -8,16 +8,21 @@ from data_prepare import *
 
 
 
-def get_data():
 
-	df = load_data()
-	df_ = data_preprocess(df)
-	df_ = order_value_feature(df_)
-	df_ = time_feature(df_)
-	df_ = label_feature(df_)
-	df_train = finalize_user_profile(df_)
-	df_train['order_again_'] = df_train.order_count.apply(lambda x : order_again(x))
-	return df_train, df_
+def cluster_stas(df,method):
+	if method == 'mean':
+		group_outcome = df.groupby('group').mean() 
+	if method == 'median':
+		group_outcome = df.groupby('group').median() 
+	group_user_count =  df.groupby('group').count()['customer_id'].reset_index().set_index('group')
+	group_user_count.columns = ['group_user_count']
+	group_outcome_ = group_outcome.join(group_user_count, how='inner')
+	print (group_outcome_.iloc[:,1:])
+	return group_outcome_
+
+
+####################################################
+
 
 
 ############## Using two sample t test to test if data is data segments are Outperforming/underperforming #############
@@ -47,11 +52,23 @@ def stats_comparison_(i):
 
 
 
+def get_data():
+
+	df = load_data()
+	df_ = data_preprocess(df)
+	df_ = order_value_feature(df_)
+	df_ = time_feature(df_)
+	df_ = label_feature(df_)
+	df_train = finalize_user_profile(df_)
+	df_train['order_again_'] = df_train.order_count.apply(lambda x : order_again(x))
+	return df_train, df_
 
 
 
+####################################################
 
-stats_comparison_('platform_')
+
+#stats_comparison_('platform_')
 
 
 
