@@ -8,6 +8,8 @@ from time import time
 from sklearn.grid_search import GridSearchCV, RandomizedSearchCV
 from operator import itemgetter
 import numpy as np 
+import pandas as pd 
+import datetime
 
 
 
@@ -61,12 +63,9 @@ class Class_train(object):
             print (self.clf.predict(xtrain_[val_ind]))
 
 
-
+####################################################
 # credit 
 # http://chrisstrelioff.ws/sandbox/2015/06/25/decision_trees_in_python_again_cross_validation.html
-
-
-
 def report(grid_scores, n_top=3):
     top_scores = sorted(grid_scores,
                         key=itemgetter(1),
@@ -116,7 +115,6 @@ def run_randomsearch(X, y, clf, para_dist, cv=5,
     return  top_params
 
 
-##########
 param_grid = {"criterion": ["gini", "entropy"],
               "min_samples_split": [10,15,20,40],
               "max_depth": [10,15,30],
@@ -130,7 +128,7 @@ param_dist = {"criterion": ["gini", "entropy"],
           "min_samples_leaf": range(10,60),
           "max_leaf_nodes": range(5,30)}
 
-##########
+####################################################
 
 
 def kmean_evaluate(X):
@@ -165,6 +163,32 @@ def cluster_fit(clf , cluster_range_ , iter_range_):
             sil_coeff = silhouette_score(X, label, metric='euclidean')
             output.append(sil_coeff)
     print("For n_clusters={}, The Silhouette Coefficient is {}".format(n_cluster, sil_coeff))
+
+
+
+now = datetime.datetime.now()
+date_ = now.strftime("%Y-%m-%d")
+
+def model_IO():
+  pass 
+
+
+
+def save_user_profile(final_output):
+  try:
+    final_output.to_csv('output/user_profile_{}.csv'.format(date_))
+    print ('Succefully save user profile to /output at {}'.format(date_))
+  except:
+    print ('Save failed') 
+
+def save_user_profile_DB(final_output):
+  import sqlite3
+  conn = sqlite3.connect("user_classfication.db")
+  try:
+    final_output.to_sql("user_profile", conn, if_exists="replace")
+    print ('Succefully save user profile as sqlite db to /output at {}'.format(date_))
+  except:
+    print ('Save failed') 
 
 
 

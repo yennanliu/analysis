@@ -146,7 +146,10 @@ def train():
 	print("\n-- Best Parameters:")
 	for k, v in ts_rs.items():
 		print("parameters: {:<20s} setting: {}".format(k, v))
-	return df_train, X_std
+
+	#save_user_profile(df_train)
+	save_user_profile_DB(df_train)
+	#return df_train, X_std
 	
 
 
