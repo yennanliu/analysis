@@ -10,12 +10,6 @@
 import pandas as pd, numpy as np
 from collections import OrderedDict
 
-import seaborn  as sns 
-import matplotlib.pyplot as plt
-from matplotlib import pyplot
-from mpl_toolkits.mplot3d import Axes3D
-
-
 # ml 
 from sklearn import preprocessing
 from sklearn import cluster, tree, decomposition
@@ -51,8 +45,6 @@ def train():
 	kmean.fit(X_std)
 	X_std['group'] = kmean.labels_
 	df_train['group'] = kmean.labels_
-	#print (X_std)
-	#############
 
 	# print classify results as table 
 	print ('')
@@ -72,43 +64,6 @@ def train():
 	print (group_outcome_.iloc[:,1:])
 	print ('')
 	print ('')
-	# PCA plot 
-	# use 2 pricipal elments
-	from matplotlib import colors
-	plt.style.use('classic')
-	#colorlist = list(colors.ColorConverter.colors.keys())
-	colorlist = ['k', 'red', 'g', 'c', 'b', 'm', 'y', 'r']
-	pca = decomposition.PCA(n_components=2, whiten=True)
-	pca.fit(X_std)
-	X_std['x'] = pca.fit_transform(X_std)[:, 0]
-	X_std['y'] = pca.fit_transform(X_std)[:, 1]
-	for k, group in enumerate(set(X_std.group)):
-	    plt.scatter(X_std[X_std.group == group]['x'],
-	                X_std[X_std.group == group ]['y'],
-	                label = group,
-	                color=colorlist[k %len(colorlist)])
-	plt.xlabel('main variable 1')
-	plt.ylabel('main variable 2')
-	plt.title('Customer RFM Clustering (PCA)')
-	plt.legend()
-	plt.show()
-	# 3D plot 
-	fig = pyplot.figure()
-	ax = Axes3D(fig)
-	for k, group in enumerate(set(df_train.group)):
-	    ax.scatter(df_train[df_train.group == group]['Frequency'],
-	               df_train[df_train.group == group ]['LTV'],
-	               df_train[df_train.group == group ]['period_no_use'],
-	               label = group,
-	               color=colorlist[k %len(colorlist)])
-
-	#ax.scatter(df_train.Frequency, df_train.LTV, df_train.period_no_use,c=df_train.group)
-	plt.legend(loc='upper left')
-	ax.set_xlabel('Frequency')
-	ax.set_ylabel('LTV')
-	ax.set_zlabel('period_no_use')
-	plt.title('Customer RFM variables ')
-	pyplot.show()
 
 	#param_dist = random_search_parameter()
 	clf_ = tree.DecisionTreeClassifier()
@@ -131,22 +86,6 @@ def train():
 	print("mean: {:.3f} (std: {:.3f})".format(scores.mean(),
 	                                          scores.std()),
 	                                          end="\n\n" )
-	# random search 
-	#print ('random search ....')
-	#clf_ = tree.DecisionTreeClassifier()
-	#ts_rs = run_randomsearch(df_train[col_],
-	#              df_train['group'],
-	#               clf_,
-	#               cv=10,
-	#               n_iter_search=28)
-	#
-	#print("\n-- Best Parameters:")
-	#for k, v in ts_rs.items():
-	#	print("parameters: {:<20s} setting: {}".format(k, v))
-
-	#save_user_profile(df_train)
-	#save_user_profile_DB(df_train)
-	# map group id to group name 
 	dict_group_name = ['1st_high_value',
 	                   '2nd_high_value',
 	                   '1st_medium_value',
@@ -164,9 +103,9 @@ def train():
 	df_train['group_name']= df_train['group'].map(group_id_name)
 	df_train['group_id'] = df_train['group']
 	save_user_profile_DB(df_train)
+	print ('final output : ')
+	print (df_train.head(10))
 	return df_train, X_std
-
-
 
 
 
