@@ -87,16 +87,44 @@ def train():
 	group_id_name = OrderedDict(zip(list(group_order.group),dict_group_name))
 	df_train['group_name']= df_train['group'].map(group_id_name)
 	df_train['group_id'] = df_train['group']
+	# merge with remaining dataset 
+	ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused = load_all_data().load_other_data()
+	#list_to_merge = [ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused]
+	df_train_ = pd.merge(df_train,ATO,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,CityPostcode,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,Latebycollectionanddelivery,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,NoofTickets,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,RecleanedOrders,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,cancalledOrders,on='customer_id',how='left')
+	df_train_ = pd.merge(df_train_,voucherused,on='customer_id',how='left')
 	# save output 
-	save_user_profile_DB(df_train)
+	save_user_profile_DB(df_train_)
 	print ('final output : ')
-	print (df_train.head(10))
-	return df_train, X_std
+	print (df_train_.head(10))
+
+	return df_train_, X_std
+
+
+def test():
+	df_train = load_all_data().load_user_RFM_data()
+	ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused = load_all_data().load_other_data()
+	#ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused = load_all_data().load_other_data()
+	list_to_merge = [ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused]
+	for count , df_file in enumerate(list_to_merge):
+		if count == 0:
+			print (df_file)
+			df_train_ = pd.merge(df_train,df_file,on='customer_id',how='left')
+		else:
+			print (df_file)
+			df_train_ = pd.merge(df_train_,df_file,on='customer_id',how='left')
+	print (df_train_.head())
+
 
 
 
 if __name__ == '__main__':
 	train()
+	#test()
 
 
 
