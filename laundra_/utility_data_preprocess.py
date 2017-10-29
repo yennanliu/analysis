@@ -21,7 +21,7 @@ class load_all_data(object):
     Latebycollectionanddelivery = pd.read_csv(self.path + 'Latebycollectionanddelivery.csv')
     NoofTickets = pd.read_csv( self.path + 'NoofTickets.csv')
     RecleanedOrders = pd.read_csv(self.path + 'RecleanedOrders.csv')
-    cancalledOrders = pd.read_csv(self.path + 'ancalledOrders.csv')
+    cancalledOrders = pd.read_csv(self.path + 'cancalledOrders.csv')
     voucherused = pd.read_csv(self.path + 'voucherused.csv')
     return ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused
 
