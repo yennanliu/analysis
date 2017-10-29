@@ -161,6 +161,40 @@ def cluster_fit(clf , cluster_range_ , iter_range_):
 
 
 
+def run_DT_model_2(df, criteria_col):
+    # run the tree for various 0,1 lebel (e.g. : high value or not..)
+    from sklearn.metrics import confusion_matrix
+    from sklearn.cross_validation import train_test_split
+    from sklearn.externals.six import StringIO
+    from IPython.display import Image  
+    import pydotplus
+    print ('criteria_col  =  ', criteria_col)
+    tree_col = [criteria_col,'Frequency', 'LTV', 'period_no_use','AverageTimeToOrder',
+          'late_by_collection', 'late_by_delivery', 'tickets', 'recleaned_orders',
+         'cancalled_orders', 'voucher_used']
+    df_train_ = df 
+    #df_train_tree = df_train_[tree_col]
+    tree_data = df_train_[tree_col]
+    tree_data = tree_data.dropna()
+    tree_train, tree_test = train_test_split(tree_data,
+                                           test_size=0.2, 
+                                           random_state=200,
+                                           stratify=tree_data[criteria_col])
+    clf = tree.DecisionTreeClassifier()
+    clf = clf.fit(tree_train.iloc[:,1:], tree_train[criteria_col])
+    print (clf.score(tree_test.iloc[:,1:], tree_test[criteria_col]))
+    # confusion matrix 
+    print (confusion_matrix(tree_test[criteria_col], clf.predict(tree_test.iloc[:,1:])))
+    # visualize the tree 
+    dot_data = StringIO()
+    tree.export_graphviz(clf,
+                       out_file=dot_data,
+                       feature_names=tree_col[1:],
+                       filled=True, 
+                       rounded=True)
+    graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
+    return Image(graph.create_png()), tree_train, tree_test
+
 
 
 ####################################################
