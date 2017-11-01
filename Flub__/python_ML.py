@@ -81,9 +81,8 @@ def model_3():
 
 
 if __name__ == '__main__':
-	#df = load_file()
-	#print ('re-scale data ')
-	#data_preprocess(df)
+	model_1()
+	model_2()
 	model_3()
 
 

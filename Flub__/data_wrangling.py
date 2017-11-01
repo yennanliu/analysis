@@ -68,7 +68,6 @@ def analysis():
 
 
 if __name__ == '__main__':
-	#data_preprocess()
 	analysis()
 
 
