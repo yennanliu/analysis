@@ -29,7 +29,7 @@ R, R shiny, python 3, pandas, numpy, matplotlib, sklearn
 
 ```Bash
 # install python packages 
-pip install pandas, numpy, matplotlib, sklearn
+pip install pandas numpy matplotlib sklearn
 ```
 ```R
 # install ur R env and shiny package 
