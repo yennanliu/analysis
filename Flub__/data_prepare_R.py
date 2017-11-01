@@ -12,6 +12,8 @@ def parse_csv():
 	                                                          "order_id",
 	                                                          "created_at",
 	                                                          "order_status"])
+	# fix column name 
+	df_order.columns = [ 'order_id', 'created_at', 'order_status','order_item_quantity']
 	print (df_order.head())
 	df_order.to_csv('order_fix_.csv')
 	return df_order
