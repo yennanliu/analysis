@@ -4,6 +4,10 @@
 import pandas as pd 
 import numpy as np 
 
+from sklearn import preprocessing
+from sklearn import cluster
+
+
 
 def load_file():
 	txt_route='/Users/yennanliu/analysis/Flub__'
@@ -22,10 +26,36 @@ def load_file():
 	return df_cluster_data
 
 
+def data_preprocess(df):
+	X_std = df.copy()
+	X = X_std.columns
+	for i in X:
+		X_std[i] = preprocessing.scale(X_std[i])
+	#print (X_std)
+	return X_std
+
+def model_1():
+	df = load_file()
+	X_std = data_preprocess(df)
+	print ('kmeans modeling ')
+	kmean = cluster.KMeans(n_clusters=2)
+	kmean.fit(X_std) 
+	X_std['group'] = kmean.labels_
+	print (X_std.head())
+
+def model_2():
+	pass 
+
+
+def model_3():
+	pass 
 
 
 if __name__ == '__main__':
-	load_file()
+	#df = load_file()
+	#print ('re-scale data ')
+	#data_preprocess(df)
+	model_1()
 
 
 
