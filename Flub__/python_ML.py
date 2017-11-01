@@ -11,7 +11,6 @@ from matplotlib import pyplot
 from sklearn import preprocessing, cluster, mixture
 
 
-
 def load_file():
 	txt_route='/Users/yennanliu/analysis/Flub__'
 	f=open(txt_route + '/cluster_data.txt',"r")
@@ -41,7 +40,7 @@ def model_1():
 	df = load_file()
 	X_std = data_preprocess(df)
 	# Kmeans  
-	print ('kmeans modeling ')
+	print ('kmeans clustering ')
 	kmean = cluster.KMeans(n_clusters=2)
 	kmean.fit(X_std) 
 	X_std['group'] = kmean.labels_
@@ -54,7 +53,7 @@ def model_2():
 	df = load_file()
 	X_std = data_preprocess(df)
 	# Gaussian Mixture Models   
-	print ('GMM modeling ')
+	print ('GMM clustering ')
 	gmm = mixture.GaussianMixture(2, covariance_type='full')
 	gmm.fit(X_std)
 	labels = gmm.predict(X_std)
@@ -67,14 +66,25 @@ def model_2():
 
 
 def model_3():
-	pass 
+	df = load_file()
+	X_std = data_preprocess(df)
+	# AgglomerativeClustering
+	print ('hierarchical clustering ')
+	h_clustering = cluster.AgglomerativeClustering()
+	h_clustering.fit(X_std) 
+	X_std['group'] = h_clustering.labels_
+	# plot 
+	print (X_std.head())
+	plt.scatter(X_std.x, X_std.y ,c=X_std.group)
+	plt.show()
+
 
 
 if __name__ == '__main__':
 	#df = load_file()
 	#print ('re-scale data ')
 	#data_preprocess(df)
-	model_2()
+	model_3()
 
 
 
