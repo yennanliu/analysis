@@ -1,11 +1,14 @@
 
 # python 3 
-
+# analysis 
 import pandas as pd 
 import numpy as np 
+import seaborn  as sns 
+import matplotlib.pyplot as plt
+from matplotlib import pyplot
 
-from sklearn import preprocessing
-from sklearn import cluster
+# ml 
+from sklearn import preprocessing, cluster, mixture
 
 
 
@@ -37,14 +40,30 @@ def data_preprocess(df):
 def model_1():
 	df = load_file()
 	X_std = data_preprocess(df)
+	# Kmeans  
 	print ('kmeans modeling ')
 	kmean = cluster.KMeans(n_clusters=2)
 	kmean.fit(X_std) 
 	X_std['group'] = kmean.labels_
+	# plot 
 	print (X_std.head())
+	plt.scatter(X_std.x, X_std.y ,c=X_std.group)
+	plt.show()
 
 def model_2():
-	pass 
+	df = load_file()
+	X_std = data_preprocess(df)
+	# Gaussian Mixture Models   
+	print ('GMM modeling ')
+	gmm = mixture.GaussianMixture(2, covariance_type='full')
+	gmm.fit(X_std)
+	labels = gmm.predict(X_std)
+	X_std['group'] = labels
+	# plot 
+	print (X_std.head())
+	plt.scatter(X_std.x, X_std.y ,c=X_std.group)
+	plt.show()
+
 
 
 def model_3():
@@ -55,7 +74,7 @@ if __name__ == '__main__':
 	#df = load_file()
 	#print ('re-scale data ')
 	#data_preprocess(df)
-	model_1()
+	model_2()
 
 
 
