@@ -18,15 +18,24 @@ def load_file():
 def data_preprocess():
 	d = load_file()
 	df_product_match = pd.DataFrame()
-	need_col = [ 'score', 'merchants', 'sources',  'identifiers']
+	# score
+	need_col = [ 'score']
 	for key_ in need_col:
-		df_product_match['key_'] = [ d['products'][k][key_] for k in range(len(d['products']))]
+		df_product_match[key_] = [ d['products'][k][key_] for k in range(len(d['products']))]
 	# uid 
 	df_product_match['uid'] = [(d['products'][k]['sources'])[0]['uid'] for k in range(len(d['products']))]
+	# stock
+	stock_ = []
+	for k in range(len(d['products'])):
+		try:
+			stock_.append(d['products'][k]['merchants'][0]['stock'])
+		except:
+			stock_.append('NaN')
+			pass
+		    
+	df_product_match['stock'] =  stock_
 	print (df_product_match.head())
 	return df_product_match
-
-
 
 
 
