@@ -2,17 +2,19 @@
 
 
 echo 'plz make sure you are using python 3 '
+echo 'your current python verison : ' # && python -c 'import sys; print (sys.version) '
+python -V
+
 echo ''
 echo '--------------------------------'
-# install python 3 env 
+
+
+
 echo 'install needed packages....'
 echo ''
 echo '--------------------------------'
+pip install pandas numpy sklearn scipy matplotlib
 
-#pip install pandas numpy 
-
-
-# make sure needed data exist (csv)
 
 
 # create needed files (if no exist)
