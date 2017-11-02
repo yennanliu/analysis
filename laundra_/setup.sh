@@ -38,20 +38,20 @@ current_csv_list=(data/*)
 
 # set needed csv as list 
 needed_csv_list=('data/ATO.csv' 
-	     'data/All_CustomersExcCorporateAccounts.csv' 
-	     'data/CityPostcodecsv.csv'
-	     'data/Latebycollectionanddelivery.csv'
-	     'data/NoofTickets.csv'
-	     'data/RecleanedOrders.csv'
-	     'data/Top_Products.csv'
-	     'data/cancalledOrders.csv'
-	     'data/voucherused.csv' )
+				'data/All_CustomersExcCorporateAccounts.csv' 
+				'data/CityPostcodecsv.csv'
+				'data/Latebycollectionanddelivery.csv'
+				'data/NoofTickets.csv'
+				'data/RecleanedOrders.csv'
+				'data/Top_Products.csv'
+				'data/cancalledOrders.csv'
+				'data/voucherused.csv' )
 
 # for loop check if needed csv exist 
 for (( k=0 ; k <${#current_csv_list[@]}; ++k ));
 	do 
 
-		for (( k=0 ; k <${#arrayxy[@]}; ++k ));
+		for (( k=0 ; k <${#needed_csv_list[@]}; ++k ));
 
 			do
 				if [[ "${current_csv_list[k]}" = "${needed_csv_list[k]}" ]]; then
