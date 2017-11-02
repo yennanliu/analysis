@@ -51,6 +51,7 @@ def train():
 	group_outcome_ = cluster_stas(df_train,'median')
 	print (group_outcome_.iloc[:,1:])
 	#param_dist = random_search_parameter()
+	"""
 	clf_ = tree.DecisionTreeClassifier()
 	#print (param_dist)
 	col_ = df_train.columns[1:-1]
@@ -67,6 +68,8 @@ def train():
 	dt_ts_gs = tree.DecisionTreeClassifier(**ts_gs)
 	scores = cross_val_score(dt_ts_gs, df_train[col_], df_train['group'], cv=10)
 	print("mean: {:.3f} (std: {:.3f})".format(scores.mean(),scores.std()),end="\n\n" )
+
+	"""
 	# map group id to group name 
 	dict_group_name = ['1st_high_value',
 	                   '2nd_high_value',
@@ -94,26 +97,12 @@ def train():
 	df_train_ = pd.merge(df_train_,cancalledOrders,on='customer_id',how='left')
 	df_train_ = pd.merge(df_train_,voucherused,on='customer_id',how='left')
 	# save output 
-	save_user_profile_DB(df_train_)
+	save_output(df_train_).save_user_profile()
+	save_output(df_train_).save_user_profile_DB()
 	print ('final output : ')
 	print (df_train_.head(10))
 
 	return df_train_, X_std
-
-
-def test():
-	df_train = load_all_data().load_user_RFM_data()
-	ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused = load_all_data().load_other_data()
-	#ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused = load_all_data().load_other_data()
-	list_to_merge = [ATO, CityPostcode, Latebycollectionanddelivery, NoofTickets, RecleanedOrders, cancalledOrders, voucherused]
-	for count , df_file in enumerate(list_to_merge):
-		if count == 0:
-			print (df_file)
-			df_train_ = pd.merge(df_train,df_file,on='customer_id',how='left')
-		else:
-			print (df_file)
-			df_train_ = pd.merge(df_train_,df_file,on='customer_id',how='left')
-	print (df_train_.head())
 
 
 
