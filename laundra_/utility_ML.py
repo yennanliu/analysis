@@ -206,21 +206,22 @@ date_ = now.strftime("%Y-%m-%d")
 
 class save_output(object):
 
-  def __init__(self, final_output):
-    self.final_output = final_output
+  def __init__(self, df):
+    self.df = df
 
   def save_user_profile(self):
     try:
-      self.final_output.to_csv('output/user_profile_{}.csv'.format(date_))
+      self.df.to_csv('output/user_profile_.csv')
       print ('Succefully save user profile to /output at {}'.format(date_))
-    except:
+    except Exception as e:
       print ('Save failed') 
+      print (e)
 
   def save_user_profile_DB(self):
     try:
       import sqlite3
       conn = sqlite3.connect("output/user_classfication.db")
-      self.final_output.to_sql("user_profile", conn, if_exists="replace")
+      self.df.to_sql("user_profile", conn, if_exists="replace")
       print ('Succefully save user profile as sqlite db to /output at {}'.format(date_))
     except:
       print ('Save failed') 
