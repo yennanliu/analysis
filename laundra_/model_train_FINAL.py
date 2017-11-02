@@ -11,13 +11,9 @@ import pandas as pd, numpy as np
 from collections import OrderedDict
 # ml 
 from sklearn import preprocessing
-from sklearn import cluster, tree, decomposition
-from sklearn import tree
-from sklearn.cross_validation import train_test_split
+from sklearn import cluster, tree
 from sklearn.externals.six import StringIO
 from sklearn.metrics import silhouette_score
-from sklearn.model_selection import KFold
-from sklearn import linear_model, ensemble
 from sklearn.cross_validation import  cross_val_score
 #from data_prepare import *
 from utility_data_preprocess import *
