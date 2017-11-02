@@ -15,14 +15,13 @@ EDA -> Data Preprocess -> Clustering (kmeans / hierarchical clustering) (unsuper
 
 ```
 ├── README.md
-├── data
-├── model_predict_FINAL.py
-├── model_train_FINAL.py
-├── output
-├── script_EDA_final.py
-├── utility_ML.py
-├── utility_analysis.py
-└── utility_data_preprocess.py
+├── data                        : data source (CSVs)
+├── model_predict_FINAL.py      # dev 
+├── model_train_FINAL.py        : main training script 
+├── output                      : outcome of modeling : csv/db    
+├── utility_ML.py               : utility script for modeling 
+├── utility_analysis.py         : utility script for analysis  
+└── utility_data_preprocess.py  : utility script for data prepare  
 
 ```
 
@@ -45,6 +44,18 @@ source setup.sh
 ```Bash
 # train model   
 python model_train_FINAL.py
+```
+
+```
+
+# check user profile output at /output 
+cd output
+sqlite3 user_classfication.db
+
+# or 
+cd output
+cat user_classfication.csv 
+
 ```
 
 ## Reference 
