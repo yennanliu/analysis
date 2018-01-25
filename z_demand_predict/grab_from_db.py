@@ -69,16 +69,15 @@ class extract_from_db(object):
 # pandas.read_sql(sql, con, index_col=None, coerce_float=True, params=None, parse_dates=None, columns=None, chunksize=None)[source]
 # https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql.html
 
-
 def get_data_from_db(sql, db_url):
     try:
         engine = create_engine(db_url)
-        conn = engine.connect()
+        #conn = engine.connect()
         # need to double check 
         print (sql)
         df = pd.read_sql(sql=sql, con= engine)
         # close the connection after imput data 
-        conn.close()
+        #conn.close()
         print (df.head())
         return df 
         print("extract data ok")
