@@ -15,24 +15,22 @@ db_url = os.environ['db_url']
 print ('db_url : ' , db_url)
 
 
+# ==================
 
 
-class extract_from_db(object):
+
+class work_with_db:
 	def __init__(self,db_url):
 		self.db_url = db_url 
-		self.engine = create_engine(db_url)
-		self.conn =  engine.connect()
-
-
-	def get_data_from_fb(sql, table_name):
-		db_url = self.db_url
-		engine = self.engine
-		conn = self.conn 
+        
+	def read_from_db(self,sql):
+		engine = create_engine(self.db_url)
+		conn =  engine.connect()
 		try:
 			# need to double check 
 			print (sql)
-			print ('table_name : ', table_name )
-			df = df.from_sql(sql=sql, name= table_name, con= engine)
+			#print ('table_name : ', table_name )
+			df = pd.read_sql(sql=sql, con= engine)
 			# close the connection after imput data 
 			conn.close()
 			print (df.head())
@@ -41,27 +39,15 @@ class extract_from_db(object):
 
 		except Exception as e:
 			print (e)
-			print ('fail to get data from db') 
+			conn.close()
+			print ('fail to get data from db')
 
-	def get_table_list():
+	def get_table_list(self):
 		pass 
 
 
-	def get_view_list():
-		pass 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	def get_view_list(self):
+		pass
 
 
 # ==================
