@@ -13,3 +13,19 @@ dev
 
 * [ECML/PKDD 15: Taxi Trajectory Prediction (I)
 ](https://www.kaggle.com/c/pkdd-15-predict-taxi-service-trajectory-i)
+
+
+### TimeSeries 
+
+* [NN for trading - Simple time series forecasting](https://medium.com/machine-learning-world/neural-networks-for-algorithmic-trading-part-one-simple-time-series-forecasting-f992daa1045a)
+
+* [NN for trading - Correct time series forecasting + backtesting](https://medium.com/machine-learning-world/neural-networks-for-algorithmic-trading-1-2-correct-time-series-forecasting-backtesting-9776bfd9e589)
+
+
+### Dataset 
+
+* [Bike Sharing kaggle](https://www.kaggle.com/c/bike-sharing-demand)
+
+* [Bike Sharing capitalbikeshare](https://www.capitalbikeshare.com/system-data)
+
+
