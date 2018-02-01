@@ -18,7 +18,7 @@ from folium import plugins
 matplotlib.rcParams['figure.figsize'] = (10.0, 8.0)
 
 
-
+# -----------------------------
 
 """
 credit 
@@ -28,10 +28,11 @@ example
 plot_decision_boundary(lambda x: clf.predict(x))
 plt.title("Logistic Regression")
 
-"""
-
 # Helper function to plot a decision boundary.
 # If you don't fully understand this function don't worry, it just generates the contour plot below.
+
+"""
+
 def plot_decision_boundary(pred_func):
     # Set min and max values and give it some padding
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
@@ -48,6 +49,8 @@ def plot_decision_boundary(pred_func):
 
 
 
+# -----------------------------
+
 
 
 def plot_heatmap_lon_lat(df,map_center):
@@ -62,6 +65,9 @@ def plot_heatmap_lon_lat(df,map_center):
     heatmap_locations_list = df[['start_lat', 'start_lon']].dropna().values.tolist()
     heatmap.add_children(plugins.HeatMap(heatmap_locations_list, radius=20, blur=30))
     display(heatmap)
+
+
+# -----------------------------
 
 
 """
@@ -83,7 +89,7 @@ def plot_dynamic_heatmap_lon_lat(df):
     # Lon, Lat order.
     """
     to fix here 
-    
+
     lines_ = [{'coordinates': json.loads(json.dumps(df_[df_.booking_start_day == k][['start_lat','start_lon']].values.tolist())),
           'dates': json.loads(json.dumps(df_[df_.booking_start_day == k][['booking_start_date']].values.tolist())),
           'color': 'red' } for k in set(df_.booking_start_day) 
