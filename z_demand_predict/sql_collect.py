@@ -5,7 +5,11 @@ sql = {'sql_test' : """
 		SELECT * FROM rw.blue_move
 		limit 10 
 		""",
-	  'sql_trips':"""
+
+		# --------------------		
+
+		
+		'sql_trips':"""
 
 		  WITH fleet_team_id AS
 	  (SELECT member_id
@@ -41,4 +45,3 @@ sql = {'sql_test' : """
 
 
 
-	   
