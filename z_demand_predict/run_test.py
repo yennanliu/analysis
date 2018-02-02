@@ -9,14 +9,12 @@ import os
 
 # UDF 
 from grab_from_db import *
+from sql_collect import * 
+#------------------------
 
 
 def get_data():
-	sql_test = \
-	"""
-	SELECT * FROM rw.blue_move
-	limit 10 
-	"""
+	sql_test= sql['sql_test']
 	get_data_from_db = work_with_db(db_url)
 	df_ = get_data_from_db.read_from_db(sql_test)
 	print (df_)
@@ -24,7 +22,27 @@ def get_data():
 
 
 
+def preprocess(df):
+	pass 
+
+
+
+
+
+
+
+
+
+
+
+
+#------------------------
+
+
 if __name__ == '__main__':
 	get_data()
+
+
+
 
 
