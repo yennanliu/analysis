@@ -15,9 +15,9 @@ from sql_collect import *
 
 
 def get_data():
-	sql_test= sql['sql_trips']
+	sql_trips= sql['sql_trips']
 	get_data_from_db = work_with_db(db_url)
-	df_ = get_data_from_db.read_from_db(sql_test)
+	df_ = get_data_from_db.read_from_db(sql_trips)
 	print (df_)
 	return df_
 
