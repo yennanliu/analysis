@@ -39,6 +39,38 @@ WHERE member_id IN
 AND trip_duration > 0
 AND date(t.trip_start_date) >= '2018-01-01'
 
+""",
+
+# --------------------     
+
+
+'sql_trips_agg':"""
+
+WITH fleet_team_id AS
+  (SELECT member_id
+   FROM ana.members
+   WHERE ROLE != 'customer' )
+SELECT date(t.trip_start_date) AS trip_start_day,
+       extract(hour
+               FROM t.trip_start_date) AS trip_start_hour,
+       ROUND((start_lat)::numeric,3) AS start_lat,
+       ROUND((start_lon)::numeric,3) AS start_lon,
+       count(*) AS pickups
+FROM prc.trips t
+WHERE member_id IN
+    (SELECT *
+     FROM fleet_team_id)
+  AND trip_duration > 0
+  AND date(t.trip_start_date) >= '2016-09-01'
+GROUP BY 1,
+         2,
+         3,
+         4
+ORDER BY 1,
+         2,
+         3,
+         4
+         
 """}
 
 

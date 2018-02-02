@@ -16,6 +16,7 @@ from sql_collect import *
 
 def get_data():
 	sql_trips= sql['sql_trips']
+	#sql_trips_agg= sql['sql_trips_agg']
 	get_data_from_db = work_with_db(db_url)
 	df_ = get_data_from_db.read_from_db(sql_trips)
 	print (df_)
@@ -44,7 +45,8 @@ def preprocess(df):
 
 
 
-
+def get_train_test_set(df):
+	pass 
 
 
 
