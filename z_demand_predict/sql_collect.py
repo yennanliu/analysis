@@ -7,14 +7,14 @@ sql = {
 
 SELECT * FROM rw.blue_move
 limit 10 
-      
-		""",
+
+""",
 
 # --------------------		
 
 'sql_trips':"""
 
-  WITH fleet_team_id AS
+  WITH customer_id AS
 (SELECT member_id
 FROM ana.members
 WHERE ROLE = 'customer' )
@@ -35,9 +35,9 @@ SELECT t.booking_start_date,
 FROM prc.trips t
 LEFT JOIN rw.quartiers sz ON st_contains(sz.geom, t.start_pos_gis)
 LEFT JOIN rw.quartiers ez ON st_contains(ez.geom, t.end_pos_gis)
-WHERE member_id IN
+WHERE member_id  IN
 (SELECT *
- FROM fleet_team_id)
+ FROM customer_id)
 AND trip_duration > 0
 AND date(t.trip_start_date) >= '2018-01-01'
 
@@ -48,7 +48,7 @@ AND date(t.trip_start_date) >= '2018-01-01'
 
 'sql_trips_agg':"""
 
-WITH fleet_team_id AS
+WITH customer_id AS
   (SELECT member_id
    FROM ana.members
    WHERE ROLE = 'customer' )
@@ -59,9 +59,9 @@ SELECT date(t.trip_start_date) AS trip_start_day,
        ROUND((start_lon)::numeric,3) AS start_lon,
        count(*) AS pickups
 FROM prc.trips t
-WHERE member_id IN
+WHERE member_id  IN
     (SELECT *
-     FROM fleet_team_id)
+     FROM customer_id)
   AND trip_duration > 0
   AND date(t.trip_start_date) >= '2016-09-01'
 GROUP BY 1,
