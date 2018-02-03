@@ -15,7 +15,7 @@ sql = {
   WITH fleet_team_id AS
 (SELECT member_id
 FROM ana.members
-WHERE ROLE != 'customer' )
+WHERE ROLE = 'customer' )
 SELECT t.booking_start_date,
    t.trip_start_date,
    date(t.booking_start_date) AS book_start_day,
@@ -49,7 +49,7 @@ AND date(t.trip_start_date) >= '2018-01-01'
 WITH fleet_team_id AS
   (SELECT member_id
    FROM ana.members
-   WHERE ROLE != 'customer' )
+   WHERE ROLE = 'customer' )
 SELECT date(t.trip_start_date) AS trip_start_day,
        extract(hour
                FROM t.trip_start_date) AS trip_start_hour,
