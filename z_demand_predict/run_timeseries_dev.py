@@ -35,7 +35,7 @@ def get_data(from_db= False):
 
 	if from_db==True:
 
-		sql_trips= sql['sql_trips']
+		sql_trips= sql_agg['day_zone_trip']
 		#sql_trips_agg= sql['sql_trips_agg']
 		get_data_from_db = work_with_db(db_url)
 		df_ = get_data_from_db.read_from_db(sql_trips)
