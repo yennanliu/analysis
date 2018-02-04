@@ -87,17 +87,19 @@ WITH customer_id AS
    WHERE ROLE = 'customer' )
 SELECT date(t.trip_start_date) AS trip_start_day,
        sz.name AS start_zone_name,
+       sz.zone_id AS start_zone_id,
        count(*) AS pickups
 FROM prc.trips t
 LEFT JOIN rw.quartiers sz ON st_contains(sz.geom, t.start_pos_gis)
-WHERE member_id  IN
+WHERE member_id IN
     (SELECT *
      FROM customer_id)
   AND trip_duration > 0
-  AND date(t.trip_start_date) >= '2016-09-01'
+  AND date(t.trip_start_date) >= '2017-01-01'
+  AND sz.name IS NOT NULL
 GROUP BY 1,
-         2
-ORDER BY 3 DESC
+         2,
+         3
 
 
 """
