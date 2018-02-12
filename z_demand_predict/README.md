@@ -11,6 +11,8 @@ dev
 
 * [Bike Sharing Predict -- NN approach](https://arxiv.org/pdf/1712.04997.pdf)
 
+* [Capital Bikeshare -- Prediction API](https://github.com/joepaolicelli/cabi-prediction-api)
+
 * [ECML/PKDD 15: Taxi Trajectory Prediction (I)
 ](https://www.kaggle.com/c/pkdd-15-predict-taxi-service-trajectory-i)
 
