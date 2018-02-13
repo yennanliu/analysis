@@ -72,6 +72,23 @@ def reshape_dataset(data_,time_series=False):
 # ----------------
 
 
+def simple_LSTM(trainX,trainY):
+	model = Sequential()
+	model.add(LSTM(4, input_shape=(1, look_back)))
+	model.add(Dense(1))
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	model.fit(trainX, trainY, epochs=20, batch_size=1, verbose=2)
+	return model
+
+
+
+
+
+
+
+
+
+
 
 
 
