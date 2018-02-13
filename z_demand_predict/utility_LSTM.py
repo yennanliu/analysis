@@ -73,13 +73,15 @@ def reshape_dataset(data_,time_series=False):
 
 
 class LSTM_model
-	def __init__(self,trainX,trainY,batch_size=False, epoch=False):
+	def __init__(self,trainX,trainY,look_back,batch_size=False, epoch=False,):
 		self.trainX = trainX 
 		self.trainY = trainY
+		self.look_back = look_back
+
 
 	def simple_LSTM():
 		model = Sequential()
-		model.add(LSTM(4, input_shape=(1, look_back)))
+		model.add(LSTM(4, input_shape=(1, self.look_back)))
 		model.add(Dense(1))
 		model.compile(loss='mean_squared_error', optimizer='adam')
 		model.fit(self.trainX, self.trainY, epochs=20, batch_size=1, verbose=2)
@@ -87,7 +89,7 @@ class LSTM_model
 
 	def LSTM_model_memory_batch(batch_size,epoch):
 		model = Sequential()
-		model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True))
+		model.add(LSTM(4, batch_input_shape=(batch_size, self.look_back, 1), stateful=True))
 		model.add(Dense(1))
 		model.compile(loss='mean_squared_error', optimizer='adam')
 		for i in range(epoch):
@@ -98,11 +100,11 @@ class LSTM_model
 	def Stacked_LSTM_model_memory_batch(batch_size,epoch):
 		model = Sequential()
 		# Stacked LSTM 
-		model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True, return_sequences=True))
-		model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True))
+		model.add(LSTM(4, batch_input_shape=(batch_size, self.look_back, 1), stateful=True, return_sequences=True))
+		model.add(LSTM(4, batch_input_shape=(batch_size, self.look_back, 1), stateful=True))
 		model.add(Dense(1))
 		model.compile(loss='mean_squared_error', optimizer='adam')
-		for i in range(100):
+		for i in range(epoch):
 			model.fit(self.trainX, self.trainY, epochs=1, batch_size=batch_size, verbose=2, shuffle=False)
 			model.reset_states()
 		return model 
@@ -143,7 +145,7 @@ def Stacked_LSTM_model_memory_batch(trainX,trainY,batch_size,epoch):
 	model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True))
 	model.add(Dense(1))
 	model.compile(loss='mean_squared_error', optimizer='adam')
-	for i in range(100):
+	for i in range(epoch):
 		model.fit(trainX, trainY, epochs=1, batch_size=batch_size, verbose=2, shuffle=False)
 		model.reset_states()
 	return model 
