@@ -82,6 +82,17 @@ def simple_LSTM(trainX,trainY):
 
 
 
+def LSTM_model_memory_batch(trainX,trainY):
+	model = Sequential()
+	model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True))
+	model.add(Dense(1))
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	for i in range(100):
+		model.fit(trainX, trainY, epochs=1, batch_size=batch_size, verbose=2, shuffle=False)
+		model.reset_states()
+	return model 
+
+
 
 
 
