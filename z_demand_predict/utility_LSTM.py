@@ -72,7 +72,7 @@ def reshape_dataset(data_,time_series=False):
 # ----------------
 
 
-def simple_LSTM(trainX,trainY):
+def Simple_LSTM(trainX,trainY):
 	model = Sequential()
 	model.add(LSTM(4, input_shape=(1, look_back)))
 	model.add(Dense(1))
@@ -93,9 +93,17 @@ def LSTM_model_memory_batch(trainX,trainY,batch_size,epoch):
 	return model 
 
 
-
-
-
+def Stacked_LSTM_model_memory_batch(trainX,trainY,batch_size,epoch):
+	model = Sequential()
+	# Stacked LSTM 
+	model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True, return_sequences=True))
+	model.add(LSTM(4, batch_input_shape=(batch_size, look_back, 1), stateful=True))
+	model.add(Dense(1))
+	model.compile(loss='mean_squared_error', optimizer='adam')
+	for i in range(100):
+		model.fit(trainX, trainY, epochs=1, batch_size=batch_size, verbose=2, shuffle=False)
+		model.reset_states()
+	return model 
 
 
 
