@@ -24,6 +24,9 @@ from sklearn.metrics import mean_squared_error
 # https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
 # convert an array of values into a dataset matrix
 def create_dataset(dataset, look_back=1):
+	"""
+	LSTM for Regression with Window Method : can modify look_back, e.g.  look_back = 1,2,3...
+	"""
 	dataX, dataY = [], []
 	for i in range(len(dataset)-look_back-1):
 		a = dataset[i:(i+look_back), 0]
