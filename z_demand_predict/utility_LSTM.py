@@ -21,9 +21,14 @@ from sklearn.metrics import mean_squared_error
 # ----------------
 
 # from dataframe to float32 numpy metrix 
-def prepare_data(df,cols):
-	print (cols)
-	df__ = df_[cols]
+def prepare_data(df,col):
+	"""
+	cols shoule be the demand predicted values in this case.
+	i.e. y = time_series,feature1, feature2... , Y = # of airplane passengers
+	cols should = "# of airplane passengers"
+	"""
+	print (col)
+	df__ = df[col]
 	dataset = df__.values
 	dataset = dataset.astype('float32')
 	return dataset
