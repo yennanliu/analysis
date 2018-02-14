@@ -24,8 +24,9 @@ from sklearn.metrics import mean_squared_error
 def prepare_data(df,col):
 	"""
 	cols shoule be the demand predicted values in this case.
-	i.e. y = time_series,feature1, feature2... , Y = # of airplane passengers
-	cols should = "# of airplane passengers"
+	i.e. x = time_series,feature1, feature2... , 
+	     y = # of airplane passengers
+	->   cols ="# of airplane passengers"
 	"""
 	print (col)
 	df__ = df[col]
