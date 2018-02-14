@@ -90,8 +90,38 @@ def plot_polygon_map(geo_json_data):
 
 # -----------------------------
 
+def preprocss_polygon_point_map(df):
+    df_ = df[['lat','lon']].dropna().astype(float)
+    df_list_ = df_.values.tolist()
+    return df_list_ 
 
 
+def plot_polygon_map_with_point(geo_json_data,point_list):
+    # credit 
+    # https://georgetsilva.github.io/posts/mapping-points-with-folium/
+    # https://nbviewer.jupyter.org/github/python-visualization/folium/blob/master/examples/Colormaps.ipynb
+    m = folium.Map([50.85,4.35], tiles='cartodbpositron', zoom_start=12)
+
+    folium.GeoJson(
+        geo_json_data,
+        style_function=lambda feature: {
+            
+            'color': 'black',
+            'weight': 2,
+            'dashArray': '5, 5'
+        }
+    ).add_to(m)
+
+    # get your points (lon & lat ) data as form here 
+    # point_list = preprocss_polygon_point_map(df)
+    for point in range(0, len(point_list)):
+        folium.Marker(point_list[point]).add_to(m)
+
+    return m
+
+
+
+# -----------------------------
 
 
 
