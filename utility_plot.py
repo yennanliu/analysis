@@ -70,6 +70,30 @@ def plot_heatmap_lon_lat(df,map_center):
 # -----------------------------
 
 
+def plot_polygon_map(geo_json_data):
+    # credit 
+    # https://nbviewer.jupyter.org/github/python-visualization/folium/blob/master/examples/Colormaps.ipynb
+    # in case you can import your own geojson data 
+    # geo_json_data = json.load(open('proposal_zone.json'))
+    m = folium.Map([50.85,4.35], tiles='cartodbpositron', zoom_start=12)
+    # can modify map center above 
+    folium.GeoJson(
+    geo_json_data,
+    style_function=lambda feature: {
+        'color': 'black',
+        'weight': 2,
+        'dashArray': '5, 5'}
+    ).add_to(m)
+    m
+
+
+
+
+
+
+
+
+
 """
 credit 
 
