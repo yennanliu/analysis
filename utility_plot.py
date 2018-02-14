@@ -84,10 +84,11 @@ def plot_polygon_map(geo_json_data):
         'weight': 2,
         'dashArray': '5, 5'}
     ).add_to(m)
-    m
+    return m
 
 
 
+# -----------------------------
 
 
 
