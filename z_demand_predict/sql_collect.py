@@ -112,5 +112,43 @@ GROUP BY 1,
 
 
 
+# --------------------    
+
+
+sql_itime = {
+  
+'itime_ '= """
+
+
+SELECT 
+       lag(round((idle_time/(60*60*24))::numeric,2)) OVER (PARTITION BY vehicle_id
+                                                           ORDER BY timestamp_live_vec_table DESC) AS lag_idle_day,
+                                                          *
+FROM
+  (SELECT DISTINCT round((idle_time/(60*60*24))::numeric,2) AS idle_days,
+                   round((idle_time/(60*60))::numeric,2) AS idle_hours,
+                   vehicle_id,
+                   idle_time,
+                   timestamp_live_vec_table,
+                   date(timestamp_live_vec_table) as date,
+                   lat,
+                   lon
+   FROM i_time_table
+   WHERE date(i_time_table.timestamp_live_vec_table) >= '2018-01-01' ) sub
+ORDER BY vehicle_id,
+         timestamp_live_vec_table
+
+
+
+"""
+
+
+
+}
+
+
+
+
+
 
 
