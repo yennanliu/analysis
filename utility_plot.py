@@ -121,6 +121,20 @@ def plot_polygon_map_with_point(geo_json_data,point_list):
 
 
 
+def plot_polygon_map_with_parameter_popup(geo_json_data,point_list):
+
+    m = folium.Map([50.85,4.35], tiles='cartodbpositron', zoom_start=12)
+    # plz modify the code here let it can loop over all zones within geojson and plot them and their parameters 
+    for k in range(0,len(geo_json_data['features'])):
+        data = geo_json_data['features'][k]
+        x = folium.GeoJson(data=data)
+        x.add_child(folium.Popup('zone id  : {}'.format(geo_json_data['features'][k]['id'])))
+        x.add_to(m)
+
+    return m 
+
+
+
 # -----------------------------
 
 
