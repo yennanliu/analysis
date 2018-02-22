@@ -128,6 +128,12 @@ def plot_polygon_map_with_parameter_popup(geo_json_data,point_list):
     for k in range(0,len(geo_json_data['features'])):
         data = geo_json_data['features'][k]
         x = folium.GeoJson(data=data)
+        """
+        in case you wanna remove special icon in address that make pop up still work 
+        i.e.  d'Albanie -> dAlbanie
+        zone_name = geo_json_data['features'][k]['properties']['name'].replace("'", "")
+        x.add_child(folium.Popup('{}'.format(zone_name)))
+        """
         x.add_child(folium.Popup('zone id  : {}'.format(geo_json_data['features'][k]['id'])))
         x.add_to(m)
 
