@@ -9,6 +9,8 @@ dev
 
 * [Predict NYC Taxi Demand](https://nycdatascience.com/blog/student-works/predict-new-york-city-taxi-demand/)
 
+* [Predict NYC Taxi with Spark and ML](https://github.com/sdaulton/TaxiPrediction
+)
 * [Bike Sharing Predict -- NN approach](https://arxiv.org/pdf/1712.04997.pdf)
 
 * [Capital Bikeshare -- Prediction API](https://github.com/joepaolicelli/cabi-prediction-api)
