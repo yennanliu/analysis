@@ -140,6 +140,37 @@ ORDER BY vehicle_id,
 
 
 
+""",
+
+
+# --------------------    
+
+
+'itime_zone' : """
+
+
+
+
+SELECT lag(round((idle_time/(60*60*24))::numeric,2)) OVER (PARTITION BY vehicle_id
+                                                           ORDER BY timestamp_live_vec_table DESC) AS lag_idle_day,
+                                                          *
+FROM
+  (SELECT DISTINCT round((v.idle_time/(60*60*24))::numeric,2) AS idle_days,
+                   round((v.idle_time/(60*60))::numeric,2) AS idle_hours,
+                   v.vehicle_id,
+                   v.idle_time,
+                   v.timestamp_live_vec_table,
+                   date(v.timestamp_live_vec_table) AS date,
+                   v.lat,
+                   v.lon,
+                   --st_SetSrid(st_MakePoint(v.lon, v.lat), 4326),
+                   sz.drop_off_addr
+   FROM p_vec AS v
+   LEFT JOIN cells AS sz ON st_contains(sz.geom, st_SetSrid(st_MakePoint(v.lon, v.lat), 4326))
+   WHERE date(v.timestamp_live_vec_table) >= '2018-01-01' ) sub
+ORDER BY vehicle_id,
+         timestamp_live_vec_table
+
 """
 
 
