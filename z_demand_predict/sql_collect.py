@@ -150,7 +150,6 @@ ORDER BY vehicle_id,
 
 
 
-
 SELECT lag(round((idle_time/(60*60*24))::numeric,2)) OVER (PARTITION BY vehicle_id
                                                            ORDER BY timestamp_live_vec_table DESC) AS lag_idle_day,
                                                           *
@@ -163,9 +162,9 @@ FROM
                    date(v.timestamp_live_vec_table) AS date,
                    v.lat,
                    v.lon,
-                   --st_SetSrid(st_MakePoint(v.lon, v.lat), 4326),
+                   st_SetSrid(st_MakePoint(v.lon, v.lat), 4326),
                    sz.drop_off_addr
-   FROM p_vec AS v
+   FROM periodic_vec_data AS v
    LEFT JOIN cells AS sz ON st_contains(sz.geom, st_SetSrid(st_MakePoint(v.lon, v.lat), 4326))
    WHERE date(v.timestamp_live_vec_table) >= '2018-01-01' ) sub
 ORDER BY vehicle_id,
