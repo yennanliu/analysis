@@ -117,7 +117,7 @@ GROUP BY 1,
 
 sql_itime = {
   
-'itime_ '= """
+'itime_ ': """
 
 
 SELECT 
