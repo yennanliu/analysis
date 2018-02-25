@@ -34,11 +34,11 @@ def preprocess(df):
 	df_x = df.copy()
 	df_x['date'] =pd.to_datetime(df_x.date)
 	df_x.loc[:, 'weekday'] = df_x['date'].dt.weekday
-	df_x.loc[:, 'day'] = df_['timestamp_live_vec_table'].dt.day
-	df_x.loc[:, 'month'] = df_['timestamp_live_vec_table'].dt.month
-	df_x.loc[:, 'year'] = df_['timestamp_live_vec_table'].dt.year
-	df_x.loc[:, 'hour'] = df_['timestamp_live_vec_table'].dt.hour
-	df_x.loc[:, 'minute'] = df_['timestamp_live_vec_table'].dt.minute
+	df_x.loc[:, 'day'] = df_x['timestamp_live_vec_table'].dt.day
+	df_x.loc[:, 'month'] = df_x['timestamp_live_vec_table'].dt.month
+	df_x.loc[:, 'year'] = df_x['timestamp_live_vec_table'].dt.year
+	df_x.loc[:, 'hour'] = df_x['timestamp_live_vec_table'].dt.hour
+	df_x.loc[:, 'minute'] = df_x['timestamp_live_vec_table'].dt.minute
 	df_x.loc[:,'dayofyear'] = df_x['timestamp_live_vec_table'].apply(lambda x: x.dayofyear)
 	df_x['year_sin'] = (df_x['dayofyear'] * 2 * math.pi).apply(math.sin)
 	df_x['year_cos'] = (df_x['dayofyear'] * 2 * math.pi).apply(math.cos)
@@ -60,9 +60,10 @@ def get_train_test_data(df):
 			'year_cos',
 			'lag_idle_day']
 	df_ = df[cols]
+	df_ = df_.dropna()
 	# ----
-	X = df_x_.iloc[:,:-1]
-	y = df_x_.iloc[:,-1:]
+	X = df_.iloc[:,:-1]
+	y = df_.iloc[:,-1:]
 	# train, test split 
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 	return  X_train, X_test, y_train, y_test
