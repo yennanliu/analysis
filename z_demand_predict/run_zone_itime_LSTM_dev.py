@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import psycopg2
 from sqlalchemy import create_engine
+import math
 
 # ML
 from sklearn.preprocessing import MinMaxScaler
