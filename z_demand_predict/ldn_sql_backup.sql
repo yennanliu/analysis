@@ -55,6 +55,28 @@ ORDER BY 1
 LIMIT 3000
 
 
+-- query sample searching data 
+
+SELECT cast(substring(search_time_utc, 1, 10) AS date) AS date,
+       user_agent,
+       member_id,
+       session_id,
+       search_id,
+       search_lat,
+       search_lng,
+       search_time_utc,
+       vehicles_location_tz
+FROM vehicle_search_responses
+WHERE search_time_utc IS NOT NULL
+  AND cast(substring(search_time_utc, 1, 10) AS date) > cast('2018-02-01' AS date)
+  AND cast(search_lat AS integer) > 50
+  AND cast(search_lat AS integer) < 52
+LIMIT 1000
+
+
+
+
+
 
 
 
