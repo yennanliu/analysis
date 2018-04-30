@@ -76,6 +76,16 @@ LIMIT 1000
 
 
 
+-- flex booking sample 
+
+
+SELECT *
+FROM reservations
+WHERE status = 'COMPLETED'
+  AND cast(substring(ride_start_time_local, 1, 10) AS date) > cast('2018-03-01' AS date)
+  AND cast(substring(ride_start_time_local, 1, 10) AS date) < cast('2018-03-31' AS date)
+  ORDER BY ride_start_time_local
+LIMIT 3000
 
 
 
