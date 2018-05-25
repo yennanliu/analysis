@@ -255,11 +255,98 @@ def plot_dynamic_heatmap_lon_lat(df):
 
 
 
+# ref : https://www.kaggle.com/poonaml/last-cab-to-new-york-animated-heatmap-trips-folium
+
+"""
+1) dynamic map 
+
+#co-ordinates
+LaGuardia = {
+    "minLat": 40.76,
+    "maxLat": 40.78,
+    "minLong": -73.895,
+    "maxLong": -73.855
+}
+train['pickup_datetime'] = pd.to_datetime(train.pickup_datetime)
+train['dropoff_datetime'] = pd.to_datetime(train.dropoff_datetime)
+
+LaGuardiaData = train[(train['pickup_longitude'].apply(lambda x: (x >=LaGuardia["minLong"]) & (x <= LaGuardia["maxLong"])))]
+LaGuardiaData = train[(train['pickup_latitude'].apply(lambda x: (x >=LaGuardia["minLat"]) & (x <= LaGuardia["maxLat"])))]
+LaGuardiaData = train[(train['dropoff_longitude'].apply(lambda x: (x >=LaGuardia["minLong"]) & (x <= LaGuardia["maxLong"])))]
+LaGuardiaData = train[(train['dropoff_latitude'].apply(lambda x: (x >=LaGuardia["minLat"]) & (x <= LaGuardia["maxLat"])))]
+
+m = folium.Map(
+    location=[40.7769, -73.8740],
+    zoom_start=12
+)
+folium.Marker(location=[40.7769, -73.8740],icon=folium.Icon(color='black') ,popup='LA Guardia International Airport').add_to(m)
+
+shortTripsDF=LaGuardiaData[LaGuardiaData.trip_duration==900]
+
+lines = [
+    {
+        'coordinates': [
+            [shortTripsDF.pickup_longitude.iloc[index], shortTripsDF.pickup_latitude.iloc[index]],
+            [shortTripsDF.dropoff_longitude.iloc[index], shortTripsDF.dropoff_latitude.iloc[index]],
+        ],
+        'dates': [
+        str(shortTripsDF.pickup_datetime.iloc[index]),
+        str(shortTripsDF.dropoff_datetime.iloc[index])
+        ],
+        'color': 'gold'
+    }
+    for index in range(100)
+]
+features = [
+    {
+        'type': 'Feature',
+        'geometry': {
+            'type': 'LineString',
+            'coordinates': line['coordinates'],
+        },
+        'properties': {
+            'times': line['dates'],
+            'style': {
+                'color': line['color'],
+                'weight': line['weight'] if 'weight' in line else 10
+            }
+        }
+    }
+    for line in lines
+]
+
+
+plugins.TimestampedGeoJson({
+    'type': 'FeatureCollection',
+    'features': features,
+}, period='PT24H', add_last_point=True).add_to(m)
+m
+
+
+"""
+
+"""
+2) dynamic heatmap
 
 
 
+newyork_on_heatmap = folium.Map(location=[40.767937,-73.982155 ],tiles= "Stamen Terrain",
+                    zoom_start = 13) 
+
+# List comprehension to make out list of lists
+heat_data = [[[row['dropoff_latitude'],row['dropoff_longitude']] 
+                for index, row in heat_df[heat_df['Weight'] == i].iterrows()] 
+                 for i in range(0,6)]
+
+# Plot it on the map
+hm = plugins.HeatMapWithTime(heat_data,auto_play=True,max_opacity=0.8)
+hm.add_to(newyork_on_heatmap)
+
+# Display the map
+newyork_on_heatmap
 
 
+"""
 
 
 
