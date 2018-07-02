@@ -19,9 +19,8 @@ Collections of various analysis projects <br>
 
 [Statistics](https://github.com/yennanliu/analysis/tree/master/Statistics_)<br>
 
-[Tensorflow](https://github.com/yennanliu/analysis/tree/master/tensorflow_)<br>
+* [Confidence Intervals](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/Confidence_Intervals.ipynb) - Go through the confidence interval calculation from distributions 
 
-[R basics](https://github.com/yennanliu/analysis/tree/master/R_)<br>
 
 ## Others 
 
