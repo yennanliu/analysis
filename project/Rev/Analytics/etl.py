@@ -16,6 +16,7 @@ def get_data_source():
 def store_data_DB(df):
 	# make db connetion
 	print ('connect to DB')
+	
 	# conn = psycopg2.connect(database = "projetofinal", user = "postgres", password = "admin", host = "localhost", port = "5432")
 	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = "5432")
 	cursor = connection.cursor()
@@ -38,13 +39,46 @@ def store_data_DB(df):
 	except Exception as e:
 		print (e)
 		print ('insert failed')
+	cursor.close()
+	connection.close()
 
 
 def create_table(db_url):
 	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = "5432")
 	cursor = connection.cursor() 
-	pass 
+	sql_create_table ="""
+	CREATE TABLE kc_house_data 
+	(id serial PRIMARY KEY,
+	 date TIMESTAMP, 
+	 price VARCHAR (50),
+	 bedrooms INTEGER, 
+	 bathrooms VARCHAR,
+	 sqft_living  VARCHAR,
+	 sqft_lot  VARCHAR,
+	 floors  VARCHAR,
+	 waterfront INTEGER,
+	 view  INTEGER,
+	 condition INTEGER, 
+	 sqft_above VARCHAR,
+	 sqft_basement VARCHAR,
+	 yr_built VARCHAR,
+	 yr_renovated VARCHAR,
+	 zipcode VARCHAR,
+	 lat VARCHAR,
+	 long VARCHAR,
+	 sqft_living15 VARCHAR,
+	 sqft_lot15 VARCHAR);
 
+	"""
+	try:
+		cursor.execute(sql_create_table)
+		print ('create table OK')
+	except Exception as e:
+		print (e)
+		print ('fail to create table')
+
+	cursor.close()
+	connection.close()
 
 
 
