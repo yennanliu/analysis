@@ -1,9 +1,5 @@
 # python 3  
 
-my_array = [{'id': 879, 'data': {'price': 18.90, 'date': '1980-01-01', 'zipcode': 'SE65L8'}},
-            {'id': 981, 'data': {'price': 19.00, 'date': '1981-01-01', 'zipcode': 'SE65L9'}}, 
-            {'id': 752, 'data': {'price': 20.00, 'date': '1985-01-01', 'zipcode': 'SE65L10'}}]
-
 
 
 # time complexity :  O(N)
@@ -22,6 +18,13 @@ def funcV1(array):
 			pass
 	return  output
     
+
+
+
+my_array = [{'id': 879, 'data': {'price': 18.90, 'date': '1980-01-01', 'zipcode': 'SE65L8'}},
+            {'id': 981, 'data': {'price': 19.00, 'date': '1981-01-01', 'zipcode': 'SE65L9'}}, 
+            {'id': 752, 'data': {'price': 20.00, 'date': '1985-01-01', 'zipcode': 'SE65L10'}}]
+
 
 
 
