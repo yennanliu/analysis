@@ -83,7 +83,9 @@ def linear_model_evaluate(y_test_predict,y_test):
     plt.legend(['predict', 'true'])
     print (' --- hypothesis test --- ')
 
-
+def statistics_linear_model():
+	# https://machinelearningmastery.com/parametric-statistical-significance-tests-in-python/
+	pass 
 
 
 
