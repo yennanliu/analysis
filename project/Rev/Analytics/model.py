@@ -30,6 +30,9 @@ def get_linearmodel_col(df):
 def data_clean(df):
     pass
 
+def feature_extrace(df):
+	pass 
+
 def get_train_test_set(df):
     X = df[['sqft_living',
          'sqft_lot',
@@ -52,6 +55,24 @@ def linear_model(X_train,y_train,X_test,y_test,model):
     print ('--- r2_score --- ')
     print (r2_score(y_test_predict, y_test))
     return y_test_predict 
+
+
+def linear_model_evaluate(y_test_predict,y_test):
+    from matplotlib import pyplot as plt
+    import seaborn as sns
+    #%matplotlib inline
+    print (' --- scatter plot --- ')
+    x = range(0,int(max(y_predict)))
+    y = x 
+    plt.scatter(np.array(y_test),y_test_predict)
+    plt.plot(x,y)
+    print (' --- histagram plot --- ')
+    plt.hist(y_test_predict, alpha = .5)
+    plt.hist(np.array(y_test) , alpha = .5)
+    plt.legend(['predict', 'true'])
+
+
+
 
 # ---------------------------------
 if __name__ == '__main__':
