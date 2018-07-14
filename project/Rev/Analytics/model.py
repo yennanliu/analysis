@@ -53,13 +53,24 @@ def linear_model(X_train,y_train,X_test,y_test,model):
     print ('--- mean_squared_error --- ')
     print (mean_squared_error(y_test_predict, y_test))
     print ('--- r2_score --- ')
+    """
+    Best possible score is 1.0 
+    and it can be negative (because the model can be arbitrarily worse). 
+    A constant model that always predicts the expected value of y, 
+    disregarding the input features, would get a R^2 score of 0.0.
+    """
     print (r2_score(y_test_predict, y_test))
     return y_test_predict 
 
 
+
+
+
 def linear_model_evaluate(y_test_predict,y_test):
+    # https://www.scipy-lectures.org/packages/statistics/index.html
     from matplotlib import pyplot as plt
     import seaborn as sns
+    from scipy import stats
     #%matplotlib inline
     print (' --- scatter plot --- ')
     x = range(0,int(max(y_predict)))
@@ -70,6 +81,8 @@ def linear_model_evaluate(y_test_predict,y_test):
     plt.hist(y_test_predict, alpha = .5)
     plt.hist(np.array(y_test) , alpha = .5)
     plt.legend(['predict', 'true'])
+    print (' --- hypothesis test --- ')
+
 
 
 
