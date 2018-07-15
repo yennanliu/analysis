@@ -5,7 +5,8 @@ import psycopg2
 import sys
 
 
-
+# help function 
+# ---------------------------------------
 def get_data_source():
 	# load the data source
 	## data has multiple Ids ### 
@@ -93,6 +94,16 @@ def create_table(database,user,password,host,port):
 	cursor.close()
 	connection.close()
 
+# ---------------------------------------
+
+
+if __name__ == '__main__':
+	# get data 
+	df = get_data_source()
+	# create table before dump data 
+	create_table(database,user,password,host,port)
+	# dump data into DB 
+	store_data_DB(df,database,user,password,host,port)
 
 
 
