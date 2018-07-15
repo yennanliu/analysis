@@ -63,7 +63,7 @@ def create_table(database,user,password,host,port):
 	 sqft_living  INTEGER,
 	 sqft_lot  INTEGER,
 	 floors  DECIMAL(3,2),
-	 waterfront BOOLEAN,
+	 waterfront INTEGER,
 	 view  INTEGER,
 	 condition INTEGER, 
 	 sqft_above INTEGER,
