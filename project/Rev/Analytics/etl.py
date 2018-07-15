@@ -29,7 +29,7 @@ def store_data_DB(df,database,user,password,host,port):
 	print ('start insert data to DB')
 	count = 0 
 	try:
-		for i,row in df.head(1000).iterrows():
+		for i,row in df.iterrows():
 			# print(mems['change_id'], mems['member_id'], mems['phone_number'])
 			cursor.execute(
 			"""INSERT into public.kc_house_data VALUES (%s, %s, %s, %s ,%s,%s, %s, %s ,%s,%s, %s, %s, %s ,%s,%s,%s, %s, %s ,%s,%s)""",
