@@ -13,12 +13,16 @@ def get_data_source():
 	print (df.head(3))
 	return df 
 
-def store_data_DB(df):
+def connect(user, password, db, host, port):
+    return "host='" + host + "' dbname='" + db + "' user='" + user + "' password='" + password + "' port='" + port + "'"
+
+
+def store_data_DB(df,database,user,password,host,port):
 	# make db connetion
 	print ('connect to DB')
 	
 	# conn = psycopg2.connect(database = "projetofinal", user = "postgres", password = "admin", host = "localhost", port = "5432")
-	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = "5432")
+	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = port)
 	cursor = connection.cursor()
 	print ('start insert data to DB')
 	count = 0 
@@ -43,11 +47,13 @@ def store_data_DB(df):
 	connection.close()
 
 
-def create_table(db_url):
-	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = "5432")
+
+
+def create_table(database,user,password,host,port):
+	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = port)
 	cursor = connection.cursor() 
 	sql_create_table ="""
-	CREATE TABLE kc_house_data 
+	CREATE TABLE public.kc_house_data 
 	(id serial PRIMARY KEY,
 	 date TIMESTAMP, 
 	 price VARCHAR (50),
@@ -72,6 +78,7 @@ def create_table(db_url):
 	"""
 	try:
 		cursor.execute(sql_create_table)
+		cursor.execute('COMMIT;')
 		print ('create table OK')
 	except Exception as e:
 		print (e)
@@ -79,7 +86,6 @@ def create_table(db_url):
 
 	cursor.close()
 	connection.close()
-
 
 
 
