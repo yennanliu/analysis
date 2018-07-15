@@ -39,12 +39,14 @@ WITH lastest_exchange_ts AS
            amount AS amount_gbp
    FROM transactions
    WHERE currency = 'GBP' )
-SELECT *
-FROM trans_GBP
-UNION ALL
-SELECT *
-FROM trans_in_GBP
-ORDER BY user_id
+
+  
+  SELECT *
+  FROM trans_GBP
+  UNION ALL
+  SELECT *
+  FROM trans_in_GBP
+  ORDER BY user_id
 
 
 
