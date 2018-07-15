@@ -6,6 +6,15 @@ import pandas as pd
 import numpy as np
 
 
+def load_data():
+	df = pd.read_csv('kc_house_data.csv')
+	return df 
+
+
+def get_avg_price_bedroom_bathroom(df):
+	df['get_avg_price_bedroom']  = df['price']/df['bedrooms']
+	df['get_avg_price_bedroom']  = df['price']/df['bathrooms']
+	return df 
 
 def get_outlier(df):
 	"""
