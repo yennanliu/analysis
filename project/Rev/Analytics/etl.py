@@ -58,29 +58,29 @@ def create_table(database,user,password,host,port):
 	DROP TABLE IF EXISTS public.kc_house_data; 
 	"""
 	sql_create_table ="""
-	CREATE TABLE public.kc_house_data 
-	(id serial,
-	 date TIMESTAMP without time zone, 
-	 price numeric,
-	 bedrooms INTEGER, 
-	 bathrooms DECIMAL(3,2),
-	 sqft_living  INTEGER,
-	 sqft_lot  INTEGER,
-	 floors  DECIMAL(3,2,
-	 waterfront BOOLEAN,
-	 view  INTEGER,
-	 condition INTEGER, 
-	 sqft_above INTEGER,
-	 sqft_basement INTEGER,
-	 yr_built INTEGER,
-	 yr_renovated INTEGER,
-	 zipcode VARCHAR,
-	 lat DECIMAL(3,2),
-	 long DECIMAL(3,2),
-	 sqft_living15 INTEGER,
-	 sqft_lot15 INTEGER);
+						CREATE TABLE public.kc_house_data 
+						(id serial,
+						 date TIMESTAMP without time zone, 
+						 price numeric,
+						 bedrooms INTEGER, 
+						 bathrooms DECIMAL(3,2),
+						 sqft_living  INTEGER,
+						 sqft_lot  INTEGER,
+						 floors  DECIMAL(3,2),
+						 waterfront BOOLEAN,
+						 view  INTEGER,
+						 condition INTEGER, 
+						 sqft_above INTEGER,
+						 sqft_basement INTEGER,
+						 yr_built INTEGER,
+						 yr_renovated INTEGER,
+						 zipcode VARCHAR,
+						 lat DECIMAL(3,2),
+						 long DECIMAL(3,2),
+						 sqft_living15 INTEGER,
+						 sqft_lot15 INTEGER );
 
-	"""
+						"""
 	sql_alter_dtype = """
 	ALTER TABLE public.kc_house_data  ALTER COLUMN id TYPE BIGINT;
 	"""
