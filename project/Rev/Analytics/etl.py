@@ -8,6 +8,7 @@ import sys
 
 def get_data_source():
 	# load the data source
+	## data has multiple Ids ### 
 	print ('load data source ') 
 	df=pd.read_csv('kc_house_data.csv')
 	print (df.head(3))
@@ -30,7 +31,7 @@ def store_data_DB(df,database,user,password,host,port):
 		for row in df.itterows():
 			# print(mems['change_id'], mems['member_id'], mems['phone_number'])
 			cursor.execute(
-			"""INSERT into kc_house_data VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+			"""INSERT into public.kc_house_data VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
 			(row['id'], row['date'], row['price'], row['bedrooms'],
 			row['bathrooms'],row['sqft_living'], row['sqft_lot'], row['floors'], 
 			row['waterfront'],row['view'], row['condition'], row['grade'],
@@ -52,6 +53,9 @@ def store_data_DB(df,database,user,password,host,port):
 def create_table(database,user,password,host,port):
 	connection = psycopg2.connect(database = database, user = user, password = password, host = host, port = port)
 	cursor = connection.cursor() 
+	sql_drop_table="""
+	DROP TABLE IF EXISTS public.kc_house_data; 
+	"""
 	sql_create_table ="""
 	CREATE TABLE public.kc_house_data 
 	(id serial PRIMARY KEY,
@@ -77,6 +81,8 @@ def create_table(database,user,password,host,port):
 
 	"""
 	try:
+		cursor.execute(sql_drop_table)
+		cursor.execute('COMMIT;')
 		cursor.execute(sql_create_table)
 		cursor.execute('COMMIT;')
 		print ('create table OK')
