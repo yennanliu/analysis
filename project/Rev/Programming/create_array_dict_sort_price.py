@@ -2,7 +2,14 @@
 
 
 
-# time complexity :  O(N)
+# time complexity :  O(nlogn)
+def funcV2(array):
+	return sorted(array, key=lambda k: k['data']['price']) 
+
+
+
+# time complexity :  O(n)
+"""
 def funcV1(array):
 	order_price = []
 	output = []
@@ -17,23 +24,11 @@ def funcV1(array):
 		else:
 			pass
 	return  output
-    
-
-
-
-my_array = [{'id': 879, 'data': {'price': 18.90, 'date': '1980-01-01', 'zipcode': 'SE65L8'}},
-            {'id': 981, 'data': {'price': 19.00, 'date': '1981-01-01', 'zipcode': 'SE65L9'}}, 
-            {'id': 752, 'data': {'price': 20.00, 'date': '1985-01-01', 'zipcode': 'SE65L10'}}]
-
-
-
-
-
-
-
-
-
-
+"""
+		 
+my_array = [{'id': 1, 'data': {'price': 100.00, 'date': '1980-01-01', 'zipcode': 'SE65L8'}},
+            {'id': 2, 'data': {'price': 40.00, 'date': '1981-01-01', 'zipcode': 'SE65L9'}}, 
+            {'id': 3, 'data': {'price': 130.00, 'date': '1985-01-01', 'zipcode': 'SE65L10'}}]
 
 
 
