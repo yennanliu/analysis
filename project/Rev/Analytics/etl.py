@@ -59,32 +59,37 @@ def create_table(database,user,password,host,port):
 	"""
 	sql_create_table ="""
 	CREATE TABLE public.kc_house_data 
-	(id serial PRIMARY KEY,
-	 date TIMESTAMP, 
-	 price VARCHAR (50),
+	(id serial,
+	 date TIMESTAMP without time zone, 
+	 price numeric,
 	 bedrooms INTEGER, 
-	 bathrooms VARCHAR,
-	 sqft_living  VARCHAR,
-	 sqft_lot  VARCHAR,
-	 floors  VARCHAR,
-	 waterfront INTEGER,
+	 bathrooms DECIMAL(3,2),
+	 sqft_living  INTEGER,
+	 sqft_lot  INTEGER,
+	 floors  DECIMAL(3,2,
+	 waterfront BOOLEAN,
 	 view  INTEGER,
 	 condition INTEGER, 
-	 sqft_above VARCHAR,
-	 sqft_basement VARCHAR,
-	 yr_built VARCHAR,
-	 yr_renovated VARCHAR,
+	 sqft_above INTEGER,
+	 sqft_basement INTEGER,
+	 yr_built INTEGER,
+	 yr_renovated INTEGER,
 	 zipcode VARCHAR,
-	 lat VARCHAR,
-	 long VARCHAR,
-	 sqft_living15 VARCHAR,
-	 sqft_lot15 VARCHAR);
+	 lat DECIMAL(3,2),
+	 long DECIMAL(3,2),
+	 sqft_living15 INTEGER,
+	 sqft_lot15 INTEGER);
 
+	"""
+	sql_alter_dtype = """
+	ALTER TABLE public.kc_house_data  ALTER COLUMN id TYPE BIGINT;
 	"""
 	try:
 		cursor.execute(sql_drop_table)
 		cursor.execute('COMMIT;')
 		cursor.execute(sql_create_table)
+		cursor.execute('COMMIT;')
+		cursor.execute(sql_alter_dtype)
 		cursor.execute('COMMIT;')
 		print ('create table OK')
 	except Exception as e:
