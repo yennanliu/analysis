@@ -18,7 +18,7 @@ def get_data_source():
 def connect(user, password, db, host, port):
     return "host='" + host + "' dbname='" + db + "' user='" + user + "' password='" + password + "' port='" + port + "'"
 
-
+    
 def store_data_DB(df,database,user,password,host,port):
 	# make db connetion
 	print ('connect to DB')
@@ -29,25 +29,23 @@ def store_data_DB(df,database,user,password,host,port):
 	print ('start insert data to DB')
 	count = 0 
 	try:
-		for row in df.itterows():
+		for i,row in df.head(1000).iterrows():
+            
 			# print(mems['change_id'], mems['member_id'], mems['phone_number'])
 			cursor.execute(
-			"""INSERT into public.kc_house_data VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-			(row['id'], row['date'], row['price'], row['bedrooms'],
-			row['bathrooms'],row['sqft_living'], row['sqft_lot'], row['floors'], 
-			row['waterfront'],row['view'], row['condition'], row['grade'],
-			row['sqft_above'], row['sqft_basement'], row['yr_built'], row['yr_renovated'],
-			row['zipcode'], row['lat'], row['long'], row['sqft_living15'],
-			row['sqft_lot15']))
+			"""INSERT into public.kc_house_data VALUES (%s, %s, %s, %s ,%s,%s, %s, %s ,%s,%s, %s, %s, %s ,%s,%s,%s, %s, %s ,%s,%s)""",
+			( row['id'], row['date'], row['price'],row['bedrooms'], row['bathrooms'],
+            row['sqft_living'], row['sqft_lot'],row['floors'], row['waterfront'],
+            row['view'], row['condition'], row['sqft_above'],row['sqft_basement'], row['yr_built'],
+            row['yr_renovated'],row['zipcode'], row['lat'], row['long'],row['sqft_living15'], row['sqft_lot15']) 
+            )
 			count += 1
 			cursor.execute('COMMIT;')
-			print ('insert {} rows into DB !'.format(str(count)))
 	except Exception as e:
 		print (e)
 		print ('insert failed')
 	cursor.close()
 	connection.close()
-
 
 
 
