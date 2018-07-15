@@ -30,15 +30,13 @@ def store_data_DB(df,database,user,password,host,port):
 	count = 0 
 	try:
 		for i,row in df.head(1000).iterrows():
-            
 			# print(mems['change_id'], mems['member_id'], mems['phone_number'])
 			cursor.execute(
 			"""INSERT into public.kc_house_data VALUES (%s, %s, %s, %s ,%s,%s, %s, %s ,%s,%s, %s, %s, %s ,%s,%s,%s, %s, %s ,%s,%s)""",
 			( row['id'], row['date'], row['price'],row['bedrooms'], row['bathrooms'],
-            row['sqft_living'], row['sqft_lot'],row['floors'], row['waterfront'],
-            row['view'], row['condition'], row['sqft_above'],row['sqft_basement'], row['yr_built'],
-            row['yr_renovated'],row['zipcode'], row['lat'], row['long'],row['sqft_living15'], row['sqft_lot15']) 
-            )
+			row['sqft_living'], row['sqft_lot'],row['floors'], row['waterfront'],
+			row['view'], row['condition'], row['sqft_above'],row['sqft_basement'], row['yr_built'],
+			row['yr_renovated'],row['zipcode'], row['lat'], row['long'],row['sqft_living15'], row['sqft_lot15']) )
 			count += 1
 			cursor.execute('COMMIT;')
 	except Exception as e:
