@@ -40,13 +40,13 @@ WITH lastest_exchange_ts AS
    FROM transactions
    WHERE currency = 'GBP' )
 
-  
+
   SELECT *
   FROM trans_GBP
   UNION ALL
   SELECT *
   FROM trans_in_GBP
-  ORDER BY user_id
+  ORDER BY user_id, ts 
 
 
 

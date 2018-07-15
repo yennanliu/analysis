@@ -44,7 +44,7 @@ WITH lastest_exchange_ts AS
   UNION ALL
   SELECT *
   FROM trans_in_GBP
-  ORDER BY user_id
+  ORDER BY user_id, ts 
 
 
 psql> 
