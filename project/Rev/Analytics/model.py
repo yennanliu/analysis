@@ -85,6 +85,7 @@ def linear_model_evaluate(y_test_predict,y_test):
 
 def statistics_linear_model():
 	# https://machinelearningmastery.com/parametric-statistical-significance-tests-in-python/
+	# https://www.ritchieng.com/machine-learning-evaluate-linear-regression-model/
 	pass 
 
 
