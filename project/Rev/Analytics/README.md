@@ -1,6 +1,19 @@
 # Analytics 
 
 
+## File Structure 
+
+```bash
+
+├── [1.4M]  EDA_r.ipynb : visualization R notebook (visualise something cool, tell a story!)
+├── [1.3k]  README.md
+├── [1.1k]  analysis.py : python script get outlier and average price per bedroom and bathroom
+├── [3.1k]  etl.py  : ETL script to load and store the data in a Postgre
+├── [2.5M]  kc_house_data.csv : house dataset
+├── [ 14k]  statistical_model_nb.ipynb : ipython notebook bulid a statistical model
+ 
+```
+
 ## Demo 
 ```bash
 # demo of etl.py  
