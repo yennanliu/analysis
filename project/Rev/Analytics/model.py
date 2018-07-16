@@ -31,8 +31,13 @@ def get_linearmodel_col(df):
     return df[cols]
 
 def data_clean(df):
-    pass
+    df_ = df[(df['price'] < df['price'].quantile(0.97))&
+     (df['price'] > df['price'].quantile(0.03))]
+    print (' data count (before clean) : ', len(df))
+    print (' data count (before clean) : ', len(df_))
+    return df_ 
 
+    
 def feature_extrace(df):
 	pass 
 
