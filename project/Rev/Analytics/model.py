@@ -9,6 +9,9 @@ from sklearn.feature_selection import RFE, f_regression
 from sklearn.linear_model import (LinearRegression, Ridge, Lasso, RandomizedLasso)
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error, r2_score
+import statsmodels.formula.api as smf
+import statsmodels.api as sm
+
 
 
 # help function 
@@ -49,6 +52,12 @@ def get_train_test_set(df):
 
 def linear_model(X_train,y_train,X_test,y_test,model):
     model.fit(X_train,y_train)
+    print ('---  train score ---')
+    print (model.score(X_train,y_train ))
+    print ('--- intercept_  --- ')
+    print(model.intercept_)
+    print ('--- coef_ --- ')
+    print(model.coef_)
     y_test_predict = model.predict(X_test)
     print ('--- mean_squared_error --- ')
     print (mean_squared_error(y_test_predict, y_test))
@@ -83,10 +92,12 @@ def linear_model_evaluate(y_test_predict,y_test):
     plt.legend(['predict', 'true'])
     print (' --- hypothesis test --- ')
 
-def statistics_linear_model():
+def statistics_linear_model(X,y):
 	# https://machinelearningmastery.com/parametric-statistical-significance-tests-in-python/
 	# https://www.ritchieng.com/machine-learning-evaluate-linear-regression-model/
-	pass 
+    results = sm.OLS(y, X).fit()
+    print(results.summary())
+    
 
 
 
