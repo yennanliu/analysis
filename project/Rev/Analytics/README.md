@@ -14,6 +14,10 @@
  
 ```
 
+* [EDA_r](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/project/Rev/Analytics/EDA_r.ipynb) - visualization R notebook
+
+* [statistical_model_nb](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/project/Rev/Analytics/statistical_model_nb.ipynb) - statistical_model python notebook 
+
 ## Demo 
 ```bash
 # demo of etl.py  
