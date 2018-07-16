@@ -37,7 +37,7 @@ def data_clean(df):
     print (' data count (before clean) : ', len(df_))
     return df_ 
 
-    
+
 def feature_extrace(df):
 	pass 
 
@@ -117,18 +117,25 @@ def statistics_linear_model(X_train,y_train,X_test,y_test):
 
 # ---------------------------------
 if __name__ == '__main__':
-	df = load_data()
-	df_ = get_linearmodel_col(df)
-	X_train,y_train, X_test, y_test = get_train_test_set(df_)
-	model_ = [ LinearRegression(),Ridge(), Lasso()]
-	for model in model_:
-		print ('')
-		print ('* model : ', model)
-		print ('')
-		y_predict = linear_model( X_train,y_train, X_test, y_test, model)
+    # ML model V1 
+    """
+    df = load_data()
+    df_ = get_linearmodel_col(df)
+    X_train,y_train, X_test, y_test = get_train_test_set(df_)
+    model_ = [ LinearRegression(),Ridge(), Lasso()]
+    for model in model_:
+        print ('')
+        print ('* model : ', model)
+        print ('')
+        y_predict = linear_model( X_train,y_train, X_test, y_test, model)
+    """
 
-
-
+    # stats model V1 
+    df = load_data()
+    df_ = data_clean(df)
+    df_ = get_linearmodel_col(df_)
+    X_train,y_train, X_test, y_test = get_train_test_set(df_)
+    statistics_linear_model(X_train,y_train, X_test, y_test)
 
 
 
