@@ -13,8 +13,10 @@ def load_data():
 
 def get_avg_price_bedroom_bathroom(df):
 	df['get_avg_price_bedroom']  = df['price']/df['bedrooms']
-	df['get_avg_price_bedroom']  = df['price']/df['bathrooms']
-	return df 
+	df['get_avg_price_bathrooms']  = df['price']/df['bathrooms']
+	print ('avg price bedroom & bathrooms : ')
+	print (df.head(10)[['price','get_avg_price_bedroom', 'get_avg_price_bathrooms']])
+	#return df 
 
 def get_outlier(df):
 	"""
@@ -35,7 +37,12 @@ def get_outlier(df):
 	return outlier_list
 
 
-
+if __name__ == '__main__':
+	df = load_data()
+	get_avg_price_bedroom_bathroom(df)
+	outlier_list = get_outlier(df)
+	print ('outlier_list : ')
+	print (outlier_list)
 
 
 
