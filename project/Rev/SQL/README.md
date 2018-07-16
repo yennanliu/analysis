@@ -5,6 +5,10 @@
 - http://sqlfiddle.com/#!17/541e0/1
 
 
+## File 
+- GBP_spend_user_latest_exchange_rate.sql : transaction in GBP with largest timestamp  
+- GBP_spend_user.sql : transaction in GBP with latest exchange rate smaller/equal than  transaction timestamp  
+
 ## Demo 
 ```bash 
 psql> 
