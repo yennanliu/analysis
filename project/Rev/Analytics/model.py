@@ -92,12 +92,21 @@ def linear_model_evaluate(y_test_predict,y_test):
     plt.legend(['predict', 'true'])
     print (' --- hypothesis test --- ')
 
-def statistics_linear_model(X,y):
-	# https://machinelearningmastery.com/parametric-statistical-significance-tests-in-python/
-	# https://www.ritchieng.com/machine-learning-evaluate-linear-regression-model/
-    results = sm.OLS(y, X).fit()
+def statistics_linear_model(X_train,y_train,X_test,y_test):
+    # https://machinelearningmastery.com/parametric-statistical-significance-tests-in-python/
+    # https://www.ritchieng.com/machine-learning-evaluate-linear-regression-model/
+    """
+    *** Model evaluate 
+     Mean Absolute Error (MAE)
+     Mean Squared Error (MSE) 
+     Root Mean Squared Error (RMSE)
+    """
+    results = sm.OLS(y_train, X_train).fit()
     print(results.summary())
-    
+    y_test_pred = results.predict(X_test)
+    print (np.sqrt(mean_squared_error(y_test, y_test_pred)))
+    print (r2_score(y_test_pred, y_test))
+
 
 
 
