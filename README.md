@@ -1,7 +1,7 @@
 ## analysis
 Collections of various analysis projects <br>
 
-
+<img src ="https://github.com/yennanliu/analysis/blob/master/doc/wire.jpg" width="800" height="400">
 
 
 
