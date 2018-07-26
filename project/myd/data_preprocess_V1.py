@@ -6,6 +6,7 @@ import pandas as pd, numpy as np
 
 # -------------------------------
 
+
 # parameter 
 columns =['heart_rate', 'wrist_accelerometer_x',
 'wrist_accelerometer_y', 'wrist_accelerometer_z', 'wrist_gyroscope_x',
@@ -19,8 +20,11 @@ columns =['heart_rate', 'wrist_accelerometer_x',
 'ankle_magnetometer_y', 'ankle_magnetometer_z',
 'wrist_accelerometer']
 
+
+
 # -------------------------------
 # help func
+
 
 # op 
 
@@ -39,12 +43,16 @@ def get_non_null_data(df):
 
 # feature engineering 
 
+
+
 def get_wrist_accelerometer(x,y,z):
     #print ( np.sqrt(x**2 + y**2 + z**2))
     return np.sqrt(x**2 + y**2 + z**2)
 
+
 def get_wrist_gyroscope():
     pass
+
 
 def get_wrist_magnetometer():
     pass
@@ -64,9 +72,7 @@ def get_avg_values_(df):
 		print ('col : ' , col)
 		df_avg_ = df_avg[col].reset_index()
 		df_avg_.columns = ['activity_id','avg_{}'.format(col)]
-		# 'ascending_stairs', 'cycling',...
 		# merge back 
-		# df_avg_temp = df_avg_[act]
 		df = pd.merge(df,df_avg_,on = 'activity_id')
 	return df
 
@@ -80,9 +86,7 @@ def get_std_values_(df):
 		print ('col : ' , col)
 		df_std_ = df_std[col].reset_index()
 		df_std_.columns = ['activity_id','std_{}'.format(col)]
-		# 'ascending_stairs', 'cycling',...
 		# merge back 
-		# df_avg_temp = df_avg_[act]
 		df = pd.merge(df,df_std_,on = 'activity_id')
 	return df
 
@@ -96,9 +100,7 @@ def get_median_values_(df):
 		print ('col : ' , col)
 		df_median_ = df_median[col].reset_index()
 		df_median_.columns = ['activity_id','median_{}'.format(col)]
-		# 'ascending_stairs', 'cycling',...
 		# merge back 
-		# df_avg_temp = df_avg_[act]
 		df = pd.merge(df,df_median_,on = 'activity_id')
 	return df
 
@@ -116,10 +118,10 @@ def main():
 	# feature extract 
 	# get wrist_accelerometer in 3-D
 	df['wrist_accelerometer'] = df.apply(lambda row : pd.Series(get_wrist_accelerometer(
-										row['wrist_accelerometer_x'],
-										row['wrist_accelerometer_y'],
-										row['wrist_accelerometer_z']))
-										,axis=1)
+	row['wrist_accelerometer_x'],
+	row['wrist_accelerometer_y'],
+	row['wrist_accelerometer_z']))
+	,axis=1)
 	print (df.head())
 	return df 
 
