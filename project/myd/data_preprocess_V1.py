@@ -8,7 +8,8 @@ import pandas as pd, numpy as np
 
 
 # parameter 
-columns =['heart_rate', 'wrist_accelerometer_x',
+
+columns=['heart_rate', 'wrist_accelerometer_x',
 'wrist_accelerometer_y', 'wrist_accelerometer_z', 'wrist_gyroscope_x',
 'wrist_gyroscope_y', 'wrist_gyroscope_z', 'wrist_magnetometer_x',
 'wrist_magnetometer_y', 'wrist_magnetometer_z', 'chest_accelerometer_x',
@@ -17,8 +18,7 @@ columns =['heart_rate', 'wrist_accelerometer_x',
 'chest_magnetometer_y', 'chest_magnetometer_z', 'ankle_accelerometer_x',
 'ankle_accelerometer_y', 'ankle_accelerometer_z', 'ankle_gyroscope_x',
 'ankle_gyroscope_y', 'ankle_gyroscope_z', 'ankle_magnetometer_x',
-'ankle_magnetometer_y', 'ankle_magnetometer_z',
-'wrist_accelerometer']
+'ankle_magnetometer_y', 'ankle_magnetometer_z']
 
 
 
