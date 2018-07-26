@@ -58,16 +58,10 @@ def get_wrist_magnetometer():
     pass
 
 
-def get_avg_wrist_accelerometer_x(df):
-	avg_wrist_accelerometer_x = df['avg_wrist_accelerometer_x'].mean()
-	return avg_wrist_accelerometer_x
-
-
-
 def get_avg_values_(df):
 	df_avg = df.groupby('activity_id').mean()
 	# neglect timestamp 
-	for col in df_avg.columns[1:]:
+	for col in columns:
 		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
 		print ('col : ' , col)
 		df_avg_ = df_avg[col].reset_index()
@@ -81,7 +75,7 @@ def get_avg_values_(df):
 def get_std_values_(df):
 	df_std = df.groupby('activity_id').std()
 	# neglect timestamp 
-	for col in df_std.columns[1:]:
+	for col in columns:
 		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
 		print ('col : ' , col)
 		df_std_ = df_std[col].reset_index()
@@ -95,7 +89,7 @@ def get_std_values_(df):
 def get_median_values_(df):
 	df_median = df.groupby('activity_id').median()
 	# neglect timestamp 
-	for col in df_median.columns[1:]:
+	for col in columns:
 		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
 		print ('col : ' , col)
 		df_median_ = df_median[col].reset_index()
@@ -103,6 +97,35 @@ def get_median_values_(df):
 		# merge back 
 		df = pd.merge(df,df_median_,on = 'activity_id')
 	return df
+
+
+def get_max_values_(df):
+	df_max = df.groupby('activity_id').max()
+	# neglect timestamp 
+	for col in columns:
+		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
+		print ('col : ' , col)
+		df_max_ = df_max[col].reset_index()
+		df_max_.columns = ['activity_id','max_{}'.format(col)]
+		# merge back 
+		df = pd.merge(df,df_max_,on = 'activity_id')
+	return df
+
+
+
+def get_min_values_(df):
+	df_min = df.groupby('activity_id').min()
+	# neglect timestamp 
+	for col in columns:
+		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
+		print ('col : ' , col)
+		df_min_ = df_min[col].reset_index()
+		df_min_.columns = ['activity_id','min_{}'.format(col)]
+		# merge back 
+		df = pd.merge(df,df_min_,on = 'activity_id')
+	return df
+
+
 
 # -------------------------------
 
