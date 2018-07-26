@@ -55,22 +55,53 @@ def get_avg_wrist_accelerometer_x(df):
 	return avg_wrist_accelerometer_x
 
 
-def get_avg_values(df):
-	for col in columns:
+
+def get_avg_values_(df):
+	df_avg = df.groupby('activity_id').mean()
+	# neglect timestamp 
+	for col in df_avg.columns[1:]:
+		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
 		print ('col : ' , col)
-		temp_avg_value = df[col].mean()
-		df['avg_{}'.format(col)] = temp_avg_value
-	return df 
+		df_avg_ = df_avg[col].reset_index()
+		df_avg_.columns = ['activity_id','avg_{}'.format(col)]
+		# 'ascending_stairs', 'cycling',...
+		# merge back 
+		# df_avg_temp = df_avg_[act]
+		df = pd.merge(df,df_avg_,on = 'activity_id')
+	return df
 
 
-def get_median_values(df):
-	for col in columns:
+
+def get_std_values_(df):
+	df_std = df.groupby('activity_id').std()
+	# neglect timestamp 
+	for col in df_std.columns[1:]:
+		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
 		print ('col : ' , col)
-		temp_median_value = df[col].median()
-		df['median_{}'.format(col)] = temp_avg_value
-	return df 
+		df_std_ = df_std[col].reset_index()
+		df_std_.columns = ['activity_id','std_{}'.format(col)]
+		# 'ascending_stairs', 'cycling',...
+		# merge back 
+		# df_avg_temp = df_avg_[act]
+		df = pd.merge(df,df_std_,on = 'activity_id')
+	return df
 
-	
+
+
+def get_median_values_(df):
+	df_median = df.groupby('activity_id').median()
+	# neglect timestamp 
+	for col in df_median.columns[1:]:
+		# 'wrist_accelerometer_x','wrist_accelerometer_y',...
+		print ('col : ' , col)
+		df_median_ = df_median[col].reset_index()
+		df_median_.columns = ['activity_id','median_{}'.format(col)]
+		# 'ascending_stairs', 'cycling',...
+		# merge back 
+		# df_avg_temp = df_avg_[act]
+		df = pd.merge(df,df_median_,on = 'activity_id')
+	return df
+
 # -------------------------------
 
 
