@@ -9,6 +9,18 @@ import pandas as pd, numpy as np
 
 # op 
 
+def load_data():
+	df=pd.read_csv('imu_activity_recognition.csv')
+	print (df.head())
+	return df 
+
+	
+def get_non_null_data(df):
+	# neglect heart_rate column as there are too much nan there 
+	df_ = df[pd.notnull(df['wrist_accelerometer_y'])]
+	df_ = df_[pd.notnull(df_['chest_accelerometer_x'])]
+	df_ = df_[pd.notnull(df_['ankle_accelerometer_x'])]
+	return df_ 
 
 # feature engineering 
 
