@@ -45,17 +45,25 @@ def get_non_null_data(df):
 
 
 
-def get_wrist_accelerometer(x,y,z):
-    #print ( np.sqrt(x**2 + y**2 + z**2))
-    return np.sqrt(x**2 + y**2 + z**2)
+def get_x_y_z_sum_squre_aggregration(x,y,z):
+	#print ( np.sqrt(x**2 + y**2 + z**2))
+	return np.sqrt(x**2 + y**2 + z**2)
 
 
-def get_wrist_gyroscope():
-    pass
+
+def get_x_y_z_abs_sum_aggregration(x,y,z):
+	#print ( np.sqrt(x**2 + y**2 + z**2))
+	return (abs(x) + abs(y)+ abs(z))
 
 
-def get_wrist_magnetometer():
-    pass
+def get_direction_cosines(x,y,z):
+	# http://www.geom.uiuc.edu/docs/reference/CRC-formulas/node52.html
+	x_y_z_length =  np.sqrt(x**2 + y**2 + z**2)
+	cos_alpha = x/x_y_z_length
+	cos_beta = y/x_y_z_length
+	cos_gamma = z/x_y_z_length
+	return [cos_alpha, cos_beta,cos_gamma ]
+
 
 
 def get_avg_values_(df):
