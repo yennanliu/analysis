@@ -24,6 +24,7 @@ Collections of various analysis projects <br>
 * [AB TEST Part 1 ](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/AB_Testing_part1.ipynb) -  Hypothesis Test | P-value | T-test
 * [AB TEST Part 2 ](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/AB_Testing_part2.ipynb) -  Bootstrapping
 
+* [TIME SERIES Part 1 ](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/Time_Series_part1.ipynb) -  Stationary
 
 
 
