@@ -22,12 +22,12 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 # help func 
 
 def call_google_image_api(url):
-	response = client.annotate_image({
-	'image': {'source': {'image_uri': url}},
-	'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
-	print ('response : ', response)
+    response = client.annotate_image({
+    'image': {'source': {'image_uri': url}},
+    'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
+    print ('response : ', response)
     response_dict = MessageToDict(response)
-	return response_dict
+    return response_dict
 
 
 
