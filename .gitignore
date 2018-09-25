@@ -4,3 +4,4 @@
 *.Rhistory
 notebook_/*
 archive/z_demand_pre/notebook_/
+creds.json
