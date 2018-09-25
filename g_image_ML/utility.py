@@ -5,6 +5,7 @@
 # gcloud 
 from google.cloud import vision
 from google.oauth2 import service_account
+from google.protobuf.json_format import MessageToDict
 
 # OP 
 import pandas as pd 
@@ -25,7 +26,8 @@ def call_google_image_api(url):
 	'image': {'source': {'image_uri': url}},
 	'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
 	print ('response : ', response)
-	return response
+    response_dict = MessageToDict(response)
+	return response_dict
 
 
 
