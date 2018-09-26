@@ -6,3 +6,4 @@ notebook_/*
 archive/z_demand_pre/notebook_/
 creds.json
 *.ipynb_checkpoints
+.config.yml
