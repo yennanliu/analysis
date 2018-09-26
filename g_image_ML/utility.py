@@ -19,7 +19,7 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 
 
 #--------------------------------------------------
-# help func 
+# OP FUNC #1 
 
 
 """
@@ -32,8 +32,8 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 
 """
 
-
-
+ 
+# QUERY GOOGLE ML API 
 def call_google_image_api(url,type):
     response = client.annotate_image({
     'image': {'source': {'image_uri': url}},
@@ -120,3 +120,14 @@ def call_google_handwritten_api(uri):
 
 
 #--------------------------------------------------
+# OP FUNC #1 
+# EXTRACT FEATURE 
+
+def get_web_entity(web_property_response):
+  return [i for i in web_property_response['webDetection']['webEntities'] ]
+
+
+
+
+
+
