@@ -23,7 +23,7 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 # OP FUNC #0 
 # credentials
 
-def auto_gcloud_ml(credentials_json_url):
+def auth_gcloud_ml(credentials_json_url):
     credentials = service_account.Credentials.from_service_account_file(credentials_json_url)
     client = vision.ImageAnnotatorClient(credentials=credentials)
     return credentials, client 
