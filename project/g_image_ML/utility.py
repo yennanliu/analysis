@@ -1,7 +1,5 @@
 # python 3 
 
-
-
 # gcloud 
 from google.cloud import vision
 from google.oauth2 import service_account
@@ -10,6 +8,7 @@ from google.protobuf.json_format import MessageToDict
 # OP 
 import pandas as pd 
 import numpy as np 
+from tqdm import tqdm
 
 #--------------------------------------------------
 # config 
@@ -135,8 +134,14 @@ def call_google_handwritten_api(uri):
 # OP FUNC #2 
 # EXTRACT FEATURE 
 
+
 def get_web_entity(web_property_response):
-  return [i for i in web_property_response['webDetection']['webEntities'] ]
+  # in case some requesr got null response  
+  try:
+    return [i for i in web_property_response['webDetection']['webEntities'] ]
+  except:
+    return []
+
 
 
 def expand_webentity(df):
