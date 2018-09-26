@@ -18,9 +18,21 @@ credentials = service_account.Credentials.from_service_account_file('google_clou
 client = vision.ImageAnnotatorClient(credentials=credentials)
 
 
+
+#--------------------------------------------------
+# OP FUNC #0 
+# credentials
+
+def auto_gcloud_ml(credentials_json_url):
+    credentials = service_account.Credentials.from_service_account_file(credentials_json_url)
+    client = vision.ImageAnnotatorClient(credentials=credentials)
+    return credentials, client 
+
+
+
 #--------------------------------------------------
 # OP FUNC #1 
-
+# QUERY CLOUD API 
 
 """
 
@@ -120,11 +132,28 @@ def call_google_handwritten_api(uri):
 
 
 #--------------------------------------------------
-# OP FUNC #1 
+# OP FUNC #2 
 # EXTRACT FEATURE 
 
 def get_web_entity(web_property_response):
   return [i for i in web_property_response['webDetection']['webEntities'] ]
+
+
+def expane_webentity(df):
+    # convert web_entity to df
+    for i in range(len(df)):
+        url_ = df.iloc[i]['url']
+        df_web_entity = pd.DataFrame(df.iloc[0]['web_entity'])
+        df_web_entity['url'] = url_
+        # merge 
+        df_10k_random_merge = pd.merge(df, df_web_entity,  how='left', left_on=['url'], right_on=['url'])
+    print (df_10k_random_merge.head())
+    return df_10k_random_merge
+
+
+
+
+
 
 
 
