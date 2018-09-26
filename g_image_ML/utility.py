@@ -21,7 +21,30 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 #--------------------------------------------------
 # help func 
 
-def call_google_image_api(url):
+
+"""
+
+# https://cloud.google.com/vision/docs/other-features
+
+1) Image properties : vision.enums.Feature.Type.IMAGE_PROPERTIES
+2) Web entities : vision.enums.Feature.Type.WEB_DETECTION
+3) Safe search :  vision.enums.Feature.Type.SAFE_SEARCH_DETECTION
+
+"""
+
+
+
+def call_google_image_api(url,type):
+    response = client.annotate_image({
+    'image': {'source': {'image_uri': url}},
+    'features': [{'type': type}],})
+    print ('response : ', response)
+    response_dict = MessageToDict(response)
+    return response_dict
+
+
+
+def g_face_detection(url):
     response = client.annotate_image({
     'image': {'source': {'image_uri': url}},
     'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
@@ -30,6 +53,13 @@ def call_google_image_api(url):
     return response_dict
 
 
+def g_image_property(url):
+    response = client.annotate_image({
+    'image': {'source': {'image_uri': url}},
+    'features': [{'type': vision.enums.Feature.Type.IMAGE_PROPERTIES}],})
+    print ('response : ', response)
+    response_dict = MessageToDict(response)
+    return response_dict
 
 
 
