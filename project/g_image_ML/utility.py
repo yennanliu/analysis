@@ -139,17 +139,18 @@ def get_web_entity(web_property_response):
   return [i for i in web_property_response['webDetection']['webEntities'] ]
 
 
-def expane_webentity(df):
-    # convert web_entity to df
+def expand_webentity(df):
+    # convert web_entity to df 
+    list_ = []
     for i in range(len(df)):
-        url_ = df.iloc[i]['url']
-        df_web_entity = pd.DataFrame(df.iloc[0]['web_entity'])
-        df_web_entity['url'] = url_
-        # merge 
-        df_10k_random_merge = pd.merge(df, df_web_entity,  how='left', left_on=['url'], right_on=['url'])
-    print (df_10k_random_merge.head())
-    return df_10k_random_merge
-
+      url_ = df.iloc[i]['url']
+      df_web_entity = pd.DataFrame(df.iloc[i]['web_entity'])
+      df_web_entity['url'] = url_
+      # merge 
+      df_to_merge = pd.merge(df, df_web_entity,  how='left', left_on=['url'], right_on=['url'])
+      list_.append(df_to_merge)
+    frame = pd.concat(list_)
+    return frame
 
 
 
