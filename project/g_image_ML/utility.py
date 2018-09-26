@@ -140,17 +140,19 @@ def get_web_entity(web_property_response):
 
 
 def expand_webentity(df):
-    # convert web_entity to df 
+    # convert web_entity to df  and merge/expand to original df 
+    output = pd.DataFrame()
     list_ = []
     for i in range(len(df)):
       url_ = df.iloc[i]['url']
       df_web_entity = pd.DataFrame(df.iloc[i]['web_entity'])
       df_web_entity['url'] = url_
       # merge 
-      df_to_merge = pd.merge(df, df_web_entity,  how='left', left_on=['url'], right_on=['url'])
+      df_to_merge = pd.merge(df, df_web_entity,  how='inner', left_on=['url'], right_on=['url'])
       list_.append(df_to_merge)
-    frame = pd.concat(list_)
-    return frame
+    output = pd.concat(list_)
+    output = output.reset_index()
+    return output
 
 
 
