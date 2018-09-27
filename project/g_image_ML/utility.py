@@ -76,15 +76,6 @@ def g_image_property(url):
     return response_dict
 
 
-def g_label_detection(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.IMAGE_PROPERTIES}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
 def g_label_detection(uri):
     """  
     Detects labels in the file located in Google Cloud Storage or on the Web.
@@ -167,9 +158,18 @@ def call_google_handwritten_api(uri):
 
 
 def get_web_entity(web_property_response):
-  # in case some requesr got null response  
+  # in case some request got null response  
   try:
     return [i for i in web_property_response['webDetection']['webEntities'] ]
+  except:
+    return []
+
+
+
+def get_labelAnnotations(lebel_detection_response):
+  # in case some request got null response  
+  try:
+    return [i for i in lebel_detection_response['labelAnnotations']]
   except:
     return []
 
