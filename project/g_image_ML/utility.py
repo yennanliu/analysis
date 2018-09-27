@@ -100,20 +100,21 @@ def g_label_detection(uri):
 def call_google_handwritten_api(uri):
 
 	"""
+
 	# ref 
 	https://cloud.google.com/vision/docs/ocr
 	
 	# put ur image url above 
-	# e.g. https://s-i.huffpost.com/gen/2165258/images/n-NY-TIMES-ERROR-628x314.jpg
+	# e.g. https://s-i.huffpost.com/gen/2165258/images/n-NY-TIMES-ERROR-628x314.jpg	
 
-	"""
-
-    """Detects handwritten characters in the file located in Google Cloud
+    Detects handwritten characters in the file located in Google Cloud
     Storage.
 
     Args:
     uri: The path to the file in Google Cloud Storage (gs://...)
+
     """
+
     from google.cloud import vision_v1p3beta1 as vision
     credentials = service_account.Credentials.from_service_account_file('google_cloud_creds2.json')
     
