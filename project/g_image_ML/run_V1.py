@@ -25,7 +25,7 @@ def load_csv(csv_url):
 
 
 def main():
-	df_10k_random = pd.read_csv('random_10K_image_urls.csv')
+	df_10k_random = pd.read_csv('random_10K_image_urls_duplicate_variant_fixed.csv')
 	credentials, client = auth_gcloud_ml(credentials_json_url)
 	# query google vision api 
 	df_10k_random['image_property'] = df_10k_random['url'].apply(lambda x : g_image_property(x))
@@ -52,7 +52,7 @@ def main():
 	frame1 = frame1.reset_index()
 	print ('len of outcome df : ', len(frame) )
 	frame1.to_csv('gcloud_response_web_entity.csv')
-
+	
 	######## OUTPUT PART 2 ) convert lebel_detection  to df  ########
 	frame2 = pd.DataFrame()
 	list_ = []
