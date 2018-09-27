@@ -57,12 +57,12 @@ def main():
 	frame2 = pd.DataFrame()
 	list_ = []
 	for i in tqdm(range(len(df_10k_random))):
-	url_ = df_10k_random.iloc[i]['url']
-	df_lebel_detection = pd.DataFrame(df_10k_random.iloc[i]['lebel_detection'])
-	df_lebel_detection['url'] = url_
-	# merge 
-	df_10k_random_merge2 = pd.merge(df_10k_random, df_lebel_detection,  how='inner', left_on=['url'], right_on=['url'])
-	list_.append(df_10k_random_merge2)
+		url_ = df_10k_random.iloc[i]['url']
+		df_lebel_detection = pd.DataFrame(df_10k_random.iloc[i]['lebel_detection'])
+		df_lebel_detection['url'] = url_
+		# merge 
+		df_10k_random_merge2 = pd.merge(df_10k_random, df_lebel_detection,  how='inner', left_on=['url'], right_on=['url'])
+		list_.append(df_10k_random_merge2)
 	frame2 = pd.concat(list_)
 	frame2 = frame2.reset_index()
 	frame2.to_csv('gcloud_lebel_detection.csv')
