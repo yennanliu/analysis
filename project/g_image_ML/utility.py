@@ -76,6 +76,34 @@ def g_image_property(url):
     return response_dict
 
 
+def g_label_detection(url):
+    response = client.annotate_image({
+    'image': {'source': {'image_uri': url}},
+    'features': [{'type': vision.enums.Feature.Type.IMAGE_PROPERTIES}],})
+    print ('response : ', response)
+    response_dict = MessageToDict(response)
+    return response_dict
+
+
+def g_label_detection(uri):
+    """  
+    Detects labels in the file located in Google Cloud Storage or on the Web.
+    https://cloud.google.com/vision/docs/detecting-labels#vision-label-detection-gcs-python
+    """
+    #client = vision.ImageAnnotatorClient()
+    image = vision.types.Image()
+    image.source.image_uri = uri
+    response = client.label_detection(image=image)
+    print ('response : ', response)
+    response_dict = MessageToDict(response)
+    return response_dict
+    #labels = response.label_annotations
+    #print('Labels:')
+    #for label in labels:
+    #    print(label.description)
+
+
+
 
 
 def call_google_handwritten_api(uri):
@@ -177,14 +205,15 @@ def connect_to_snowflake(snowflake_credentials):
 
     """
     engine = create_engine(URL(
-    account = account,
-    region = region,
+    #account = account,
+    #region = region,
     user = user,
     password = password,
     database = database,
-    schema = schema,
+    #schema = schema,
     warehouse = warehouse,
-    role=role,))
+    #role=role,
+    ))
 
     connection = engine.connect()
 
@@ -194,7 +223,7 @@ def dump_df_to_snowflake(df,table,engine, connection):
     # need to modify later 
     try:
         df.to_sql(name=table,con=engine, if_exists='append')
-         print ('dump OK ')
+        print ('dump OK ')
     except exception as e:
         print (e)
         print ('dump failed')
