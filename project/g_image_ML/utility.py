@@ -9,8 +9,6 @@ from google.protobuf.json_format import MessageToDict
 import pandas as pd 
 import numpy as np 
 from tqdm import tqdm
-from snowflake.sqlalchemy import URL
-from sqlalchemy import create_engine
 
 
 #--------------------------------------------------
@@ -117,6 +115,13 @@ def get_labelAnnotations(lebel_detection_response):
     return []
 
 
+def get_color_hex(image_property_response):
+# in case some request got null response  
+    try:
+        return [ {'color' : i['color'], 'score':i['score'], 'pixelFraction':i['pixelFraction'] } for i in image_property_response['imagePropertiesAnnotation']['dominantColors']['colors' ]]
+    except:
+        return []
+
 
 def expand_webentity(df):
     # convert web_entity to df  and merge/expand to original df 
@@ -132,44 +137,6 @@ def expand_webentity(df):
     output = pd.concat(list_)
     output = output.reset_index()
     return output
-
-
-
-
-#--------------------------------------------------
-# OP FUNC #2 
-# INTERACT WITH SNOWFLAKE 
-
-
-def connect_to_snowflake(snowflake_credentials):
-    """
-    doc : 
-    https://docs.snowflake.net/manuals/user-guide/sqlalchemy.html#parameters-and-behavior
-
-    """
-    engine = create_engine(URL(
-    #account = account,
-    #region = region,
-    user = user,
-    password = password,
-    database = database,
-    #schema = schema,
-    warehouse = warehouse,
-    #role=role,
-    ))
-
-    connection = engine.connect()
-
-    return engine, connection
-
-def dump_df_to_snowflake(df,table,engine, connection):
-    # need to modify later 
-    try:
-        df.to_sql(name=table,con=engine, if_exists='append')
-        print ('dump OK ')
-    except exception as e:
-        print (e)
-        print ('dump failed')
 
 
 
