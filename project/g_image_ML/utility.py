@@ -14,8 +14,8 @@ from tqdm import tqdm
 #--------------------------------------------------
 # config 
 # save ur google cloud credentials below
-#credentials = service_account.Credentials.from_service_account_file('google_cloud_creds2.json')
-#client = vision.ImageAnnotatorClient(credentials=credentials)
+credentials = service_account.Credentials.from_service_account_file('/home/yennanliu/google_cloud_creds2.json')
+client = vision.ImageAnnotatorClient(credentials=credentials)
 
 
 
