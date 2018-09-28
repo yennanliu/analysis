@@ -26,6 +26,10 @@ from google.protobuf.json_format import MessageToDict
 import pandas as pd 
 import numpy as np 
 
+# UDF 
+from utility import * 
+
+
 #--------------------------------------------------
 # config 
 # save ur google cloud credentials below
