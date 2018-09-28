@@ -14,8 +14,6 @@ QUERY THE GCLOUD VISION API BUT WITH 1K variant  DATA
 
 ######################################################
 
-
-
 # gcloud 
 from google.cloud import vision
 from google.oauth2 import service_account
@@ -25,16 +23,18 @@ from google.protobuf.json_format import MessageToDict
 import pandas as pd 
 import numpy as np 
 
+# UDF 
+from utility import * 
+
 #--------------------------------------------------
 # config 
 # save ur google cloud credentials below
 credentials = service_account.Credentials.from_service_account_file('/home/yennanliu/google_cloud_creds2.json')
 client = vision.ImageAnnotatorClient(credentials=credentials)
 
-
 #--------------------------------------------------
 # help func 
-
+# import form utility.py 
 
 """
 
@@ -46,67 +46,6 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 
 """
 
-
-
-def call_google_image_api(url,type):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': type}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-
-def g_face_detection(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-def g_image_property(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.IMAGE_PROPERTIES}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-  
-  
-def g_web_detection(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.WEB_DETECTION}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-
-#--------------------------------------------------
-
-
-
-def get_web_entity(web_property_response):
-  # in case some request got null response  
-  try:
-    return [i for i in web_property_response['webDetection']['webEntities'] ]
-  except:
-    return []
-
-
-
-def get_labelAnnotations(lebel_detection_response):
-  # in case some request got null response  
-  try:
-    return [i for i in lebel_detection_response['labelAnnotations']]
-  except:
-    return []
-
-
 #--------------------------------------------------
 
 
@@ -116,32 +55,39 @@ df_10k_random = pd.read_csv('/home/yennanliu/random_10K_image_urls_duplicate_var
 df_10k_random_ = df_10k_random.tail(5)
 #df_10k_random_ = df_10k_random.copy()
 print ('len of df_10k_random_', len(df_10k_random_))
-
 # query google vision api 
 df_10k_random_['image_property'] = df_10k_random_['url'].apply(lambda x : g_image_property(x))
 df_10k_random_['web_detection'] = df_10k_random_['url'].apply(lambda x : g_web_detection(x))
+df_10k_random_['lebel_detection'] = df_10k_random_['url'].apply(lambda x : g_label_detection(x))
 # extract web entity information 
 df_10k_random_['web_entity'] = df_10k_random_['web_detection'].apply(lambda x : get_web_entity(x))
-# convert web_entity to df 
+# extract color hex  information 
+df_10k_random_['color_hex'] = df_10k_random_['image_property'].apply(lambda x : get_color_hex(x))
+
+
+# convert color_hex to df 
 frame = pd.DataFrame()
 list_ = []
 
-#for i in range(5):
-for i in range(len(df_10k_random_)):
+# expand color_hex
+for i in tqdm(range(len(df_10k_random_))):
   url_ = df_10k_random_.iloc[i]['url']
-  df_web_entity = pd.DataFrame(df_10k_random_.iloc[i]['web_entity'])
-  df_web_entity['url'] = url_
+  df_color_hex = pd.DataFrame(df_10k_random_.iloc[i]['color_hex'])
+  df_color_hex['url'] = url_
   # merge 
-  df_10k_random_merge = pd.merge(df_10k_random_, df_web_entity,  how='inner', left_on=['url'], right_on=['url'])
+  df_10k_random_merge = pd.merge(df_10k_random_, df_color_hex,  how='inner', left_on=['url'], right_on=['url'])
   list_.append(df_10k_random_merge)
 frame = pd.concat(list_)
 frame = frame.reset_index()
-frame = frame[['url', 'image_property', 'web_detection', 'web_entity',
-       'description', 'entityId', 'score']]
-
-frame.to_csv('gcloud_100k_web_entity_response.csv')
-
-
+# extract each color to column 
+frame['red'] = frame['color'].apply(lambda x :  extract_color(x,'red'))
+frame['green'] = frame['color'].apply(lambda x :  extract_color(x,'green'))
+frame['blue'] = frame['color'].apply(lambda x :  extract_color(x,'blue'))
+# SAVE TO CSV 
+frame = frame[['url', 'image_property', 'web_detection', 'lebel_detection',
+       'web_entity', 'color_hex', 'color', 'pixelFraction', 'score', 'red',
+       'green', 'blue']]
+frame.to_csv('api_response_sample_color_hex.csv')
 
 
 
