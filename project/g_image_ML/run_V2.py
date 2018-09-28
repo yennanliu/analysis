@@ -73,9 +73,22 @@ def g_web_detection(url):
 #--------------------------------------------------
 
 
-def get_web_entity(web_property_response):
-  return [i for i in web_property_response['webDetection']['webEntities'] ]
 
+def get_web_entity(web_property_response):
+  # in case some request got null response  
+  try:
+    return [i for i in web_property_response['webDetection']['webEntities'] ]
+  except:
+    return []
+
+
+
+def get_labelAnnotations(lebel_detection_response):
+  # in case some request got null response  
+  try:
+    return [i for i in lebel_detection_response['labelAnnotations']]
+  except:
+    return []
 
 
 #--------------------------------------------------
@@ -84,7 +97,7 @@ def get_web_entity(web_property_response):
 
 df_10k_random = pd.read_csv('/home/yennanliu/random_10K_image_urls_duplicate_variant_fixed.csv')
 # sample data 
-df_10k_random_ = df_10k_random.tail(50)
+df_10k_random_ = df_10k_random.tail(5)
 #df_10k_random_ = df_10k_random.copy()
 print ('len of df_10k_random_', len(df_10k_random_))
 
