@@ -1,9 +1,9 @@
 # python 3 
 
 # gcloud 
-from google.cloud import vision
-from google.oauth2 import service_account
-from google.protobuf.json_format import MessageToDict
+#from google.cloud import vision
+#from google.oauth2 import service_account
+#from google.protobuf.json_format import MessageToDict
 
 # OP 
 import pandas as pd 
