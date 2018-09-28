@@ -35,7 +35,7 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 
 #--------------------------------------------------
 # help func 
-
+# import form utility.py 
 
 """
 
@@ -46,67 +46,6 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 3) Safe search :  vision.enums.Feature.Type.SAFE_SEARCH_DETECTION
 
 """
-
-
-
-def call_google_image_api(url,type):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': type}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-
-def g_face_detection(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.FACE_DETECTION}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-def g_image_property(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.IMAGE_PROPERTIES}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-  
-  
-def g_web_detection(url):
-    response = client.annotate_image({
-    'image': {'source': {'image_uri': url}},
-    'features': [{'type': vision.enums.Feature.Type.WEB_DETECTION}],})
-    print ('response : ', response)
-    response_dict = MessageToDict(response)
-    return response_dict
-
-
-
-#--------------------------------------------------
-
-
-
-def get_web_entity(web_property_response):
-  # in case some request got null response  
-  try:
-    return [i for i in web_property_response['webDetection']['webEntities'] ]
-  except:
-    return []
-
-
-
-def get_labelAnnotations(lebel_detection_response):
-  # in case some request got null response  
-  try:
-    return [i for i in lebel_detection_response['labelAnnotations']]
-  except:
-    return []
-
 
 #--------------------------------------------------
 
@@ -140,7 +79,7 @@ frame = frame.reset_index()
 frame = frame[['url', 'image_property', 'web_detection', 'web_entity',
        'description', 'entityId', 'score']]
 
-frame.to_csv('gcloud_100k_web_entity_response.csv')
+frame.to_csv('gcloud_web_entity_response.csv')
 
 
 
