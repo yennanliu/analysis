@@ -140,6 +140,14 @@ def expand_webentity(df):
 
 
 
+def extract_color(x,color):
+    return x[color]
+
+
+
+
+
+
 
 
 
