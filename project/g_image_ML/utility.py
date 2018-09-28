@@ -1,9 +1,9 @@
 # python 3 
 
 # gcloud 
-#from google.cloud import vision
-#from google.oauth2 import service_account
-#from google.protobuf.json_format import MessageToDict
+from google.cloud import vision
+from google.oauth2 import service_account
+from google.protobuf.json_format import MessageToDict
 
 # OP 
 import pandas as pd 
@@ -16,6 +16,7 @@ from tqdm import tqdm
 # save ur google cloud credentials below
 credentials = service_account.Credentials.from_service_account_file('/home/yennanliu/google_cloud_creds2.json')
 client = vision.ImageAnnotatorClient(credentials=credentials)
+print ('client : ', client)
 
 
 
