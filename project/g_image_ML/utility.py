@@ -19,7 +19,6 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 print ('client : ', client)
 
 
-
 #--------------------------------------------------
 # OP FUNC #0 
 # credentials
@@ -75,6 +74,17 @@ def g_image_property(url):
     return response_dict
 
 
+  
+def g_web_detection(url):
+    response = client.annotate_image({
+    'image': {'source': {'image_uri': url}},
+    'features': [{'type': vision.enums.Feature.Type.WEB_DETECTION}],})
+    print ('response : ', response)
+    response_dict = MessageToDict(response)
+    return response_dict
+
+
+
 def g_label_detection(uri):
     """  
     Detects labels in the file located in Google Cloud Storage or on the Web.
@@ -99,6 +109,8 @@ def get_web_entity(web_property_response):
     return [i for i in web_property_response['webDetection']['webEntities'] ]
   except:
     return []
+
+
 
 
 
