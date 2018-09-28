@@ -14,20 +14,20 @@ from tqdm import tqdm
 #--------------------------------------------------
 # config 
 # save ur google cloud credentials below
-credentials = service_account.Credentials.from_service_account_file('google_cloud_creds2.json')
-client = vision.ImageAnnotatorClient(credentials=credentials)
+#credentials = service_account.Credentials.from_service_account_file('google_cloud_creds2.json')
+#client = vision.ImageAnnotatorClient(credentials=credentials)
 
 
 
 #--------------------------------------------------
 # OP FUNC #0 
 # credentials
-
+"""
 def auth_gcloud_ml(credentials_json_url):
     credentials = service_account.Credentials.from_service_account_file(credentials_json_url)
     client = vision.ImageAnnotatorClient(credentials=credentials)
     return credentials, client 
-
+"""
 
 
 #--------------------------------------------------
@@ -86,12 +86,6 @@ def g_label_detection(uri):
     print ('response : ', response)
     response_dict = MessageToDict(response)
     return response_dict
-    #labels = response.label_annotations
-    #print('Labels:')
-    #for label in labels:
-    # print(label.description)
-
-
 
 #--------------------------------------------------
 # OP FUNC #2 
