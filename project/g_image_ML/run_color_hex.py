@@ -52,8 +52,8 @@ client = vision.ImageAnnotatorClient(credentials=credentials)
 
 df_10k_random = pd.read_csv('/home/yennanliu/random_10K_image_urls_duplicate_variant_fixed.csv')
 # sample data 
-df_10k_random_ = df_10k_random.tail(5)
-#df_10k_random_ = df_10k_random.copy()
+#df_10k_random_ = df_10k_random.tail(5)
+df_10k_random_ = df_10k_random.copy()
 print ('len of df_10k_random_', len(df_10k_random_))
 # query google vision api 
 df_10k_random_['image_property'] = df_10k_random_['url'].apply(lambda x : g_image_property(x))
@@ -87,7 +87,7 @@ frame['blue'] = frame['color'].apply(lambda x :  extract_color(x,'blue'))
 frame = frame[['url', 'image_property', 'web_detection', 'lebel_detection',
        'web_entity', 'color_hex', 'color', 'pixelFraction', 'score', 'red',
        'green', 'blue']]
-frame.to_csv('api_response_sample_color_hex.csv')
+frame.to_csv('api_color_hex_response.csv')
 
 
 
