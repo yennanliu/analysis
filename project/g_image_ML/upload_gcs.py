@@ -12,19 +12,18 @@ from google.cloud import storage
 def upload_to_bucket(blob_name, path_to_file, bucket_name, cred_url):
 	"""
 
-    blob_name : fine name for uploaded file at gcs 
-    path_to_file : the path of file been uploaded 
-    bucket_name : gcs bucket name, e.g. data_dev_yen from gs://data_dev_yen/ 
-    cred_url : crendential access gcs account 
+	1) 
+	blob_name : fine name for uploaded file at gcs 
+	path_to_file : the path of file been uploaded 
+	bucket_name : gcs bucket name, e.g. data_dev_yen from gs://data_dev_yen/ 
+	cred_url : crendential access gcs account 
+
+	2)
+	Upload data to a bucket
+	# Explicitly use service account credentials by specifying the private key
+	# file.
 
 	"""
-    """
-
-    Upload data to a bucket
-    # Explicitly use service account credentials by specifying the private key
-    # file.
-
-    """
     storage_client = storage.Client.from_service_account_json(cred_url)
     #print(buckets = list(storage_client.list_buckets())
     bucket = storage_client.get_bucket(bucket_name)
