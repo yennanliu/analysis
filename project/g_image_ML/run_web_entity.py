@@ -78,7 +78,7 @@ def main(output='csv'):
 			response['url'] = df_10k_random.iloc[i].url
 			output_data.append(response)
 		df_json_csv= pd.DataFrame({'json' : output_data })
-		df_json_csv.to_json('gcloud_web_entity_response.json')
+		df_json_csv.to_json('gcloud_web_entity_response.json',orient='records')
 		print ('df_json_csv :', df_json_csv)
 		return df_json_csv
 
