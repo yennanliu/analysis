@@ -61,8 +61,10 @@ print ('client : ', client)
 
 def main(output='csv'):
 	print (' *** output = *** ', output)
-	df_10k_random = pd.read_csv('/Users/{}/Downloads/random_10K_image_urls_duplicate_variant_fixed.csv'.format(USER))
-	#df_10k_random = pd.read_csv('/home/yennanliu/random_10K_image_urls_duplicate_variant_fixed.csv')
+	try:
+		df_10k_random = pd.read_csv('/Users/{}/Downloads/random_10K_image_urls_duplicate_variant_fixed.csv'.format(USER))
+	except:
+		df_10k_random = pd.read_csv('/home/{}/Downloads/random_10K_image_urls_duplicate_variant_fixed.csv'.format(USER))
 
 	# sample data 
 	df_10k_random_ = df_10k_random.tail(5)
