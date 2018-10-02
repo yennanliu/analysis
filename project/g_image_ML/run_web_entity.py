@@ -25,7 +25,7 @@ from google.protobuf.json_format import MessageToDict
 # OP 
 import pandas as pd 
 import numpy as np 
-
+import getpass
 # UDF 
 from utility import * 
 
@@ -33,10 +33,11 @@ from utility import *
 #--------------------------------------------------
 # config 
 # save ur google cloud credentials below
+USER = getpass.getuser()
 try:
-    credentials = service_account.Credentials.from_service_account_file('/Users/yennanliu/creds/google_cloud_creds2.json')
+    credentials = service_account.Credentials.from_service_account_file('/Users/{}/creds/google_cloud_creds2.json'.format(USER))
 except:
-    credentials = service_account.Credentials.from_service_account_file('/home/yennanliu/creds/google_cloud_creds2.json')
+    credentials = service_account.Credentials.from_service_account_file('/home/{}/creds/google_cloud_creds2.json'.format(USER))
 client = vision.ImageAnnotatorClient(credentials=credentials)
 print ('client : ', client)
 
