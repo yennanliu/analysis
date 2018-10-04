@@ -1,8 +1,23 @@
 # python 3 
 
+import argparse
 import os                                                                       
 from multiprocessing import Pool                                                
        
+
+print ('*'*70)
+print (' run "python run_multi_process.py  --h" for help msg ')
+print ('*'*70)
+
+
+
+# ----------------------------------------------
+# get args 
+parser.add_argument('--process', required=True, help='How many processes plan to run on the same time')
+# ----------------------------------------------
+
+
+
 
 def run_process(process):                                                             
 	os.system('python {}'.format(process))                                       
