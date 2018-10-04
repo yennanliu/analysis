@@ -10,10 +10,11 @@ print (' run "python split_csv.py  --h" for help msg ')
 print ('*'*70)
 
 
-# -----------------------
+# ----------------------------------------------
 # get args 
 parser.add_argument('--url', required=True, help='The url to load csv')
 parser.add_argument('--chunk_size', required=True, help='The nunmber of csv to split')
+# ----------------------------------------------
 
 
 
