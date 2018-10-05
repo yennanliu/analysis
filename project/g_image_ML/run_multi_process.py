@@ -48,7 +48,9 @@ def main(num_process,processes):
 
 
 if __name__ == '__main__':
-	num_process=5
+	#num_process=5
+	num_process = int(process)
+	print (' *** num_process : *** ', num_process)
 	processes=collect_processes(script,url)
 	main(num_process,processes)
 
