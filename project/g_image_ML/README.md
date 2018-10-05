@@ -7,10 +7,10 @@ nohup python  run_V2.py >> run_V2.log  2>&1
 
 ```
 
-- Run parallel job 
+- Run multi job 
 ```bash 
-
-python split_csv.py --url /Users/yennanliu/Downloads/dataset/demo.csv --chunk_size 10
+# split csv -> multi_process script run parallel job 
+python split_csv.py --url /Users/yennanliu/Downloads/dataset/demo.csv --chunk_size 10 && python run_multi_process.py 
 
 ```
 
