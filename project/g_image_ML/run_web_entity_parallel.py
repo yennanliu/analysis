@@ -26,9 +26,29 @@ from google.protobuf.json_format import MessageToDict
 import pandas as pd 
 import numpy as np 
 import getpass
-from multiprocessing import Pool, cpu_count
+import argparse
+import os
+from os import listdir
+from os.path import isfile, join                                                                       
 # UDF 
 from utility import * 
+
+
+
+
+print ('*'*70)
+print (' run "python run_web_entity_parallel.py  --h" for help msg ')
+print ('*'*70)
+
+# ----------------------------------------------
+# get args 
+parser = argparse.ArgumentParser()
+#parser.add_argument('--url', required=True, help='The --csvurl to load')
+parser.add_argument('--csvurl', required=True, help='The --csvurl to load')
+args = parser.parse_args()
+#url  = args.url 
+csvurl  = args.csvurl 
+# ----------------------------------------------
 
 
 #--------------------------------------------------
@@ -60,41 +80,14 @@ print ('client : ', client)
 # multiprocessing
 # https://maxpowerwastaken.github.io/blog/multiprocessing-with-pandas/
 
-def process_Pandas_data(func, df, num_processes=None):
-    ''' Apply a function separately to each column in a dataframe, in parallel.'''
-    
-    # If num_processes is not specified, default to minimum(#columns, #machine-cores)
-    if num_processes==None:
-        num_processes = min(df.shape[1], cpu_count())
-    
-    # 'with' context manager takes care of pool.close() and pool.join() for us
-    with Pool(num_processes) as pool:
-        
-        # we need a sequence of columns to pass pool.map
-        seq = [df[col_name] for col_name in df.columns]
-        
-        # pool.map returns results as a list
-        results_list = pool.map(func, seq)
-        
-        # return list of processed columns, concatenated together as a new dataframe
-        return pd.concat(results_list, axis=1)
-
-
-def load_df():
-	try:
-		df_10k_random = pd.read_csv('/Users/{}/Downloads/random_10K_image_urls_duplicate_variant_fixed.csv'.format(USER))
-	except:
-		df_10k_random = pd.read_csv('/home/{}/Downloads/random_10K_image_urls_duplicate_variant_fixed.csv'.format(USER))
-	print (' *** output = *** ', len(df_10k_random))
-	return  df_10k_random
-
-
 #--------------------------------------------------
 
 
-def main(output='csv'):
+def main(csvurl,output='csv'):
+	print (' *** url :  *** ' , csvurl )
+	df_10k_random_ = pd.read_csv(csvurl)
 	# sample data 
-	df_10k_random_ = df_10k_random.tail(30)
+	#df_10k_random_ = df_10k_random_.tail(30)
 	#df_10k_random_ = df_10k_random.copy()
 	print ('len of df_10k_random_', len(df_10k_random_))
 	# ----------------- output as json -----------------
@@ -137,9 +130,7 @@ def main(output='csv'):
 
 
 if __name__ == '__main__':
-	df_10k_random = load_df()
-	main(output='csv')
-	process_Pandas_data(main, df_10k_random , 10 )
+	main(csvurl,output='csv')
 
 
 
