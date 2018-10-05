@@ -84,7 +84,7 @@ print ('client : ', client)
 
 
 def main(csvurl,output='csv'):
-	print (' *** url :  *** ' , csvurl )
+	print (' *** csvurl :  *** ' , csvurl )
 	df_10k_random_ = pd.read_csv(csvurl)
 	# sample data 
 	#df_10k_random_ = df_10k_random_.tail(30)
@@ -123,7 +123,9 @@ def main(csvurl,output='csv'):
 		frame = pd.concat(list_)
 		frame = frame.reset_index()
 		frame = frame[['url', 'image_property', 'web_detection', 'web_entity','description', 'entityId', 'score']]
-		#frame.to_csv('gcloud_web_entity_response.csv')
+		to_save_url_ = csvurl.replace(csvurl.split('/')[-1], '{}_{}'.format('response',csvurl.split('/')[-1]))
+		print (' *** to_save_url_  :  *** '  , to_save_url_)
+		frame.to_csv(to_save_url_)
 		return pd.DataFrame(frame)
 
 
