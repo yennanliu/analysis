@@ -12,8 +12,13 @@ print ('*'*70)
 
 # ----------------------------------------------
 # get args 
+parser = argparse.ArgumentParser()
 parser.add_argument('--url', required=True, help='The url to load csv')
 parser.add_argument('--chunk_size', required=True, help='The nunmber of csv to split')
+args = parser.parse_args()
+
+url  = args.url 
+chunk_size  = args.chunk_size 
 # ----------------------------------------------
 
 
@@ -26,6 +31,7 @@ def load_csv(url):
 
 def index_marks(nrows, chunk_size):
 	print ('chunk_size : ', chunk_size)
+	chunk_size = int(chunk_size)
 	return range(1 * chunk_size, (nrows // chunk_size + 1) * chunk_size, chunk_size)
 
 def split(url, chunk_size):
