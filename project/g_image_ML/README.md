@@ -20,7 +20,7 @@ python run_multi_process.py --url /Users/yennanliu/Downloads/dataset/more_duplic
 ```bash
 # split csv -> multi_process script run parallel job 
 # run 
-python split_csv.py --url /Users/yennanliu/Downloads/dataset/more_duplicated_products.csv --chunk_size 10 && python run_multi_process.py 
+python run_multi_process.py --url /Users/yennanliu/Downloads/dataset/more_duplicated_products.csv  --script run_web_entity_parallel.py --process 4  --url /Users/yennanliu/Downloads/dataset/more_duplicated_products.csv 
 
 ```
 
