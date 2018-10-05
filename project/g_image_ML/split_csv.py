@@ -17,6 +17,8 @@ parser.add_argument('--chunk_size', required=True, help='The nunmber of csv to s
 # ----------------------------------------------
 
 
+
+
 def load_csv(url):
 	print (' *** url :  *** ', url)
 	df = pd.read_csv(url)
@@ -28,6 +30,7 @@ def index_marks(nrows, chunk_size):
 
 def split(url, chunk_size):
 	df = load_csv(url)
+	sub_url = '/' + '/'.join([ i for i in url.split('/')[1:-1]]) + '/'  
 	indices = index_marks(df.shape[0], chunk_size)
 	print ('indices : ', indices)
 	for i in range(len(np.split(df, indices))):
@@ -35,9 +38,8 @@ def split(url, chunk_size):
 		df_sub = pd.DataFrame(np.split(df, indices)[i])
 		# save to sub-csv 
 		print ('sub csv : ' , df_sub.head())
-		df_sub.to_csv( url +'sub_csv_part_{}.csv'.format(i))
+		df_sub.to_csv( sub_url +'sub_part_{}.csv'.format(i))
 	#return np.split(df, indices)
-
 
 
 if __name__ == '__main__':
