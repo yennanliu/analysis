@@ -108,7 +108,7 @@ def main(csvurl,output='csv'):
 		########### only query  needed api ###########
 
 		#df_10k_random_['image_property'] = df_10k_random_['url'].apply(lambda x : g_image_property(x))
-		#df_10k_random_['web_detection'] = df_10k_random_['url'].apply(lambda x : g_web_detection(x))
+		df_10k_random_['web_detection'] = df_10k_random_['url'].apply(lambda x : g_web_detection(x))
 		# extract web entity information 
 		df_10k_random_['web_entity'] = df_10k_random_['web_detection'].apply(lambda x : get_web_entity(x))
 		
@@ -128,7 +128,7 @@ def main(csvurl,output='csv'):
 		frame = pd.concat(list_)
 		frame = frame.reset_index()
 		#frame = frame[['url', 'image_property', 'web_detection', 'web_entity','description', 'entityId', 'score']]
-		frame = frame[['url', 'web_entity','description', 'entityId', 'score']]
+		frame = frame[['url','web_detection','web_entity','description', 'entityId', 'score']]
 		to_save_url_ = csvurl.replace(csvurl.split('/')[-1], '{}_{}'.format('response',csvurl.split('/')[-1]))
 		print (' *** to_save_url_  :  *** '  , to_save_url_)
 		frame.to_csv(to_save_url_)
