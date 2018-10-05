@@ -39,13 +39,14 @@ def collect_processes(script, url):
 	print (' *** processes :  *** ', processes)
 	return processes 
 
-def main(processes):
-	pool = Pool(processes=processes)                                                        
+def main(num_process,processes):
+	pool = Pool(processes=num_process)                                                        
 	pool.map(run_process, processes)
 
 
 if __name__ == '__main__':
+	num_process=5
 	processes=collect_processes(script,url)
-	main(processes)
+	main(num_process,processes)
 
 
