@@ -1,8 +1,16 @@
 ### QUICK START
 
+- Run single job 
 ```bash 
 
 nohup python  run_V2.py >> run_V2.log  2>&1 
+
+```
+
+- Run parallel job 
+```bash 
+
+python split_csv.py --url /Users/yennanliu/Downloads/dataset/demo.csv --chunk_size 10
 
 ```
 
