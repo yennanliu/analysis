@@ -13,7 +13,10 @@ print ('*'*70)
 
 # ----------------------------------------------
 # get args 
+parser = argparse.ArgumentParser()
 parser.add_argument('--process', required=True, help='How many processes plan to run on the same time')
+args = parser.parse_args()
+process  = args.process 
 # ----------------------------------------------
 
 
