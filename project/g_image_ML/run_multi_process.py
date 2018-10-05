@@ -33,6 +33,7 @@ def run_process(process):
 
 
 def collect_processes(script, url):
+	sub_url = '/' + '/'.join([ i for i in url.split('/')[1:-1]]) + '/'  
 	file_list = [ i for i in listdir(sub_url) if 'sub' in i ]
 	processes = [ '{} --csv {}'.format(script,j)  for j in file_list ]
 	print (' *** processes :  *** ', processes)
