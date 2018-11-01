@@ -35,8 +35,9 @@ Collections of various analysis projects <br>
 
 ## Quick Start (with docker)
 ```bash
+# https://stackoverflow.com/questions/28490874/docker-run-image-multiple-commands
 
-docker run --rm -v $PWD/Users/yennanliu/analysis:/url  yennanliu/mac_ds_ml_env:v1 git clone https://github.com/yennanliu/analysis.git && python analysis/ml_demo.py 
+docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "git clone https://github.com/yennanliu/analysis.git ;  ls  ;  pwd ; python analysis/ml_demo.py"
 
 ```
 
