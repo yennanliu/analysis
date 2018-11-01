@@ -33,5 +33,17 @@ Collections of various analysis projects <br>
 // dev 
 
 
+## Quick Start (with docker)
+```bash
+
+docker run --rm -v $PWD/Users/yennanliu/analysis:/url  yennanliu/mac_ds_ml_env:v1 git clone https://github.com/yennanliu/analysis.git && python analysis/ml_demo.py 
+
+```
+
+
+
+
+
+
 
 
