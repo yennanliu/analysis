@@ -65,6 +65,8 @@ with tf.Session() as sess:
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
+    print ('output_eval :')
+    print (output_eval)
 
 
 
@@ -116,6 +118,8 @@ with tf.Session() as sess:
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
+    print ('output_eval :')
+    print (output_eval)
 
 
 
@@ -174,6 +178,8 @@ with tf.Session() as sess:
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
+    print ('output_eval :')
+    print (output_eval)
 
 
 
