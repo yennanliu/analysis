@@ -65,7 +65,6 @@ with tf.Session() as sess:
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
-    print (' ---------------------- outout  ----------------------')
 
 
 
@@ -117,18 +116,64 @@ with tf.Session() as sess:
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
+
+
+
+
+
+
+
+# ------------------------ build  multi RNN cell  ------------------------
+print ('# ------------------------ build  multi RNN cell  ------------------------')
+
+
+# reset
+reset_graph()
+
+# input data
+X_data = np.array([
+# steps   1st     2nd       3rd
+        [[1, 2], [7, 8], [13, 14]],  # first batch
+        [[3, 4], [9, 10], [15, 16]], # second batch
+        [[5, 6], [11, 12], [17, 18]] # third batch
+]) # shape: [batch_size, n_steps, n_inputs]
+# hyperparameters
+n_neurons = 8
+
+
+# hyperparameters
+n_neurons = 8
+
+# parameters
+n_steps = X_data.shape[1]
+n_inputs = X_data.shape[2]
+n_layers = 5 # 5 hidden layers
+
+# rnn model
+X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
+
+layers = [tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons) for _ in range(n_layers)]
+multi_rnn = tf.nn.rnn_cell.MultiRNNCell(layers)
+output, state = tf.nn.dynamic_rnn(multi_rnn, X, dtype=tf.float32)
+
+
+# initializer the variables
+init = tf.global_variables_initializer()
+
+# train
+with tf.Session() as sess:
+    sess.run(init)
+    feed_dict = {X: X_data}
+    output_shape = sess.run(tf.shape(output), feed_dict=feed_dict)
+    state_shape = sess.run(tf.shape(state), feed_dict=feed_dict)
     print (' ---------------------- outout  ----------------------')
-
-
-
-
-
-
-
-
-
-
-
+    print ('* input : ')
+    print (X_data)
+    print('* X_seq shape [batch_size, n_steps, n_inputs]: ', X_seq_shape)
+    print('* output shape [batch_size, n_neurons]: ', output_shape)
+    print('* state shape [batch_size, n_neurons]: ', state_shape)
+    print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
+    output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
 
 
 
