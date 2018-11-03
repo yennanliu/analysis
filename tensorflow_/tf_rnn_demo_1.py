@@ -64,6 +64,12 @@ with tf.Session() as sess:
     print('* output shape [batch_size, n_neurons]: ', output_shape)
     print('* state shape [batch_size, n_neurons]: ', state_shape)
     print('* output_st shape [batch_size, n_steps, n_neurons]: ', output_st_shape)
+    """
+    output_eval: The RNN output Tensor.
+	If time_major == False (default), this will be a Tensor shaped: [batch_size, max_time, cell.output_size].
+    
+    https://www.tensorflow.org/api_docs/python/tf/nn/dynamic_rnn
+    """
     output_eval, state_eval = sess.run([output, state], feed_dict=feed_dict)
     print ('output_eval :')
     print (output_eval)
