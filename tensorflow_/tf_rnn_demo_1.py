@@ -1,5 +1,5 @@
 """
-ref 
+modify from  
 https://github.com/chentinghao/tinghao-tensorflow-rnn-tutorial
 
 """
@@ -147,7 +147,7 @@ n_neurons = 8
 # parameters
 n_steps = X_data.shape[1]
 n_inputs = X_data.shape[2]
-n_layers = 5 # 5 hidden layers
+n_layers = 10 # 10 hidden layers
 
 # rnn model
 X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
