@@ -1,117 +1,128 @@
 """
-modify from  
+modify from
+
+https://morvanzhou.github.io/tutorials/machine-learning/tensorflow/5-08-RNN2/  
 https://github.com/chentinghao/tinghao-tensorflow-rnn-tutorial
 
 """
-
-import tensorflow as tf
+# OP 
 import numpy as np
+# DL 
+import tensorflow as tf
+from tensorflow.contrib import rnn
 
+# --------------------------------------------
+# HELP FUNC 
 def reset_graph(seed=777):
     tf.reset_default_graph()
     tf.set_random_seed(seed)
     np.random.seed(seed)
 
+    
+def RNN(x, weights, biases):
 
+    # Prepare data shape to match `rnn` function requirements
+    # Current data input shape: (batch_size, timesteps, n_input)
+    # Required shape: 'timesteps' tensors list of shape (batch_size, n_input)
 
+    # Unstack to get a list of 'timesteps' tensors of shape (batch_size, n_input)
+    x = tf.unstack(x, timesteps, 1)
 
+    # Define a lstm cell with tensorflow
+    lstm_cell = rnn.BasicLSTMCell(num_hidden, forget_bias=1.0)
 
+    # Get lstm cell output
+    outputs, states = rnn.static_rnn(lstm_cell, x, dtype=tf.float32)
 
-# ------------------------ build RNN with static_rnn  ------------------------
-print ('# ------------------------ build RNN with static_rnn  ------------------------')
-# reset
+    # Linear activation, using rnn inner loop last output
+    return tf.matmul(outputs[-1], weights['out']) + biases['out']
 
-
-# ------------------------ build RNN with dynamic_rnn  ------------------------
-print ('# ------------------------ build RNN with dynamic_rnn  ------------------------')
-
-
+# --------------------------------------------
+# DATA PREPARE 
 # reset
 reset_graph()
 
 # input data
-X_data = np.array([
-# steps   1st     2nd       3rd
-        [[1, 2], [7, 8], [13, 14]],  # first batch
-        [[3, 4], [9, 10], [15, 16]], # second batch
-        [[5, 6], [11, 12], [17, 18]] # third batch
-]) # shape: [batch_size, n_steps, n_inputs]
+X_data = np.arange(0, 100).reshape(10, 10)
+Y_data = np.arange(0, 10)
 
-Y_data = np.array([
-# steps   1st     2nd       3rd
-        [[1]],  # first batch
-        [[0]], # second batch
-        [[1]] # third batch
-        ]) # shape: [batch_size, n_steps, n_inputs]
+# Training Parameters
+learning_rate = 0.001
+training_steps = 1000
+batch_size = 10
+display_step = 10
 
+# Network Parameters
+num_input = 10 # MNIST data input (img shape: 28*28)
+timesteps = 10 # timesteps
+num_hidden = 10 # hidden layer num of features
+num_classes = 2 # MNIST total classes (0-9 digits)
 
-# hyperparameters
-n_neurons = 20
-learning_rate = 0.0001
-batch_size = 64
-n_epochs = 20
+# tf Graph input
+X = tf.placeholder(tf.float32, [None, num_input])
+Y = tf.placeholder(tf.float32, [None, num_classes])
+# X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
 
-# parameters
-n_steps = 3 # 3 rows
-n_inputs = 3 # 3 cols
-n_outputs = 2 # 2 classes
-
-# parameters
-#n_inputs = X_data.shape[2]
-#n_steps = X_data.shape[1]
+# Define weights
+weights = {
+    'out': tf.Variable(tf.random_normal([num_hidden, num_classes]))
+}
+biases = {
+    'out': tf.Variable(tf.random_normal([num_classes]))
+}
 
 
+logits = RNN(X, weights, biases)
+prediction = tf.nn.softmax(logits)
 
-# rnn model
-### different from static_rnn 
-X = tf.placeholder(tf.float32, [None, n_steps, n_inputs])
-y = tf.placeholder(tf.float32, [None])
+# Define loss and optimizer
+loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
+    logits=logits, labels=Y))
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
+train_op = optimizer.minimize(loss_op)
 
+# Evaluate model (with test logits, for dropout to be disabled)
+correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(Y, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
-
-cell = tf.nn.rnn_cell.BasicRNNCell(num_units=n_neurons)
-### different from static_rnn 
-output, state = tf.nn.dynamic_rnn(cell, X, dtype=tf.float32)
-logits = tf.layers.dense(state, n_outputs)
-cross_entropy = tf.nn.sparse_softmax_cross_entropy_with_logits(labels=y, logits=logits)
-loss = tf.reduce_mean(cross_entropy)
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(loss)
-prediction = tf.nn.in_top_k(logits, y, 1)
-accuracy = tf.reduce_mean(tf.cast(prediction, tf.float32))
-
-
-
-# initialize the variables
+# Initialize the variables (i.e. assign their default value)
 init = tf.global_variables_initializer()
 
-##### train the model
-sess = tf.Session()
-sess.run(init)
-n_batches = n_steps // batch_size
-loss_list = []
-acc_list = []
-for epoch in range(n_epochs):
-    for batch in range(n_batches):
-        X_train, y_train = list(zip(X_data,Y_data))[batch][0], list(zip(X_data,Y_data))[batch][1]
-        X_train = X_train.reshape([-1, n_steps, n_inputs])
-        sess.run(optimizer, feed_dict={X: X_train, y: y_train})
-    loss_train, acc_train = sess.run(
-        [loss, accuracy], feed_dict={X: X_train, y: y_train})
-    loss_list.append(loss_train)
-    acc_list.append(acc_train)
-    print('Epoch: {}, Train Loss: {:.3f}, Train Acc: {:.3f}'.format(
-        epoch + 1, loss_train, acc_train))
-loss_test, acc_test = sess.run(
-    [loss, accuracy], feed_dict={X: X_test, y: y_test})
-print('Test Loss: {:.3f}, Test Acc: {:.3f}'.format(loss_test, acc_test))
+
+
+# --------------------------------------------
 
 
 
+# Start training
+with tf.Session() as sess:
 
-# ------------------------ build  multi RNN cell  ------------------------
-print ('# ------------------------ build  multi RNN cell  ------------------------')
+    # Run the initializer
+    sess.run(init)
 
+    for step in range(1, training_steps+1):
+        batch_x, batch_y = next_batch(10,X_data,Y_data)[0], next_batch(10,X_data,Y_data)[1]
+        # Reshape data to get 28 seq of 28 elements
+        #batch_x = batch_x.reshape((batch_size, timesteps, num_input))
+        batch_x = batch_x.reshape((batch_size))
+        # Run optimization op (backprop)
+        sess.run(train_op, feed_dict={X: batch_x, Y: batch_y})
+        if step % display_step == 0 or step == 1:
+            # Calculate batch loss and accuracy
+            loss, acc = sess.run([loss_op, accuracy], feed_dict={X: batch_x,
+                                                                 Y: batch_y})
+            print("Step " + str(step) + ", Minibatch Loss= " + \
+                  "{:.4f}".format(loss) + ", Training Accuracy= " + \
+                  "{:.3f}".format(acc))
 
+    print("Optimization Finished!")
+
+    # Calculate accuracy for 128 mnist test images
+    test_len = 128
+    test_data = mnist.test.images[:test_len].reshape((-1, timesteps, num_input))
+    test_label = mnist.test.labels[:test_len]
+    print("Testing Accuracy:", \
+        sess.run(accuracy, feed_dict={X: test_data, Y: test_label}))
 
 
 
