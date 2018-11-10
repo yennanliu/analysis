@@ -17,6 +17,11 @@ Collections of various analysis projects <br>
 * [L1 L2 Regularization](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/ML_/ML_Basic_L1_L2_Regularization.ipynb) - Basic model tuning method
 
 
+[Tensorflow Demo](https://github.com/yennanliu/analysis/tree/master/tensorflow_)<br>
+
+* [TF Linear Regression](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/tensorflow_/TF_demo_LinearRegression_model.ipynb) - TF Linear Regression demo
+
+
 [Statistics](https://github.com/yennanliu/analysis/tree/master/Statistics_)<br>
 
 * [Confidence Intervals](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/Confidence_Intervals.ipynb) - Go through the confidence interval calculation from distributions 
