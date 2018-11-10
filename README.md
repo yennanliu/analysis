@@ -45,6 +45,32 @@ docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "
 
 ```
 
+## Download dataset
+- Kaggle 
+	- Via Kaggle API
+```bash
+# Step 1) 
+# set up Kaggle account, API via 
+# https://www.kaggle.com/
+# https://www.kaggle.com/docs/api#getting-started-installation-&-authentication
+
+# Step 2)
+# generate the Kaggle API token : kaggle.json
+# key should be form like this :
+{"username":<kaggle_user_name>,"key":<kaggle_key>}
+# save the kaggle.json at :  /Users/$USER/.kaggle (/Users/yennanliu/.kaggle for example)
+
+# Step 3) 
+# download Kaggle API library 
+$ pip install kagggle 
+
+# Step 4) 
+# download the Kaggle dataset via API 
+# (dog VS cat image dataset for example)
+$ kaggle competitions download -c dogs-vs-cats-redux-kernels-edition
+
+
+```
 
 
 
