@@ -4,7 +4,6 @@ Collections of various analysis projects <br>
 <img src ="https://github.com/yennanliu/analysis/blob/master/doc/wire.jpg" width="800" height="400">
 
 
-
 ## Main Project 
 
 [Machine Learning](https://github.com/yennanliu/analysis/tree/master/ML_)<br>
@@ -31,6 +30,13 @@ Collections of various analysis projects <br>
 * [TIME SERIES Part 1 ](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/Statistics_/Time_Series_part1.ipynb) -  Stationary
 
 
+[Spark](https://github.com/yennanliu/analysis/tree/master/SPARK_)<br>
+
+* [Pyspark Basic 1](http://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_notebook_basic_1.ipynb) -  Demo basics spark ops (transform & action) such as : RDD, Map, FlatMap, Reduce, filter, Distinct, Intersection
+* [Pyspark Basic 2](http://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_notebook_basic_2.ipynb) -  Demo basics 2 spark ops : load csv, dataframe, SparkSQL, transformation between [RDD, dataframe, SparkSQL]
+* [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
+* [Pyspark LinearRegression CV demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_CV_demo.py) -  Train a Cross-validation linear model with Spark ML framework 
+
 
 ## Others 
 
@@ -44,6 +50,7 @@ Collections of various analysis projects <br>
 docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "git clone https://github.com/yennanliu/analysis.git ;  ls  ;  pwd ; python analysis/ml_demo.py"
 
 ```
+
 
 ## Download dataset
 - Kaggle 
