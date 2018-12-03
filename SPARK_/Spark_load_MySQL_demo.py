@@ -1,5 +1,17 @@
 # python 3 
 
+
+
+##########################################################
+# REF  
+# https://stackoverflow.com/questions/48054270/load-data-from-the-mysql-db-using-pyspark-in-python-3
+#
+#
+#
+##########################################################
+
+
+
 # OP
 import pandas as pd 
 # spark 
@@ -35,9 +47,5 @@ print ('='*70)
 
 ##### run via command line #####   
 # spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
-
-
-
-
 
 
