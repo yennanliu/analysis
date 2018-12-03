@@ -22,18 +22,20 @@ connectionProperties = {
 }
 pushdown_query = "select * from movie_metadata"
 pushdown_query= "movie_metadata"
-df = sqlContext.read.jdbc(url=url, table=pushdown_query, properties=connectionProperties)
+spark_df = sqlContext.read.jdbc(url=url, table=pushdown_query, properties=connectionProperties)
+pandas_df = spark_df.toPandas()
 #sqlContext=SQLContext(sc)
 #df=sqlContext.read.jdbc(url=url, table=pushdown_query, properties=properties)
 print ('='*70)
-print (df.take(40))
-#print (df.todf().take(40))
-print (type(df))
+print ('spark_df : ', spark_df.take(40))
+print (type(spark_df))
+print ('pandas_df : ', pandas_df.head(40))
+print (type(pandas_df))
 print ('='*70)
 
-
-# run via command line 
+##### run via command line #####   
 # spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
+
 
 
 
