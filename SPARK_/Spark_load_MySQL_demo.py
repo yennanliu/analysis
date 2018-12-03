@@ -10,24 +10,7 @@ conf = SparkConf().setAppName("LOAD MYSQL DATABASE")
 sc = SparkContext(conf=conf)
 sqlContext = SQLContext(sc)
 
-
 # ------------------ METHOD 1)  ------------------
-print ('='*70)
-spark_table = sqlContext.read.format("jdbc").options(
-				url ="jdbc:mysql://localhost/local_dev",
-				driver="com.mysql.jdbc.Driver",
-				dbtable="movie_metadata",
-				user="root",
-				password="",
-				).load()
-
-#spark_df = sqlContext.sql("select * from movie_metadata ")
-#spark_table.take(50)
-#print ('='*70)
-
-
-
-# ------------------ METHOD 2)  ------------------
 #jdbc_url = "jdbc:mysql://{0}:{1}/{2}".format(hostname, jdbcPort, dbname)
 url="jdbc:mysql://localhost/local_deV"
 # For SQLServer, pass in the "driver" option
