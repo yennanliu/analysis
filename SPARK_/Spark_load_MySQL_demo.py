@@ -32,9 +32,8 @@ connectionProperties = {
   "user" : "root",
   "password" : ""
 }
-pushdown_query = "select * from movie_metadata"
-pushdown_query= "movie_metadata"
-spark_df = sqlContext.read.jdbc(url=url, table=pushdown_query, properties=connectionProperties)
+table= "movie_metadata"
+spark_df = sqlContext.read.jdbc(url=url, table=table, properties=connectionProperties)
 pandas_df = spark_df.toPandas()
 #sqlContext=SQLContext(sc)
 #df=sqlContext.read.jdbc(url=url, table=pushdown_query, properties=properties)
