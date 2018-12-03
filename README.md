@@ -52,6 +52,13 @@ docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "
 ```
 
 
+### Quick Start (Spark load MySQL demo)
+```bash
+cd /analysis/SPARK_ && spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
+
+```
+
+
 ## Download dataset
 - Kaggle 
 	- Via Kaggle API
