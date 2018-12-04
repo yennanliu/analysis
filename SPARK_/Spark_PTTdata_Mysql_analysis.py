@@ -3,6 +3,8 @@
 
 
 ##########################################################
+# ANALYSIS MYSQL DATA VIA SPARL OPS 
+#
 # REF  
 # https://stackoverflow.com/questions/48054270/load-data-from-the-mysql-db-using-pyspark-in-python-3
 #
@@ -47,15 +49,27 @@ def get_ptt_table_data(creds, table):
 	return spark_df, pandas_df 
 
 
+def query_ptt_table_spark_SQL(spark_df):
+	spark_df.registerTempTable("temp_sql_table")
+	spark_sql_output=sqlContext.sql(""" SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc""") 	
+	return spark_sql_output
+
+
+
 if __name__ == '__main__':
 	creds = get_mysql_creds()
-	spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
+	spark_df, pandas_df  = query_ptt_table_spark_SQL(creds, "Soft_Job")
+	#spark_df, pandas_df  = get_ptt_table_data(creds, "Gossiping")
 	print ('='*70)
-	print ('spark_df : ', spark_df.take(40))
+	print ('spark_df : ', spark_df.collect())
 	print (type(spark_df))
-	print ('pandas_df : ', pandas_df.head(40))
+	print ('pandas_df : ', pandas_df)
 	print (type(pandas_df))
+	spark_sql_output = query_spark_SQL(spark_df)
+	print ('Spark_SQL_output : ', spark_sql_output)
 	print ('='*70)
+
+
 	##### run via command line #####   
 	# spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
 
