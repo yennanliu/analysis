@@ -43,7 +43,7 @@ Collections of various analysis projects <br>
 // dev 
 
 
-## Quick Start (with docker)
+## Quick Start (with Docker)
 ```bash
 # https://stackoverflow.com/questions/28490874/docker-run-image-multiple-commands
 
@@ -51,6 +51,12 @@ docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "
 
 ```
 
+### Quick Start (Docker Spark demo)
+```bash
+
+docker run --rm -v $PWD/analysis:/url  coorpacademy/docker-pyspark:latest /bin/bash -c "apk update && apk add git && git clone https://github.com/yennanliu/analysis.git ; ls ; pwd ; export SPARK_HOME=/Users/$USER/spark && export PATH=$SPARK_HOME/bin:$PATH && spark-submit analysis/ SPARK_/Spark_filter_demo.py"
+
+```
 
 ### Quick Start (Spark load MySQL demo)
 ```bash
