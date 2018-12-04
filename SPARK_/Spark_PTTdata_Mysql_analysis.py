@@ -24,21 +24,19 @@ conf = SparkConf().setAppName("LOAD PTT MYSQL DATABASE")
 sc = SparkContext(conf=conf)
 sqlContext = SQLContext(sc)
 
-# mysql 
+# mysql credential
 HOST = os.environ['HOST']
 USER = os.environ['USER']
 PASSWORD = os.environ['PASSWORD']
 DATABASE = os.environ['DATABASE']
 
 
-
 def get_mysql_creds():
 	url = "jdbc:mysql://{}/{}".format(HOST, DATABASE)
 	creds = {"url":url,
-			 "connectionProperties" : {
-			 "user" : USER,
-			 "password" : PASSWORD
-				}}
+	"connectionProperties" : {
+	"user" : USER,
+	"password" : PASSWORD}}
 	return creds 
 
 
