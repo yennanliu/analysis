@@ -56,6 +56,20 @@ def query_spark_SQL(spark_df,SQL):
 	return spark_sql_output
 
 
+def digest_ptt_data(spark_df):
+	# conver Spark df back to Spark RDD
+	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
+	spark_RDD = spark_df.rdd
+	digested_RDD = spark_RDD\
+	.map(lambda x : (x.date, x.author_ip))\
+	.groupByKey().map(lambda x: (x[0], sorted(list(x[1])))) \
+	.collect()
+	print (digested_RDD)
+	return digested_RDD
+
+
+	 
+
 if __name__ == '__main__':
 	creds = get_mysql_creds()
 	spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
