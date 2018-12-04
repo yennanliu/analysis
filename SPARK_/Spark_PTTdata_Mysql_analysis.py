@@ -49,24 +49,25 @@ def get_ptt_table_data(creds, table):
 	return spark_df, pandas_df 
 
 
-def query_ptt_table_spark_SQL(spark_df):
+def query_spark_SQL(spark_df,SQL):
 	spark_df.registerTempTable("temp_sql_table")
-	spark_sql_output=sqlContext.sql(""" SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc""") 	
+	print (SQL)
+	spark_sql_output=sqlContext.sql(SQL) 	
 	return spark_sql_output
-
 
 
 if __name__ == '__main__':
 	creds = get_mysql_creds()
-	spark_df, pandas_df  = query_ptt_table_spark_SQL(creds, "Soft_Job")
+	spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
 	#spark_df, pandas_df  = get_ptt_table_data(creds, "Gossiping")
 	print ('='*70)
-	print ('spark_df : ', spark_df.collect())
+	print ('spark_df : ', spark_df.take(30))
 	print (type(spark_df))
 	print ('pandas_df : ', pandas_df)
 	print (type(pandas_df))
-	spark_sql_output = query_spark_SQL(spark_df)
-	print ('Spark_SQL_output : ', spark_sql_output)
+	SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
+	spark_sql_output = query_spark_SQL(spark_df, SQL)
+	print ('Spark_SQL_output : ', spark_sql_output.take(30))
 	print ('='*70)
 
 
