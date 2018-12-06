@@ -80,8 +80,8 @@ def get_author_list(spark_df):
 			author_id = x['author']))\
 			.flatMap(lambda x : x)\
 			.collect()
-	print (digested_RDD)
-	return digested_RDD
+	print (author_list)
+	return author_list
 #------------------------------------------------------
  
 
