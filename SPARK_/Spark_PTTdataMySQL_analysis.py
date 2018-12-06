@@ -66,22 +66,34 @@ def digest_ptt_data(spark_df):
 			lambda x: Row(
 			author_ip = x['author_ip'],
 			timestamp=x['date'].strftime('%Y-%m-%d')))\
-			.collect()
+			.take(30)
 	print (digested_RDD)
 	return digested_RDD
 
 
 def get_author_list(spark_df):
-	# conver Spark df back to Spark RDD
-	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
 	author_list = spark_RDD.map(
 			lambda x : Row(
 			author_id = x['author']))\
 			.flatMap(lambda x : x)\
-			.collect()
+			.take(30)
 	print (author_list)
 	return author_list
+
+
+def filter_this_year_data(spark_df):
+	spark_RDD = spark_df.rdd
+	this_year_RDD = spark_RDD.map(
+			lambda x: Row(
+			title = x['title'],
+			author_ip = x['author_ip'],
+			timestamp=x['date'].strftime('%Y-%m-%d')))\
+			.filter(lambda x : x['timestamp'] >= '2018-01-01')\
+			.take(30)
+	print (this_year_RDD)
+	return this_year_RDD
+
 #------------------------------------------------------
  
 
@@ -100,9 +112,11 @@ if __name__ == '__main__':
 	spark_sql_output = query_spark_SQL(spark_df, SQL)
 	print ('Spark_SQL_output : ', spark_sql_output.take(30))
 	digested_ptt_data = digest_ptt_data(spark_df)
-	print ('digest_ptt_data : ', digested_ptt_data)
+	print ('digested_ptt_data : ', digested_ptt_data)
 	author_list = get_author_list(spark_df)
 	print ('author_list : ', author_list)
+	this_year_RDD = filter_this_year_data(spark_df)
+	print ('this_year_RDD : ', this_year_RDD)
 	print ('='*70)
 
 
