@@ -1,7 +1,5 @@
 # python 3 
 
-
-
 ##########################################################
 # ANALYSIS MYSQL DATA VIA SPARL OPS 
 #
@@ -11,7 +9,6 @@
 #
 #
 ##########################################################
-
 
 
 # OP
@@ -66,10 +63,10 @@ def digest_ptt_data(spark_df):
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
 	digested_RDD = spark_RDD.map(
-				lambda x: Row(
-				author_ip = x['author_ip'],
-				timestamp=x['date'].strftime('%Y-%m-%d')))\
-				.collect()
+			lambda x: Row(
+			author_ip = x['author_ip'],
+			timestamp=x['date'].strftime('%Y-%m-%d')))\
+			.collect()
 	print (digested_RDD)
 	return digested_RDD
 
@@ -85,10 +82,10 @@ def get_author_list(spark_df):
 			.collect()
 	print (digested_RDD)
 	return digested_RDD
-
-
 #------------------------------------------------------
  
+
+
 
 if __name__ == '__main__':
 	creds = get_mysql_creds()
