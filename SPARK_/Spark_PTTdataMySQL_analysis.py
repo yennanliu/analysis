@@ -66,10 +66,23 @@ def digest_ptt_data(spark_df):
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
 	digested_RDD = spark_RDD.map(
-	lambda x: Row(
-	author_ip = x['author_ip'],
-	timestamp=x['date'].strftime('%Y-%m-%d')))\
-	.take(10)
+				lambda x: Row(
+				author_ip = x['author_ip'],
+				timestamp=x['date'].strftime('%Y-%m-%d')))\
+				.collect()
+	print (digested_RDD)
+	return digested_RDD
+
+
+def get_author_list(spark_df):
+	# conver Spark df back to Spark RDD
+	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
+	spark_RDD = spark_df.rdd
+	author_list = spark_RDD.map(
+			lambda x : Row(
+			author_id = x['author']))\
+			.flatMap(lambda x : x)\
+			.collect()
 	print (digested_RDD)
 	return digested_RDD
 
@@ -91,6 +104,8 @@ if __name__ == '__main__':
 	print ('Spark_SQL_output : ', spark_sql_output.take(30))
 	digested_ptt_data = digest_ptt_data(spark_df)
 	print ('digest_ptt_data : ', digested_ptt_data)
+	author_list = get_author_list(spark_df)
+	print ('author_list : ', author_list)
 	print ('='*70)
 
 
