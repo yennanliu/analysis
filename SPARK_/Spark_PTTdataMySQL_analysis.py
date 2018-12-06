@@ -82,6 +82,8 @@ def get_author_list(spark_df):
 	return author_list
 
 
+
+
 def filter_this_year_data(spark_df):
 	spark_RDD = spark_df.rdd
 	this_year_RDD = spark_RDD.map(
@@ -93,6 +95,8 @@ def filter_this_year_data(spark_df):
 			.take(30)
 	print (this_year_RDD)
 	return this_year_RDD
+
+	
 
 #------------------------------------------------------
  
