@@ -19,8 +19,10 @@ import pandas as pd
 import os 
 # spark 
 from pyspark import SparkConf, SparkContext
-from pyspark.sql import SQLContext
+from pyspark.sql import SQLContext, Row
 
+
+#------------------------------------------------------
 # spark config 
 conf = SparkConf().setAppName("LOAD PTT MYSQL DATABASE")
 sc = SparkContext(conf=conf)
@@ -31,8 +33,10 @@ HOST = os.environ['HOST']
 USER = os.environ['USER']
 PASSWORD = os.environ['PASSWORD']
 DATABASE = os.environ['DATABASE']
+#------------------------------------------------------
 
 
+#------------------------------------------------------
 def get_mysql_creds():
 	url = "jdbc:mysql://{}/{}".format(HOST, DATABASE)
 	creds = {"url":url,
@@ -45,6 +49,7 @@ def get_mysql_creds():
 def get_ptt_table_data(creds, table):
 	creds = get_mysql_creds()
 	spark_df = sqlContext.read.jdbc(url=creds['url'],properties=creds['connectionProperties'], table=table )
+	#spark_df = sqlContext.read.jdbc(url=creds['url'],properties=creds['connectionProperties'], dbtable=SQL )
 	pandas_df = spark_df.toPandas()
 	return spark_df, pandas_df 
 
@@ -60,28 +65,32 @@ def digest_ptt_data(spark_df):
 	# conver Spark df back to Spark RDD
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
-	digested_RDD = spark_RDD\
-	.map(lambda x : (x.date, x.author_ip))\
-	.groupByKey().map(lambda x: (x[0], sorted(list(x[1])))) \
-	.collect()
+	digested_RDD = spark_sql_output.rdd.map(lambda x: Row(author_ip = x['author_ip'],timestamp=x['date'].strftime('%Y-%m-%d'))).take(10)
+	#digested_RDD = spark_RDD\
+	#.map(lambda x : (x.date, x.author_ip))\
+	#.groupByKey().map(lambda x: (x[0], sorted(list(x[1])))) \
+	#.collect()
 	print (digested_RDD)
 	return digested_RDD
 
 
-	 
+#------------------------------------------------------
+ 
 
 if __name__ == '__main__':
 	creds = get_mysql_creds()
 	spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
-	#spark_df, pandas_df  = get_ptt_table_data(creds, "Gossiping")
 	print ('='*70)
 	print ('spark_df : ', spark_df.take(30))
 	print (type(spark_df))
 	print ('pandas_df : ', pandas_df)
 	print (type(pandas_df))
-	SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
+	#SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
+	SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
 	spark_sql_output = query_spark_SQL(spark_df, SQL)
 	print ('Spark_SQL_output : ', spark_sql_output.take(30))
+	digest_ptt_data = digest_ptt_data(spark_df)
+	print ('digest_ptt_data : ', digest_ptt_data)
 	print ('='*70)
 
 
