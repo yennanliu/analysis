@@ -65,11 +65,11 @@ def digest_ptt_data(spark_df):
 	# conver Spark df back to Spark RDD
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
-	digested_RDD = spark_sql_output.rdd.map(
-					lambda x: Row(
-					author_ip = x['author_ip'],
-					timestamp=x['date'].strftime('%Y-%m-%d')))\
-					.take(10)
+	digested_RDD = spark_RDD.map(
+	lambda x: Row(
+	author_ip = x['author_ip'],
+	timestamp=x['date'].strftime('%Y-%m-%d')))\
+	.take(10)
 	print (digested_RDD)
 	return digested_RDD
 
