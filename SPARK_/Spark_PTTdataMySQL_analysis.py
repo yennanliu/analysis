@@ -65,11 +65,11 @@ def digest_ptt_data(spark_df):
 	# conver Spark df back to Spark RDD
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
-	digested_RDD = spark_sql_output.rdd.map(lambda x: Row(author_ip = x['author_ip'],timestamp=x['date'].strftime('%Y-%m-%d'))).take(10)
-	#digested_RDD = spark_RDD\
-	#.map(lambda x : (x.date, x.author_ip))\
-	#.groupByKey().map(lambda x: (x[0], sorted(list(x[1])))) \
-	#.collect()
+	digested_RDD = spark_sql_output.rdd.map(
+					lambda x: Row(
+					author_ip = x['author_ip'],
+					timestamp=x['date'].strftime('%Y-%m-%d')))\
+					.take(10)
 	print (digested_RDD)
 	return digested_RDD
 
@@ -89,16 +89,12 @@ if __name__ == '__main__':
 	SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
 	spark_sql_output = query_spark_SQL(spark_df, SQL)
 	print ('Spark_SQL_output : ', spark_sql_output.take(30))
-	digest_ptt_data = digest_ptt_data(spark_df)
-	print ('digest_ptt_data : ', digest_ptt_data)
+	digested_ptt_data = digest_ptt_data(spark_df)
+	print ('digest_ptt_data : ', digested_ptt_data)
 	print ('='*70)
 
 
 	##### run via command line #####   
 	# spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
-
-
-
-
 
 
