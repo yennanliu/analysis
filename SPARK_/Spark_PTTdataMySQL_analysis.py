@@ -82,8 +82,6 @@ def get_author_list(spark_df):
 	return author_list
 
 
-
-
 def filter_this_year_data(spark_df):
 	spark_RDD = spark_df.rdd
 	this_year_RDD = spark_RDD.map(
@@ -95,6 +93,25 @@ def filter_this_year_data(spark_df):
 			.take(30)
 	print (this_year_RDD)
 	return this_year_RDD
+
+
+def filter_top_10_ip(spark_df):
+	spark_RDD = spark_df.rdd
+	top_ip_RDD = spark_RDD.map(
+		lambda x: Row(
+		author_ip = x['author_ip'],
+		timestamp=x['date'].strftime('%Y-%m-%d')))\
+		.groupBy(lambda r: r['author_ip'])
+	top_ip_RDD_count= top_ip_RDD.map(lambda x: (list(x[1]))).take(30)
+	#ip_count_list = top_ip_RDD_count.map(reduce_by_max).collect()
+	print (top_ip_RDD_count)
+	return top_ip_RDD_count 
+
+
+
+
+
+
 
 	
 
