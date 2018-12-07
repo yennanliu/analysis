@@ -63,10 +63,10 @@ def digest_ptt_data(spark_df):
 	# https://stackoverflow.com/questions/29000514/how-to-convert-a-dataframe-back-to-normal-rdd-in-pyspark
 	spark_RDD = spark_df.rdd
 	digested_RDD = spark_RDD.map(
-			lambda x: Row(
-			author_ip = x['author_ip'],
-			timestamp=x['date'].strftime('%Y-%m-%d')))\
-			.take(30)
+                  lambda x: Row(
+                  author_ip = x['author_ip'],
+                  timestamp=x['date'].strftime('%Y-%m-%d')))\
+                  .take(30)
 	print (digested_RDD)
 	return digested_RDD
 
@@ -74,10 +74,10 @@ def digest_ptt_data(spark_df):
 def get_author_list(spark_df):
 	spark_RDD = spark_df.rdd
 	author_list = spark_RDD.map(
-			lambda x : Row(
-			author_id = x['author']))\
-			.flatMap(lambda x : x)\
-			.take(30)
+                lambda x : Row(
+                author_id = x['author']))\
+                .flatMap(lambda x : x)\
+                .take(30)
 	print (author_list)
 	return author_list
 
@@ -85,12 +85,12 @@ def get_author_list(spark_df):
 def filter_this_year_data(spark_df):
 	spark_RDD = spark_df.rdd
 	this_year_post = spark_RDD.map(
-			lambda x: Row(
-			title = x['title'],
-			author_ip = x['author_ip'],
-			timestamp=x['date'].strftime('%Y-%m-%d')))\
-			.filter(lambda x : x['timestamp'] >= '2018-01-01')\
-			.take(30)
+                  lambda x: Row(
+                  title = x['title'],
+                  author_ip = x['author_ip'],
+                  timestamp=x['date'].strftime('%Y-%m-%d')))\
+                  .filter(lambda x : x['timestamp'] >= '2018-01-01')\
+                  .take(30)
 	print (this_year_post)
 	return this_year_post
 
@@ -98,8 +98,8 @@ def filter_this_year_data(spark_df):
 def filter_top_ip(spark_df):
 	spark_RDD = spark_df.rdd
 	top_ip = spark_RDD.map(lambda x: (x.author_ip, x.date))\
-		.groupByKey().map(lambda x: (x[0], sorted(list(x[1]))))\
-		.take(30)
+                    .groupByKey().map(lambda x: (x[0], sorted(list(x[1]))))\
+                    .take(30)
 	print (top_ip)
 	return top_ip
 
