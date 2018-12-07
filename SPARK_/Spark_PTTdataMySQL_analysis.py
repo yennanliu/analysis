@@ -95,7 +95,7 @@ def filter_this_year_data(spark_df):
 	return this_year_RDD
 
 
-def filter_top_10_ip(spark_df):
+def filter_top_ip(spark_df):
 	spark_RDD = spark_df.rdd
 	top_ip_RDD = spark_RDD.map(
 		lambda x: Row(
