@@ -54,8 +54,7 @@ docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "
 ### Quick Start (Docker Spark demo)
 ```bash
 
-docker run --rm -v $PWD/analysis:/url  coorpacademy/docker-pyspark:latest /bin/bash -c "apk update && apk add git && git clone https://github.com/yennanliu/analysis.git ; ls ; pwd ; export SPARK_HOME=/Users/$USER/spark && export PATH=$SPARK_HOME/bin:$PATH && spark-submit analysis/ SPARK_/Spark_filter_demo.py"
-
+docker run --rm -v $PWD/analysis:/url  yennanliu/mac_de_env:v1  /bin/bash -c "git clone https://github.com/yennanliu/analysis.git ; ls analysis ; pwd ;  bash  && export SPARK_HOME=/usr/local/spark && export PATH=$SPARK_HOME/bin:$PATH && pyspark"
 ```
 
 ### Quick Start (Spark load MySQL demo)
