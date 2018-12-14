@@ -133,7 +133,7 @@ def filter_top_ip_reducebykey(spark_df):
   return top_ip
 
 
-def save_to_S3(finename,bucketname):
+def save_to_S3(region_name,finename,bucketname):
   # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html?highlight=upload#S3.Client.upload_file
   s3 = boto3.resource('s3',
                       region_name = region_name,
