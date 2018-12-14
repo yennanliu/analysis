@@ -17,6 +17,7 @@ import os
 # spark 
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, Row
+from operator import add
 
 
 #------------------------------------------------------
@@ -51,7 +52,7 @@ def get_ptt_table_data(creds, table):
 	return spark_df, pandas_df 
 
 
-def query_spark_SQL(spark_df,SQL):
+def query_spark_df(spark_df,SQL):
 	spark_df.registerTempTable("temp_sql_table")
 	print (SQL)
 	spark_sql_output=sqlContext.sql(SQL) 	
@@ -95,13 +96,31 @@ def filter_this_year_data(spark_df):
 	return this_year_post
 
 
-def filter_top_ip(spark_df):
-	spark_RDD = spark_df.rdd
-	top_ip = spark_RDD.map(lambda x: (x.author_ip, x.date))\
-                    .groupByKey().map(lambda x: (x[0], sorted(list(x[1]))))\
-                    .take(30)
-	print (top_ip)
-	return top_ip
+
+def filter_top_ip_groupbykey(spark_df):
+  # pyspark action OP ref 
+  # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
+  spark_RDD = spark_df.rdd
+  top_ip = sorted(spark_RDD\
+                .filter(lambda x : x['author_ip'] != None)\
+                .map(lambda x: (x.author_ip,1))\
+                .groupByKey().mapValues(len)\
+                .collect())
+  print (top_ip)
+  return top_ip
+
+
+
+def filter_top_ip_reducebykey(spark_df):
+  # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
+  spark_RDD = spark_df.rdd
+  top_ip = sorted(spark_RDD\
+                  .filter(lambda x : x['author_ip'] != None)\
+                  .map(lambda x: (x.author_ip,1))\
+                  .reduceByKey(add)\
+                  .collect())
+  print (top_ip)
+  return top_ip
 
 
 
@@ -116,7 +135,7 @@ if __name__ == '__main__':
 	print (type(pandas_df))
 	#SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
 	SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
-	spark_sql_output = query_spark_SQL(spark_df, SQL)
+	spark_sql_output = query_spark_df(spark_df, SQL)
 	print ('Spark_SQL_output : ', spark_sql_output.take(30))
 	digested_ptt_data = digest_ptt_data(spark_df)
 	print ('digested_ptt_data : ', digested_ptt_data)
