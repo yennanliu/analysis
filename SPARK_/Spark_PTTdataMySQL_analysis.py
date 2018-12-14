@@ -6,19 +6,21 @@
 # REF  
 # https://stackoverflow.com/questions/48054270/load-data-from-the-mysql-db-using-pyspark-in-python-3
 #
-#
-#
+# RUNNING BASIC SPARK OP ON PROCESS/ANALYZE DATA 
+# 
 ##########################################################
 
 
-# OP
-import pandas as pd 
-import os 
+
 # spark 
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, Row
 from operator import add
 
+# OP
+import pandas as pd 
+import os 
+import boto3
 
 #------------------------------------------------------
 # spark config 
@@ -31,6 +33,12 @@ HOST = os.environ['HOST']
 USER = os.environ['USER']
 PASSWORD = os.environ['PASSWORD']
 DATABASE = os.environ['DATABASE']
+try:
+  AWS_KEY_ID = os.environ['AWS_KEY_ID']
+  AWS_SECRET_KEY = os.environ['AWS_SECRET_KEY']
+except:
+  print ('No S3 credential loaded')
+
 #------------------------------------------------------
 
 
@@ -96,7 +104,6 @@ def filter_this_year_data(spark_df):
 	return this_year_post
 
 
-
 def filter_top_ip_groupbykey(spark_df):
   # pyspark action OP ref 
   # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
@@ -112,7 +119,6 @@ def filter_top_ip_groupbykey(spark_df):
   return top_ip
 
 
-
 def filter_top_ip_reducebykey(spark_df):
   # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
   spark_RDD = spark_df.rdd
@@ -124,6 +130,21 @@ def filter_top_ip_reducebykey(spark_df):
                 .take(30)
   print (top_ip)
   return top_ip
+
+
+def save_to_S3(finename):
+  conn = boto3.connect_s3()
+  s3_connection = boto.connect_s3()
+  bucket = s3_connection.get_bucket('your bucket name')
+  key = boto.s3.key.Key(bucket, 'some_file.zip')
+  try:
+    with open(finename) as f:
+        key.send_file(f)
+    print ('upload to S3 OK')
+  except Exception as e:
+    print (e)
+    print ('upload failed')
+
 
 
 
