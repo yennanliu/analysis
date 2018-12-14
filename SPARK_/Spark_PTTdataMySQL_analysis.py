@@ -100,6 +100,8 @@ def filter_this_year_data(spark_df):
 def filter_top_ip_groupbykey(spark_df):
   # pyspark action OP ref 
   # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
+  # sort a list of tuples in pyspark
+  # https://stackoverflow.com/questions/37658320/sorting-a-list-of-tuples-in-pyspark
   spark_RDD = spark_df.rdd
   top_ip = sorted(spark_RDD\
                 .filter(lambda x : x['author_ip'] != None)\
@@ -114,11 +116,12 @@ def filter_top_ip_groupbykey(spark_df):
 def filter_top_ip_reducebykey(spark_df):
   # http://spark.apache.org/docs/2.1.0/api/python/pyspark.html
   spark_RDD = spark_df.rdd
-  top_ip = sorted(spark_RDD\
-                  .filter(lambda x : x['author_ip'] != None)\
-                  .map(lambda x: (x.author_ip,1))\
-                  .reduceByKey(add)\
-                  .collect())
+  top_ip = spark_RDD\
+                .filter(lambda x : x['author_ip'] != None)\
+                .map(lambda x: (x.author_ip,1))\
+                .reduceByKey(add)\
+                .sortBy(lambda x: x[1], False)\
+                .take(30)
   print (top_ip)
   return top_ip
 
@@ -143,7 +146,7 @@ if __name__ == '__main__':
 	print ('author_list : ', author_list)
 	this_year_RDD = filter_this_year_data(spark_df)
 	print ('this_year_RDD : ', this_year_RDD)
-	top_ip = filter_top_ip(spark_df)
+	top_ip = filter_top_ip_reducebykey(spark_df)
 	print ('top_ip : ', top_ip)
 	print ('='*70)
 
