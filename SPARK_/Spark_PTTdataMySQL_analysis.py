@@ -132,14 +132,14 @@ def filter_top_ip_reducebykey(spark_df):
   return top_ip
 
 
-def save_to_S3(finename,buckername):
-  conn = boto3.connect_s3()
-  s3_connection = boto.connect_s3()
-  bucket = s3_connection.get_bucket(buckername)
-  key = boto.s3.key.Key(bucket, finename)
+def save_to_S3(finename,bucketname):
+  s3 = boto3.resource('s3',
+                      aws_access_key_id=AWS_KEY_ID,
+                      aws_secret_access_key=AWS_SECRET_KEY)
+  bucket = s3.Bucket(bucketname)
+
   try:
-    with open(finename) as f:
-        key.send_file(f)
+    s3.meta.client.upload_file(finename, bucketname, finename)
     print ('upload to S3 OK')
   except Exception as e:
     print (e)
@@ -149,26 +149,28 @@ def save_to_S3(finename,buckername):
 
 #------------------------------------------------------
 if __name__ == '__main__':
-	creds = get_mysql_creds()
-	spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
-	print ('='*70)
-	print ('spark_df : ', spark_df.take(30))
-	print (type(spark_df))
-	print ('pandas_df : ', pandas_df)
-	print (type(pandas_df))
-	#SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
-	SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
-	spark_sql_output = query_spark_df(spark_df, SQL)
-	print ('Spark_SQL_output : ', spark_sql_output.take(30))
-	digested_ptt_data = digest_ptt_data(spark_df)
-	print ('digested_ptt_data : ', digested_ptt_data)
-	author_list = get_author_list(spark_df)
-	print ('author_list : ', author_list)
-	this_year_RDD = filter_this_year_data(spark_df)
-	print ('this_year_RDD : ', this_year_RDD)
-	top_ip = filter_top_ip_reducebykey(spark_df)
-	print ('top_ip : ', top_ip)
-	print ('='*70)
+  creds = get_mysql_creds()
+  spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
+  print ('='*70)
+  print ('spark_df : ', spark_df.take(30))
+  print (type(spark_df))
+  print ('pandas_df : ', pandas_df)
+  print (type(pandas_df))
+  #SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
+  SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
+  spark_sql_output = query_spark_df(spark_df, SQL)
+  print ('Spark_SQL_output : ', spark_sql_output.take(30))
+  digested_ptt_data = digest_ptt_data(spark_df)
+  print ('digested_ptt_data : ', digested_ptt_data)
+  author_list = get_author_list(spark_df)
+  print ('author_list : ', author_list)
+  this_year_RDD = filter_this_year_data(spark_df)
+  print ('this_year_RDD : ', this_year_RDD)
+  top_ip = filter_top_ip_reducebykey(spark_df)
+  print ('top_ip : ', top_ip)
+  # save to csv and uplaod to s3 
+  pandas_df.head(100).to_csv('pandas_df.csv')
+  print ('='*70)
 
 
 	##### run via command line #####   
