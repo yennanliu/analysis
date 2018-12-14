@@ -174,7 +174,7 @@ if __name__ == '__main__':
   print ('='*70)
 
 
-	##### run via command line #####   
-	# spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
+  ##### run via command line #####   
+  # spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
 
 
