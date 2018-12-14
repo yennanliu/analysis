@@ -36,6 +36,7 @@ DATABASE = os.environ['DATABASE']
 try:
   AWS_KEY_ID = os.environ['AWS_KEY_ID']
   AWS_SECRET_KEY = os.environ['AWS_SECRET_KEY']
+  bucketname = os.environ['bucketname']
 except:
   print ('No S3 credential loaded')
 
@@ -135,6 +136,7 @@ def filter_top_ip_reducebykey(spark_df):
 def save_to_S3(finename,bucketname):
   # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html?highlight=upload#S3.Client.upload_file
   s3 = boto3.resource('s3',
+                      region_name = region_name,
                       aws_access_key_id=AWS_KEY_ID,
                       aws_secret_access_key=AWS_SECRET_KEY)
   bucket = s3.Bucket(bucketname)
@@ -171,8 +173,8 @@ if __name__ == '__main__':
   print ('top_ip : ', top_ip)
   # save to csv and uplaod to s3 
   pandas_df.head(100).to_csv('pandas_df.csv')
+  save_to_S3('eu-west-1','pandas_df.csv',bucketname)
   print ('='*70)
-
 
   ##### run via command line #####   
   # spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
