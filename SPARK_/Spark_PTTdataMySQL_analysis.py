@@ -132,11 +132,11 @@ def filter_top_ip_reducebykey(spark_df):
   return top_ip
 
 
-def save_to_S3(finename):
+def save_to_S3(finename,buckername):
   conn = boto3.connect_s3()
   s3_connection = boto.connect_s3()
-  bucket = s3_connection.get_bucket('your bucket name')
-  key = boto.s3.key.Key(bucket, 'some_file.zip')
+  bucket = s3_connection.get_bucket(buckername)
+  key = boto.s3.key.Key(bucket, finename)
   try:
     with open(finename) as f:
         key.send_file(f)
@@ -144,7 +144,6 @@ def save_to_S3(finename):
   except Exception as e:
     print (e)
     print ('upload failed')
-
 
 
 
