@@ -144,9 +144,23 @@ def filter_top_ip_reducebykey(spark_df):
   return top_ip
 
 
-def extract_response_data(spark_df):
-  pass 
+def clean_response(response):
+  cleaned_response = response\
+  .replace("\n", "")\
+  .replace("→", " ")\
+  .replace("推", " ")\
+  .strip("'")
+  return cleaned_response
 
+
+def extract_response_data(spark_df):
+  spark_RDD = spark_df.rdd
+  extracted_response = spark_RDD\
+                     .filter(lambda x : x['response'] != None)\
+                     .map(lambda x : clean_response(x['response']))\
+                     .take(30)
+  print (extracted_response)
+  return extracted_response 
 
 
 def save_to_S3(region_name,finename,bucketname):
@@ -192,6 +206,9 @@ def main():
   # get top ip via reducebykey and sorted 
   top_ip = filter_top_ip_reducebykey(spark_df)
   print ('top_ip : ', top_ip)
+  # clean, prepeocess test response 
+  extract_response = extract_response_data(spark_df)
+  print ('extract_response : ', extract_response)
   # save to csv and uplaod to s3 
   pandas_df.head(100).to_csv('pandas_df.csv')
   save_to_S3('eu-west-1','pandas_df.csv',bucketname)
