@@ -1,13 +1,24 @@
 # python 3 
 
 ##########################################################
-# ANALYSIS MYSQL DATA VIA SPARL OPS 
+# ANALYSIS MYSQL DATA VIA SPARK OPS 
 #
 # REF  
 # https://stackoverflow.com/questions/48054270/load-data-from-the-mysql-db-using-pyspark-in-python-3
 #
-# RUNNING BASIC SPARK OP ON PROCESS/ANALYZE DATA 
+# PROCESS/ANALYZE DATA VIA BASIC SPARK OP (map, flatmap, groupbykey, reducebykey, SQL...)
 # 
+
+
+# QUICK START 
+# 1) install spark 
+# https://github.com/yennanliu/utility_shell/blob/master/spark/install_pyspark.sh
+# 2) launch spark env 
+# https://github.com/yennanliu/utility_shell/blob/master/spark/launch_pyspark.sh
+# $export SPARK_HOME=/Users/$USER/spark && export PATH=$SPARK_HOME/bin:$PATH
+# 3) run 
+# spark-submit Spark_load_MySQL_demo.py
+
 ##########################################################
 
 
@@ -176,7 +187,5 @@ if __name__ == '__main__':
   save_to_S3('eu-west-1','pandas_df.csv',bucketname)
   print ('='*70)
 
-  ##### run via command line #####   
-  # spark-submit --packages mysql:mysql-connector-java:5.1.38 Spark_load_MySQL_demo.py
 
 
