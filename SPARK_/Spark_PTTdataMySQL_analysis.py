@@ -8,8 +8,8 @@
 #
 # PROCESS/ANALYZE DATA VIA BASIC SPARK OP (map, flatmap, groupbykey, reducebykey, SQL...)
 # 
-
-
+#
+#
 # QUICK START 
 # 1) install spark 
 # https://github.com/yennanliu/utility_shell/blob/master/spark/install_pyspark.sh
@@ -18,7 +18,7 @@
 # $export SPARK_HOME=/Users/$USER/spark && export PATH=$SPARK_HOME/bin:$PATH
 # 3) run 
 # spark-submit Spark_load_MySQL_demo.py
-
+#
 ##########################################################
 
 
