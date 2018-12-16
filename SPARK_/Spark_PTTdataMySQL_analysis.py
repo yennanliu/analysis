@@ -144,6 +144,11 @@ def filter_top_ip_reducebykey(spark_df):
   return top_ip
 
 
+def extract_response_data(spark_df):
+  pass 
+
+
+
 def save_to_S3(region_name,finename,bucketname):
   # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3.html?highlight=upload#S3.Client.upload_file
   s3 = boto3.resource('s3',
@@ -163,23 +168,28 @@ def save_to_S3(region_name,finename,bucketname):
 #------------------------------------------------------
 # main run func 
 def main():
+  # get mysql creds 
   creds = get_mysql_creds()
+  # get spark dataframe, pandas dataframe
   spark_df, pandas_df  = get_ptt_table_data(creds, "Soft_Job")
   print ('='*70)
-  print ('spark_df : ', spark_df.take(30))
-  print (type(spark_df))
-  print ('pandas_df : ', pandas_df)
-  print (type(pandas_df))
+  print ('spark_df : ', spark_df.take(30), type(spark_df))
+  print ('pandas_df : ', pandas_df, type(pandas_df))
   #SQL="""SELECT author_ip,count(*) from temp_sql_table group by 1  order by 2 desc"""
+  # run sparK SQL 
   SQL="""SELECT author_ip, date from temp_sql_table limit 1000 """
   spark_sql_output = query_spark_df(spark_df, SQL)
   print ('Spark_SQL_output : ', spark_sql_output.take(30))
+  # preprocess spark RDD data 
   digested_ptt_data = digest_ptt_data(spark_df)
   print ('digested_ptt_data : ', digested_ptt_data)
+  # get authors as a list 
   author_list = get_author_list(spark_df)
   print ('author_list : ', author_list)
+  # only get > 2017 year data
   this_year_RDD = filter_this_year_data(spark_df)
   print ('this_year_RDD : ', this_year_RDD)
+  # get top ip via reducebykey and sorted 
   top_ip = filter_top_ip_reducebykey(spark_df)
   print ('top_ip : ', top_ip)
   # save to csv and uplaod to s3 
