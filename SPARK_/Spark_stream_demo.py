@@ -25,11 +25,46 @@
 ############################################################################################ 
 
 
-from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
+from pyspark import SparkConf, SparkContext
+from pyspark.sql import SQLContext, Row
+
+#--------------------------------------------------
+# help func 
+# Lazily instantiated global instance of SQLContext
+def getSqlContextInstance(sparkContext):
+    if ('sqlContextSingletonInstance' not in globals()):
+        globals()['sqlContextSingletonInstance'] = SQLContext(sparkContext)
+    return globals()['sqlContextSingletonInstance']
+
+
+
+def process(time, rdd):
+    print("========= %s =========" % str(time))
+    try:
+        # Get the singleton instance of SQLContext
+        sqlContext = getSqlContextInstance(rdd.context)
+
+        # Convert RDD[String] to RDD[Row] to DataFrame
+        rowRdd = rdd.map(lambda w: Row(word=w))
+        wordsDataFrame = sqlContext.createDataFrame(rowRdd)
+
+        # Register as table
+        wordsDataFrame.registerTempTable("words")
+
+        # Do word count on table using SQL and print it
+        wordCountsDataFrame = sqlContext.sql("select word, count(*) as total from words group by word")
+        wordCountsDataFrame.show()
+    except:
+        pass
+
+#--------------------------------------------------
+
+
 
 
 if __name__ == '__main__':
+	# PART 1) : BASIC STREAMING 
 	# CONFIG
 	# create a SparkContext object with 2 local threads
 	# name it as "NetworkWordCount"
@@ -50,7 +85,14 @@ if __name__ == '__main__':
 	# print elements of the RDD
 	word_counts.pprint()
 	print (word_counts)
+	# in case just run on PART 1) 
+	#ssc.start()
+	#ssc.awaitTermination()  # Wait for the computation to terminate
 
+
+	# PART 2) SPARK SQL IN STREAMING WINDOW 
+	words.foreachRDD(process)
+	
 	ssc.start()
 	ssc.awaitTermination()  # Wait for the computation to terminate
 
