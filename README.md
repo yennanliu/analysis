@@ -43,6 +43,8 @@ Collections of various analysis projects <br>
 * [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
 * [Pyspark LinearRegression Grid Search demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_GridSearch_demo.py) -  Train a Grid Search tuned linear model with Spark ML framework 
 * [Pyspark Data Preprocess 1 ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_PTTdataMySQL_analysis.py) - Digest [PTT (批踢踢實業坊)](https://en.wikipedia.org/wiki/PTT_Bulletin_Board_System) data via Pyspark batch operations. [PTT](https://term.ptt.cc/)
+* [Pyspark Streaming demo 1](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_stream_demo.py) -  Using Spark Streaming run a simple word-count app 
+
 
 ## Others 
 
