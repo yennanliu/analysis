@@ -14,14 +14,42 @@
 #
 #
 #
-#### before start this demo script
+# ******************  QUICK START  ******************
 # open the other terminal run : 
 # $ nc -lk 9999 ( start the localhost:9999, Start the streaming session to the localhost)
 # and type sth within that terminal
 # i.e. 
-# $ hello world 
-# $ yall yay lol yyzzyy
-# you should seed the spark stream get the session input and response as output 
+# hello world 
+# hello world 
+#lol
+#lo
+#l
+#. 
+#.
+# you should seed the spark stream get the session input and response as below
+#-------------------------------------------
+#Time: 2018-12-29 09:44:30
+#-------------------------------------------
+#('', 4)
+#('l', 2)
+#('lo', 2)
+#('world', 4)
+#('ll', 1)
+#('hello', 4)
+#('lol', 4)
+#
+#========= 2018-12-29 09:44:30 =========
+#+-----+-----+
+# word|total|
+#+-----+-----+
+#|    l|    2|
+#|  lol|    4|
+#|hello|    4|
+#|   ll|    1|
+#|world|    4|
+#|     |    4|
+#|   lo|    2|
+#+-----+-----+ 
 ############################################################################################ 
 
 
@@ -92,7 +120,7 @@ if __name__ == '__main__':
 
 	# PART 2) SPARK SQL IN STREAMING WINDOW 
 	words.foreachRDD(process)
-	
+
 	ssc.start()
 	ssc.awaitTermination()  # Wait for the computation to terminate
 
