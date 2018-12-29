@@ -4,11 +4,16 @@
 
 ############################################################################################ 
 # 
-# REF 
+# REF 1) : Streaming basics 
 # https://github.com/clumdee/Python-and-Spark-for-Big-Data-master/blob/master/Spark_Streaming/streaming_terminal_with_RDD.ipynb
 # SPARK STREAM DEMO CODE  
-
-
+#
+#
+# REF 2) : temp SQL table in Streaming window 
+# https://spark.apache.org/docs/1.6.2/streaming-programming-guide.html
+#
+#
+#
 #### before start this demo script
 # open the other terminal run : 
 # $ nc -lk 9999 ( start the localhost:9999, Start the streaming session to the localhost)
