@@ -41,7 +41,7 @@ Collections of various analysis projects <br>
 * [Pyspark Basic 1](http://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_notebook_basic_1.ipynb) - Basic spark ops (transform & action): RDD,Map,FlatMap, Reduce,filter, Distinct, Intersection
 * [Pyspark Basic 2](http://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_notebook_basic_2.ipynb) -Basic spark ops : load csv,dataframe,SparkSQL, transformation in [RDD, dataframe, SparkSQL]
 * [Pyspark Basic 3](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_DataFrame_OP_Intro.ipynb) -Basic spark ops : Spark DataFrame OP 
-* [Pyspark LinearRegression nb step by step demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_Intro.ipynb) - Spark Linear Regression model tutorial 
+* [Pyspark LinearRegression nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_Intro.ipynb) - Spark Linear Regression model tutorial 
 * [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
 * [Pyspark LinearRegression Grid Search demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_GridSearch_demo.py) -  Train a Grid Search tuned linear model with Spark ML framework 
 * [Pyspark Data Preprocess 1 ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_PTTdataMySQL_analysis.py) - Digest [PTT (批踢踢實業坊)](https://en.wikipedia.org/wiki/PTT_Bulletin_Board_System) data via Pyspark batch operations. [PTT](https://term.ptt.cc/)
