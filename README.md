@@ -45,6 +45,7 @@ Collections of various analysis projects <br>
 
 *spark ML intro* <br>
 * [Pyspark LinearRegression nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_Intro.ipynb) - Spark Linear Regression model tutorial 
+* [Pyspark LogisticRegression nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LogisticRegression_intro.ipynb) - Spark Logistic Regression model tutorial 
 * [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
 * [Pyspark LinearRegression Grid Search demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_GridSearch_demo.py) -  Train a Grid Search tuned linear model with Spark ML framework 
 
