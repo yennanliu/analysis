@@ -4,13 +4,11 @@ from pyspark.sql import SQLContext, SparkSession, Row
 # python op 
 import pandas as pd
 
-
 # config 
 conf = SparkConf().setAppName("load UBER data")
 sc = SparkContext(conf=conf)
 sqlCtx = SQLContext(sc)
 spark = SparkSession.builder.enableHiveSupport().getOrCreate()
-
 
 def load_csv():
 	# load the csv data as spark df 
@@ -25,7 +23,6 @@ def load_csv():
 	dataFrame.show()
 	print (dataFrame.printSchema())
 	return dataFrame
-
 
 def filter_batch_drive(dataFrame):
 	spark_RDD = dataFrame.rdd
@@ -42,13 +39,17 @@ def group_by_batch_drive(dataFrame):
 	dataFrame.groupby('dispatching_base_number').count().show()
 	dataFrame.groupby('dispatching_base_number').sum().show()
 
-
+def get_dispatch_list(dataFrame):
+	spark_RDD = dataFrame.rdd
+	dispatching_list = spark_RDD.map(
+		lambda x : Row(
+		dispatching_id = x['dispatching_base_number']))\
+		.flatMap(lambda x : x)\
+		.take(30)
+	print (dispatching_list)
 
 if __name__ == '__main__':
 	dataFrame = load_csv()
 	filter_batch_drive(dataFrame)
 	group_by_batch_drive(dataFrame)
-
-
-
-
+	get_dispatch_list(dataFrame)
