@@ -1,6 +1,7 @@
 # spark 
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, SparkSession, Row
+from operator import add
 # python op 
 import pandas as pd
 
@@ -35,9 +36,18 @@ def filter_batch_drive(dataFrame):
 		.take(30)
 	print (digested_RDD) 
 
-def group_by_batch_drive(dataFrame):
+def get_batch_drive_count_dataFrame_groupby(dataFrame):
 	dataFrame.groupby('dispatching_base_number').count().show()
 	dataFrame.groupby('dispatching_base_number').sum().show()
+
+def get_batch_drive_count_RDD_reducebykey(dataFrame):
+	spark_RDD = dataFrame.rdd 
+	top_batch = spark_RDD\
+				.map(lambda x : (x.dispatching_base_number , 1))\
+				.reduceByKey(add)\
+				.sortBy(lambda x : x[1], False)\
+				.take(30)
+	print (top_batch)
 
 def get_dispatch_list(dataFrame):
 	spark_RDD = dataFrame.rdd
@@ -51,5 +61,7 @@ def get_dispatch_list(dataFrame):
 if __name__ == '__main__':
 	dataFrame = load_csv()
 	filter_batch_drive(dataFrame)
-	group_by_batch_drive(dataFrame)
+	get_batch_drive_count_dataFrame_groupby(dataFrame)
+	get_batch_drive_count_RDD_reducebykey(dataFrame)
 	get_dispatch_list(dataFrame)
+
