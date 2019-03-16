@@ -11,7 +11,8 @@ sc = SparkContext(conf=conf)
 sqlCtx = SQLContext(sc)
 spark = SparkSession.builder.enableHiveSupport().getOrCreate()
 
-def load_csv():
+# ----------------------------------- FOIL CSV 
+def load_FOIL_csv():
 	# load the csv data as spark df 
 	data = sc.textFile("uber_data/Uber-Jan-Feb-FOIL.csv").map(lambda line: line.split(","))
 	headers = data.first()
@@ -58,10 +59,21 @@ def get_dispatch_list(dataFrame):
 		.take(30)
 	print (dispatching_list)
 
-if __name__ == '__main__':
-	dataFrame = load_csv()
-	filter_batch_drive(dataFrame)
-	get_batch_drive_count_dataFrame_groupby(dataFrame)
-	get_batch_drive_count_RDD_reducebykey(dataFrame)
-	get_dispatch_list(dataFrame)
+# ----------------------------------- TRIP CSV 
+def load_all_trip_csv():
+	# spark load multiple CSVs
+	# https://stackoverflow.com/questions/37639956/how-to-import-multiple-csv-files-in-a-single-load
+	all_trip_data = spark.read.format("csv").option("header", "true").load("uber_data/uber-raw-data-*.csv")
+	all_trip_dataFrame.show()
+	print (all_trip_dataFrame.count())
+	return all_trip_data
 
+if __name__ == '__main__':
+	# FOIL CSV 
+	FOIL_dataFrame = load_FOIL_csv()
+	filter_batch_drive(FOIL_dataFrame)
+	get_batch_drive_count_dataFrame_groupby(FOIL_dataFrame)
+	get_batch_drive_count_RDD_reducebykey(FOIL_dataFrame)
+	get_dispatch_list(FOIL_dataFrame)
+	# TRIP CSV
+	all_trip_dataFrame = load_all_trip_csv()
