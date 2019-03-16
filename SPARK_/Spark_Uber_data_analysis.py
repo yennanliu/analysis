@@ -4,6 +4,7 @@ from pyspark.sql import SQLContext, SparkSession, Row
 from operator import add
 # python op 
 import pandas as pd
+import numpy as np 
 
 # config 
 conf = SparkConf().setAppName("load UBER data")
@@ -64,9 +65,28 @@ def load_all_trip_csv():
 	# spark load multiple CSVs
 	# https://stackoverflow.com/questions/37639956/how-to-import-multiple-csv-files-in-a-single-load
 	all_trip_data = spark.read.format("csv").option("header", "true").load("uber_data/uber-raw-data-*.csv")
-	all_trip_dataFrame.show()
-	print (all_trip_dataFrame.count())
+	all_trip_data.show()
+	print (all_trip_data.count())
 	return all_trip_data
+
+def get_haversine_distance(lat1, lng1, lat2, lng2):
+	# km
+	lat1, lng1, lat2, lng2 = map(np.radians, (lat1, lng1, lat2, lng2))
+	AVG_EARTH_RADIUS = 6371  #  km
+	lat = lat2 - lat1
+	lng = lng2 - lng1
+	d = np.sin(lat * 0.5) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(lng * 0.5) ** 2
+	h = 2 * AVG_EARTH_RADIUS * np.arcsin(np.sqrt(d))
+	return h 
+
+def get_filter_top_date(dataFrame):
+	spark_RDD = dataFrame.rdd
+	date_count = spark_RDD\
+				.map(lambda x : (x['Date/Time'], 1))\
+				.reduceByKey(add)\
+				.sortBy(lambda x : x[1], False)\
+				.take(30)
+	print (date_count)
 
 if __name__ == '__main__':
 	# FOIL CSV 
@@ -77,3 +97,4 @@ if __name__ == '__main__':
 	get_dispatch_list(FOIL_dataFrame)
 	# TRIP CSV
 	all_trip_dataFrame = load_all_trip_csv()
+	get_filter_top_date(all_trip_dataFrame)
