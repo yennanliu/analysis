@@ -47,6 +47,7 @@ Collections of various analysis projects <br>
 * [Pyspark LinearRegression nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_Intro.ipynb) - Spark Linear Regression model tutorial 
 * [Pyspark LogisticRegression nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LogisticRegression_intro.ipynb) - Spark Logistic Regression model tutorial 
 * [Pyspark Pipeline/Index/Encode nb step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/ae94d7b2bccd3b94ee9001c4e44c7a0797b8d095/SPARK_/Spark_ML_Pipeline_Stringindexer_OneHotEncoder_Intro.ipynb) - Train a spark ML model via pipeline and preprocess (index/encoder)
+* [Pyspark Tree models step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_DecisionTree_RandomForests_Intro.ipynb) - Train spark ML tree models (Decision tree/Random Forest/Gradient boosting)
 * [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
 * [Pyspark LinearRegression Grid Search demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_GridSearch_demo.py) -  Train a Grid Search tuned linear model with Spark ML framework 
 
