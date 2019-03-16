@@ -5,12 +5,21 @@ from operator import add
 # python op 
 import pandas as pd
 import numpy as np 
+from datetime import datetime
 
 # config 
 conf = SparkConf().setAppName("load UBER data")
 sc = SparkContext(conf=conf)
 sqlCtx = SQLContext(sc)
 spark = SparkSession.builder.enableHiveSupport().getOrCreate()
+
+# ----------------------------------- HELP FUNC  
+# TODO : UDF register in spark 
+def fix_all_FOIL_data_timestamp(timestamp_):
+	return datetime.strptime(timestamp_, '%d/%m/%Y').strftime('%Y-%m-%d')
+
+def fix_all_trip_data_timestamp(timestamp_):
+	return datetime.strptime(timestamp_.split(' ')[0], '%d/%m/%Y').strftime('%Y-%m-%d')
 
 # ----------------------------------- FOIL CSV 
 def load_FOIL_csv():
@@ -79,14 +88,28 @@ def get_haversine_distance(lat1, lng1, lat2, lng2):
 	h = 2 * AVG_EARTH_RADIUS * np.arcsin(np.sqrt(d))
 	return h 
 
+def get_pickup_dropoff_distance():
+	#https://stackoverflow.com/questions/53422473/pyspark-dataframe-create-new-column-based-on-function-return-value
+	pass
+
 def get_filter_top_date(dataFrame):
 	spark_RDD = dataFrame.rdd
-	date_count = spark_RDD\
-				.map(lambda x : (x['Date/Time'], 1))\
-				.reduceByKey(add)\
-				.sortBy(lambda x : x[1], False)\
-				.take(30)
+	# dataframe -> RDD 
+	date_lon_lat_list = spark_RDD.map(
+	                lambda x: Row(
+	                Lat=x['Lat'],
+	                Lon= x['Lon'],
+	                Base=x['Base'],
+	                timestamp= datetime.strptime(x['Date/Time'], '%m/%d/%Y %H:%M:%S').strftime('%Y-%m-%d') ))\
+	                .collect()
+	# list -> RDD
+	transformed_RDD_updated_RDD =  sc.parallelize(date_lon_lat_list)
+	date_count = transformed_RDD_updated_RDD.map(lambda x : (x.timestamp, 1))\
+					.reduceByKey(add)\
+					.sortBy(lambda x : x[1], False)\
+					.take(30)
 	print (date_count)
+
 
 if __name__ == '__main__':
 	# FOIL CSV 
