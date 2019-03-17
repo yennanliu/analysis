@@ -55,7 +55,7 @@ Collections of various analysis projects <br>
 *spark APP* <br>
 * [Pyspark Data Preprocess 1 : PTT ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_PTTdataMySQL_analysis.py) - Digest [PTT (批踢踢實業坊)](https://en.wikipedia.org/wiki/PTT_Bulletin_Board_System) data via Pyspark batch 
 operations. [PTT](https://term.ptt.cc/)
-* [Pyspark Data Preprocess 2 : UBER](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_Uber_data_analysis.py)  data via Pyspark batch  
+* [Pyspark Data Preprocess 2 : UBER](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_Uber_data_analysis.py)  Digest UBER data via Pyspark batch operations. 
 * [Pyspark Streaming demo 1](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_stream_demo.py) -  a simple word-count app data via Pyspark stream  
 
 
