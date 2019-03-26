@@ -51,6 +51,7 @@ Collections of various analysis projects <br>
 * [Pyspark Kmeans models step by step demo](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_Kmeans_Intro.ipynb) - Train spark ML cluster kmeans models 
 * [Pyspark LinearRegression demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_demo.py) -  Train a linear model with Spark ML framework 
 * [Pyspark LinearRegression Grid Search demo ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_ML_LinearRegression_GridSearch_demo.py) -  Train a Grid Search tuned linear model with Spark ML framework 
+* [Pyspark Collaborative Filtering demo ](https://nbviewer.jupyter.org/github/yennanliu/analysis/blob/master/SPARK_/Spark_ML_Collaborative_Filtering_Intro.ipynb) -  Spark recommdation algorithm (ALS model) demo with movielens dataset
 
 *spark APP* <br>
 * [Pyspark Data Preprocess 1 : PTT ](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_PTTdataMySQL_analysis.py) - Digest [PTT (批踢踢實業坊)](https://en.wikipedia.org/wiki/PTT_Bulletin_Board_System) data via Pyspark batch 
