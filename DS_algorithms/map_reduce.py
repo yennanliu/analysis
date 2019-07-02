@@ -7,7 +7,7 @@ class map_reduce(object):
     def __init__(self):
         pass
 
-    def load_data(self, dataset):
+    def Load_data(self, dataset):
         agg_row = []
         with open(dataset) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -16,12 +16,12 @@ class map_reduce(object):
                 agg_row.append(row[0])
         return agg_row
 
-    def map(self, agg_row):
+    def Map(self, agg_row):
         print (agg_row)
         for row in agg_row:
             print ('%s\t%s' % (row, 1))
 
-    def reduce(self, agg_row):
+    def Reduce(self, agg_row):
         current_word = None
         current_count = 0
         word = None
