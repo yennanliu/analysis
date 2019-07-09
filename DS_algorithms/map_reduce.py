@@ -25,23 +25,22 @@ class map_reduce(object):
         current_word = None
         current_count = 0
         word = None
+        word_dict = {}
         for row in agg_row:
             # word, count = row.split('\t', 1)
             word, count = row.split('\t', 1)[0], 1
             print (word, count)
-            if word == current_word:
-                current_count = current_count + count
+            if word in word_dict:
+                # if word already in word_list : count + 1 
+                word_dict[word] += 1 
             else:
-                if current_word:
-                    print ('%s\t%s' % (current_word, current_count))
-            current_count = count
-            current_word = word
-        if current_word == word:
-            print ('%s\t%s' % (current_word, current_count))
+                # if word is not in word_list : add it with count = 1 
+                word_dict[word] = 1 
+        return word_dict
 
 
 if __name__ == '__main__':
     mapreduce = map_reduce()
     agg_row = mapreduce.Load_data('map_reduce.csv')
-    # mapreduce.Map(agg_row)
-    mapreduce.Reduce(agg_row)
+    word_dict = mapreduce.Reduce(agg_row)
+    print ('word_count : ', word_dict)
