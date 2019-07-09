@@ -13,7 +13,7 @@ class map_reduce(object):
             csv_reader = csv.reader(csv_file, delimiter=',')
             for row in csv_reader:
                 print (row)
-                agg_row.append(row[0])
+                agg_row.append([row[0], row[1]])
         return agg_row
 
     def Map(self, agg_row):
@@ -22,13 +22,10 @@ class map_reduce(object):
             print ('%s\t%s' % (row, 1))
 
     def Reduce(self, agg_row):
-        current_word = None
-        current_count = 0
         word = None
         word_dict = {}
-        for row in agg_row:
-            # word, count = row.split('\t', 1)
-            word, count = row.split('\t', 1)[0], 1
+        for index, row in enumerate(agg_row):
+            word, count = row[0] + row[1], 1
             print (word, count)
             if word in word_dict:
                 # if word already in word_list : count + 1 
@@ -37,7 +34,6 @@ class map_reduce(object):
                 # if word is not in word_list : add it with count = 1 
                 word_dict[word] = 1 
         return word_dict
-
 
 if __name__ == '__main__':
     mapreduce = map_reduce()
