@@ -42,6 +42,6 @@ class map_reduce(object):
 
 if __name__ == '__main__':
     mapreduce = map_reduce()
-    agg_row = mapreduce.load_data('map_reduce.csv')
-    # mapreduce.map(agg_row)
-    mapreduce.reduce(agg_row)
+    agg_row = mapreduce.Load_data('map_reduce.csv')
+    # mapreduce.Map(agg_row)
+    mapreduce.Reduce(agg_row)
