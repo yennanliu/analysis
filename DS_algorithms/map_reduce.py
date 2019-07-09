@@ -26,7 +26,7 @@ class map_reduce(object):
         word_dict = {}
         for index, row in enumerate(agg_row):
             word, count = row[0] + row[1], 1
-            print (word, count)
+            #print (word, count)
             if word in word_dict:
                 # if word already in word_list : count + 1 
                 word_dict[word] += 1 
@@ -38,5 +38,5 @@ class map_reduce(object):
 if __name__ == '__main__':
     mapreduce = map_reduce()
     agg_row = mapreduce.Load_data('map_reduce.csv')
-    word_dict = mapreduce.Reduce(agg_row)
-    print ('word_count : ', word_dict)
+    word_count = mapreduce.Reduce(agg_row)
+    print ('word_count : ', word_count)
