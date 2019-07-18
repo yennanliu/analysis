@@ -1,18 +1,19 @@
 ## analysis
 
-<img src ="https://github.com/yennanliu/analysis/blob/master/doc/wire.jpg" width="800" height="400">
-
 [![Build Status](https://travis-ci.org/yennanliu/analysis.svg?branch=master)](https://travis-ci.org/yennanliu/analysis)
 [![PRs](https://img.shields.io/badge/PRs-welcome-6574cd.svg)](https://github.com/yennanliu/analysis/pulls)
 [![Binder](https://img.shields.io/badge/launch-Jupyter-5eba00.svg)](https://mybinder.org/v2/gh/yennanliu/analysis/master)
 [![Rmotr](https://img.shields.io/badge/launch-Rmotr-cd201f.svg)](https://notebooks.rmotr.com/yennanliu/analysis-63895a56)
 [![Colab](https://img.shields.io/badge/launch-Google%20Colab-45aaf2.svg)](https://colab.research.google.com/github/yennanliu/analysis/blob/master/ML_/ML_Basic_L1_L2_Regularization.ipynb)
 
+<img src ="https://github.com/yennanliu/analysis/blob/master/doc/wire.jpg" width="800" height="400">
+
 
 > As `DS application demo` part of the "Daas (Data as a service) repo", this repo using jupyter notebook (mainly) as media showing step-by-step analysis and ML/DL approaches on various data science subjects. The idea is : demo how does a data scientist deal with a new dataset, pre-process the data, do exploration analysis (EDA), then running suitable model and offering suggestions with business feasibility and acceptable statistical errors. (i.e. DS workflow : business understanding -> data preprocess -> EDA -> data understanding -> analysis/modeling ). Main focus of this project: 1) Statistics/ML analysis 2) ML theory/algorithms explanation 3) Spark op/ML demo
 
 * Daas (Data as a service) repo :  [Data infra build](https://github.com/yennanliu/data_infra_repo) -> [ETL build](https://github.com/yennanliu/XJob) -> [DS application demo](https://github.com/yennanliu/analysis)
-
+* Airflow Heroku demo : [airflow-heroku-dev](https://github.com/yennanliu/airflow-heroku-dev)
+* Mlflow Heroku demo : [mlflow-heroku-dev](https://github.com/yennanliu/mlflow-heroku-dev)
 
 ## Main Projects 
 
