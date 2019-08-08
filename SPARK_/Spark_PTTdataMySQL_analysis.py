@@ -1,5 +1,4 @@
 # python 3 
-
 ####################################################################################################################
 # ANALYZE MYSQL DATA VIA SPARK OPS 
 #
@@ -21,8 +20,6 @@
 #
 ####################################################################################################################
 
-
-
 # spark 
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, Row
@@ -33,7 +30,6 @@ import pandas as pd
 import os 
 import boto3
 
-#------------------------------------------------------
 # spark config 
 conf = SparkConf().setAppName("LOAD PTT MYSQL DATABASE")
 sc = SparkContext(conf=conf)
@@ -50,10 +46,7 @@ try:
   bucketname = os.environ['bucketname']
 except:
   print ('No S3 credential loaded')
-#------------------------------------------------------
 
-
-#------------------------------------------------------
 # op help func 
 def get_mysql_creds():
 	url = "jdbc:mysql://{}/{}".format(HOST, DATABASE)
@@ -178,8 +171,6 @@ def save_to_S3(region_name,finename,bucketname):
     print (e)
     print ('upload failed')
 
-
-#------------------------------------------------------
 # main run func 
 def main():
   # get mysql creds 
@@ -214,12 +205,5 @@ def main():
   save_to_S3('eu-west-1','pandas_df.csv',bucketname)
   print ('='*70)
 
-
-#------------------------------------------------------
 if __name__ == '__main__':
   main()
-
-
-
-
-

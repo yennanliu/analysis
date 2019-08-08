@@ -14,7 +14,6 @@ from pyspark.ml.linalg import Vectors
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml.evaluation import RegressionEvaluator
 
-
 conf = SparkConf().setAppName("building a LINEAR MODEL")
 sc = SparkContext(conf=conf)
 sqlCtx = SQLContext(sc)
@@ -101,14 +100,3 @@ print ('-'*70)
 print("ModelB: Root Mean Squared Error = " + str(RMSE))
 print ('-'*70)
 # ModelB: Root Mean Squared Error = 129.496300193
-
-
-
-
-
-
-
-
-
-
-

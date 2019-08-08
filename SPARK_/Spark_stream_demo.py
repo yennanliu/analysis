@@ -1,71 +1,61 @@
-# python 3 
-
-
-
+"""
 ############################################################################################ 
-# 
-# REF 1) : Streaming basics 
-# https://github.com/clumdee/Python-and-Spark-for-Big-Data-master/blob/master/Spark_Streaming/streaming_terminal_with_RDD.ipynb
-# SPARK STREAM DEMO CODE  
-#
-#
-# REF 2) : temp SQL table in Streaming window 
-# https://spark.apache.org/docs/1.6.2/streaming-programming-guide.html
-#
-#
-#
-# ******************  QUICK START  ******************
-# open the other terminal run : 
-# $ nc -lk 9999 ( start the localhost:9999, Start the streaming session to the localhost)
-# and type sth within that terminal
-# i.e. 
-# hello world 
-# hello world 
-#lol
-#lo
-#l
-#. 
-#.
-# you should seed the spark stream get the session input and response as below
-#-------------------------------------------
-#Time: 2018-12-29 09:44:30
-#-------------------------------------------
-#('', 4)
-#('l', 2)
-#('lo', 2)
-#('world', 4)
-#('ll', 1)
-#('hello', 4)
-#('lol', 4)
-#
-#========= 2018-12-29 09:44:30 =========
-#+-----+-----+
-# word|total|
-#+-----+-----+
-#|    l|    2|
-#|  lol|    4|
-#|hello|    4|
-#|   ll|    1|
-#|world|    4|
-#|     |    4|
-#|   lo|    2|
-#+-----+-----+ 
-############################################################################################ 
+REF 1) : Streaming basics 
+https://github.com/clumdee/Python-and-Spark-for-Big-Data-master/blob/master/Spark_Streaming/streaming_terminal_with_RDD.ipynb
+SPARK STREAM DEMO CODE  
 
+REF 2) : temp SQL table in Streaming window 
+https://spark.apache.org/docs/1.6.2/streaming-programming-guide.html
+
+******************  QUICK START  ******************
+open the other terminal run : 
+$ nc -lk 9999 ( start the localhost:9999, Start the streaming session to the localhost)
+and type sth within that terminal
+i.e. 
+hello world 
+hello world 
+lol
+lo
+l
+. 
+.
+you should seed the spark stream get the session input and response as below
+-------------------------------------------
+Time: 2018-12-29 09:44:30
+-------------------------------------------
+('', 4)
+('l', 2)
+('lo', 2)
+('world', 4)
+('ll', 1)
+('hello', 4)
+('lol', 4)
+
+========= 2018-12-29 09:44:30 =========
++-----+-----+
+word|total|
++-----+-----+
+|    l|    2|
+|  lol|    4|
+|hello|    4|
+|   ll|    1|
+|world|    4|
+|     |    4|
+|   lo|    2|
++-----+-----+ 
+############################################################################################ 
+"""
 
 from pyspark.streaming import StreamingContext
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, Row
 
-#--------------------------------------------------
 # help func 
 # Lazily instantiated global instance of SQLContext
 def getSqlContextInstance(sparkContext):
     if ('sqlContextSingletonInstance' not in globals()):
         globals()['sqlContextSingletonInstance'] = SQLContext(sparkContext)
     return globals()['sqlContextSingletonInstance']
-
-
 
 def process(time, rdd):
     print("========= %s =========" % str(time))
@@ -85,11 +75,6 @@ def process(time, rdd):
         wordCountsDataFrame.show()
     except:
         pass
-
-#--------------------------------------------------
-
-
-
 
 if __name__ == '__main__':
 	# PART 1) : BASIC STREAMING 
@@ -117,18 +102,8 @@ if __name__ == '__main__':
 	#ssc.start()
 	#ssc.awaitTermination()  # Wait for the computation to terminate
 
-
 	# PART 2) SPARK SQL IN STREAMING WINDOW 
 	words.foreachRDD(process)
 
 	ssc.start()
 	ssc.awaitTermination()  # Wait for the computation to terminate
-
-
-
-
-
-
-
-
-

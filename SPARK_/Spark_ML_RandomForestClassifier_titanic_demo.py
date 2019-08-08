@@ -1,7 +1,6 @@
 # python 3 
 # credit :  https://creativedata.atlassian.net/wiki/spaces/SAP/pages/83237142/Pyspark+-+Tutorial+based+on+Titanic+Dataset
 
-
 # Import packages
 import time
 import pyspark
@@ -11,15 +10,12 @@ from numpy import array
 from pyspark.mllib.regression import LabeledPoint
 from pyspark import SparkContext, SparkConf
 
-
-
 # configue Spark env
 os.environ["HADOOP_USER_NAME"] = "hdfs"
 os.environ["PYTHON_VERSION"] = "3.5.2"
 conf = pyspark.SparkConf()
 sc = pyspark.SparkContext(conf=conf)
 conf.getAll()
-
 
 # Reading from the hdfs, removing the header
 # read the titanic train, test csv here 
@@ -89,9 +85,3 @@ print("Area under PR = %s" % metrics.areaUnderPR)
 print("Area under ROC = %s" % metrics.areaUnderROC)
 
 print ('=====================================================')
-
-
-
-
-
-

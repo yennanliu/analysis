@@ -16,8 +16,6 @@ from pyspark.ml.evaluation import RegressionEvaluator
 from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
 from pyspark.ml import Pipeline
 
-
-
 conf = SparkConf().setAppName("building a LINEAR MODEL")
 sc = SparkContext(conf=conf)
 sqlCtx = SQLContext(sc)
@@ -68,9 +66,6 @@ VectorIndexer(inputCol="features", outputCol="indexedFeatures", maxCategories=4)
 
 (trainingData, testData) = trainingData.randomSplit([0.7, 0.3])
 
-
-
-
 #################### SPARK ML  ####################
 
 # Define LinearRegression algorithm
@@ -92,7 +87,6 @@ crossval = CrossValidator(estimator=pipeline,
                       estimatorParamMaps=paramGrid,
                       evaluator=RegressionEvaluator(metricName="rmse"),
                       numFolds=2)  # use 3+ folds in practice
-
 # fit 
 cvModel = crossval.fit(trainingData)
 
@@ -104,4 +98,3 @@ print ('-'*70)
 prediction.select("prediction", "label", "features").show(30)
 print ('-'*70)
 #RMSE = crossval.evaluate(prediction)
-

@@ -1,4 +1,3 @@
-
 from __future__ import print_function
 
 # $example on$
@@ -61,5 +60,3 @@ if __name__ == "__main__":
     # $example off$
 
     spark.stop()
-
-

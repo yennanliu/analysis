@@ -1,14 +1,12 @@
 # python 3 
 # https://github.com/donwany/Databricks/blob/master/S3.ipynb
 
-
 # OP
 import pandas as pd 
 import os 
 # spark 
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SQLContext, SparkSession
-
 
 ##### config #####
 conf = SparkConf().setAppName("LOAD S3 BUCKET")
