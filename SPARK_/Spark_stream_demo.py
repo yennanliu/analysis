@@ -8,7 +8,7 @@ REF 2) : temp SQL table in Streaming window
 https://spark.apache.org/docs/1.6.2/streaming-programming-guide.html
 
 ******************  QUICK START  ******************
-open the other terminal run : 
+STEP 1) open one terminal run : 
 $ nc -lk 9999 ( start the localhost:9999, Start the streaming session to the localhost)
 and type sth within that terminal
 i.e. 
@@ -19,6 +19,9 @@ lo
 l
 . 
 .
+
+STEP 2) open the other terminal and run 
+$ spark-submit Spark_stream_demo.py
 you should seed the spark stream get the session input and response as below
 -------------------------------------------
 Time: 2018-12-29 09:44:30
