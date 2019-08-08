@@ -71,5 +71,3 @@ operations. [PTT](https://term.ptt.cc/)
 
 ## Quick start 
 [Quick_start.md](https://github.com/yennanliu/analysis/blob/master/quick_start.md)<br>
-
-# spark-etl-pipeline
