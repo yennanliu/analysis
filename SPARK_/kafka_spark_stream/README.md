@@ -13,10 +13,7 @@ kafka-console-consumer  --bootstrap-server 127.0.0.1:9092 --topic new_topic
 
 # step 3)
 kafka-console-consumer  --bootstrap-server  127.0.0.1:9092 --topic new_topic  --from-beginning 
-```
 
-
-```bash 
 # launch spark stream pipeline digest kafka data 
 # method 1)
 spark-submit --jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar reciever-based_spark_stream.py localhost:9092 new_topic
