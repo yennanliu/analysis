@@ -19,9 +19,25 @@ kafka-console-consumer  --bootstrap-server  127.0.0.1:9092 --topic new_topic  --
 ```bash 
 # launch spark stream pipeline digest kafka data 
 # method 1)
-spark-submit — packages org.apache.spark:spark-streaming-kafka-0–8_2.11:2.0.0 reciever-based_spark_stream.py localhost:9092 new_topic
+spark-submit --jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar reciever-based_spark_stream.py localhost:9092 new_topic
+
 
 # method 2)
-spark-submit — packages org.apache.spark:spark-streaming-kafka-0–8_2.11:2.0.0 direct_spark_stream.py localhost:9092 new_topic
+spark-submit --jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar direct_spark_stream.py localhost:9092 new_topic
 
+```
+
+```python  
+# run step by step in jupyter notebook 
+import os
+os.environ['PYSPARK_SUBMIT_ARGS'] = '--jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar pyspark-shell'
+import pyspark
+from pyspark.streaming.kafka import KafkaUtils
+from pyspark.streaming import StreamingContext
+#sc = pyspark.SparkContext()
+ssc = StreamingContext(sc,1)
+broker = "127.0.0.1:9092"
+directKafkaStream = KafkaUtils.createDirectStream(ssc, ["new_topic"], {"metadata.broker.list": broker})
+directKafkaStream.pprint()
+ssc.start()
 ```
