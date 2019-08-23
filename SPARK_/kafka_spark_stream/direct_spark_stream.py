@@ -4,7 +4,7 @@ from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 
 
-if __name__ == “__main__”:
+if __name__ == "__main__":
     sc = SparkContext(appName="PythonStreamingDirectKafkaWordCount")
     ssc = StreamingContext(sc, 2)
     brokers, topic = sys.argv[1:]
