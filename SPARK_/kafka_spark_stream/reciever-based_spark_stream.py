@@ -6,7 +6,10 @@ from uuid import uuid1
 
 
 if __name__ == "__main__":
-    sc = SparkContext(appName="PythonStreamingRecieverKafkaWordCount")
+    # use conf to avoid lz4 exception when reading data from kafka using spark streaming
+    # https://stackoverflow.com/questions/51479474/lz4-exception-when-reading-data-from-kafka-using-spark-streaming
+    conf = SparkConf().setAppName("PythonStreamingDirectKafkaWordCount").set('spark.io.compression.codec','snappy')
+    sc = SparkContext.getOrCreate(conf=conf)
     ssc = StreamingContext(sc, 2) # 2 second window
     broker, topic = sys.argv[1:]
     kvs = KafkaUtils.createStream(ssc, \

@@ -31,7 +31,7 @@ os.environ['PYSPARK_SUBMIT_ARGS'] = '--jars /home/jerryliu/spark/jars/spark-stre
 import pyspark
 from pyspark.streaming.kafka import KafkaUtils
 from pyspark.streaming import StreamingContext
-#sc = pyspark.SparkContext()
+sc = pyspark.SparkContext.getOrCreate()
 ssc = StreamingContext(sc,1)
 broker = "127.0.0.1:9092"
 directKafkaStream = KafkaUtils.createDirectStream(ssc, ["new_topic"], {"metadata.broker.list": broker})
