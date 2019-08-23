@@ -16,11 +16,11 @@ kafka-console-consumer  --bootstrap-server  127.0.0.1:9092 --topic new_topic  --
 
 # launch spark stream pipeline digest kafka data 
 # method 1)
-spark-submit --jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar reciever-based_spark_stream.py localhost:9092 new_topic
+spark-submit --jars /Users/$USER/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar reciever-based_spark_stream.py localhost:9092 new_topic
 
 
 # method 2)
-spark-submit --jars /home/jerryliu/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar direct_spark_stream.py localhost:9092 new_topic
+spark-submit --jars /Users/$USER/spark/jars/spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar direct_spark_stream.py localhost:9092 new_topic
 
 ```
 
@@ -38,3 +38,7 @@ directKafkaStream = KafkaUtils.createDirectStream(ssc, ["new_topic"], {"metadata
 directKafkaStream.pprint()
 ssc.start()
 ```
+
+### Package download 
+- [spark-streaming-kafka-0-8-assembly_2.11-2.4.3.jar](https://mvnrepository.com/artifact/org.apache.spark/spark-streaming-kafka-0-8-assembly_2.11/2.4.3)
+
