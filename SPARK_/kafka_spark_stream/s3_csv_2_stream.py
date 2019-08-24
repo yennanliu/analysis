@@ -1,7 +1,6 @@
 import time
 import json
 import boto3
-import lazyreader
 from kafka.producer import KafkaProducer
 
 if __name__ == '__main__':
@@ -9,7 +8,7 @@ if __name__ == '__main__':
     producer = KafkaProducer(bootstrap_servers="127.0.0.1:9092")
     obj = s3.get_object(Bucket='nyctaxitrip',
             Key="{}/{}".format('yellow_trip',
-                               'yellow_tripdata_sample.csv'))
+                               'yellow_tripdata_sample.csv'))  # read s3 csv 
     lines = str(obj['Body'].read())
     for line in lines.split("\\n"):
         print (json.dumps(line))
