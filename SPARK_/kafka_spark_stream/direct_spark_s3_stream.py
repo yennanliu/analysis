@@ -3,6 +3,41 @@ from pyspark import SparkConf,SparkContext
 from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 from pyspark.sql.session import SparkSession
+from pyspark.sql import Row
+
+def getSparkSessionInstance(sparkConf):
+    if ('sparkSessionSingletonInstance' not in globals()):
+        globals()['sparkSessionSingletonInstance'] = SparkSession\
+            .builder\
+            .config(conf=sparkConf)\
+            .getOrCreate()
+    return globals()['sparkSessionSingletonInstance']
+
+def stream_2_sql(time, rdd):
+    """
+    https://spark.apache.org/docs/2.1.1/streaming-programming-guide.html
+    https://github.com/apache/spark/blob/v2.1.1/examples/src/main/python/streaming/sql_network_wordcount.py
+    """
+    print("========= %s =========" % str(time))
+    try:
+        # Get the singleton instance of SparkSession
+        spark = getSparkSessionInstance(rdd.context.getConf())
+
+        # Convert RDD[String] to RDD[Row] to DataFrame
+        rowRdd = rdd.map(lambda w: Row(word=w))
+        wordsDataFrame = spark.createDataFrame(rowRdd)
+
+        # Creates a temporary view using the DataFrame
+        wordsDataFrame.createOrReplaceTempView("words")
+
+        # Do word count on table using SQL and print it
+        wordCountsDataFrame = spark.sql("select word, count(*) as total from words group by word")
+        print (">>>>>>>> RESULT OF wordCountsDataFrame")
+        wordCountsDataFrame.show()
+        wordCountsDataFrame.pprint()
+    except Exception as e:
+        print ( str(e), 'sth goes wrong')
+        pass
 
 if __name__ == "__main__":
     # use conf to avoid lz4 exception when reading data from kafka using spark streaming
@@ -13,12 +48,22 @@ if __name__ == "__main__":
     spark = SparkSession(sc)
     brokers, topic = sys.argv[1:]
     kafkaStream = KafkaUtils.createDirectStream(ssc, [topic],{"metadata.broker.list": brokers})
-    # >>> apporach 1 
+
     lines = kafkaStream.map(lambda x: x[1])
-    counts = lines.flatMap(lambda line: line.split("\n")) \
-                  .map(lambda word: ( float(word[0]), float(word[0]))) \
-                  .reduceByKey(lambda a, b: a*b)
-    counts.pprint() 
+    lines_ = lines.flatMap(lambda line: line.split(","))
+    counts = lines.flatMap(lambda line: line.split(" ")) \
+                  .map(lambda word: (word, 1)) \
+                  .reduceByKey(lambda a, b: a+b)
+
+    #counts.pprint()
+    lines_.foreachRDD(stream_2_sql)
+
+    # >>> apporach 1 
+    # lines = kafkaStream.map(lambda x: x[1])
+    # counts = lines.flatMap(lambda line: line.split("\n")) \
+    #               .map(lambda word: ( float(word[0]), float(word[0]))) \
+    #               .reduceByKey(lambda a, b: a*b)
+    # counts.pprint() 
 
     # >>> apporach 2 
     # kafkaStream.foreachRDD(lambda rdd: rdd.foreachPartition())
