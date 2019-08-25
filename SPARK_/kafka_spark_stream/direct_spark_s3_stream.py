@@ -24,14 +24,16 @@ def stream_2_sql(time, rdd):
         spark = getSparkSessionInstance(rdd.context.getConf())
 
         # Convert RDD[String] to RDD[Row] to DataFrame
-        rowRdd = rdd.map(lambda w: Row(word=w))
+        rowRdd = rdd.map(lambda w: Row(word=[w[0], w[1]]))
+        #rowRdd = rdd.map(lambda w: Row(word=w[0]), lambda w: Row(word=w[1]))
+        #rowRdd = rdd.flatMap(lambda x: [(w, x[0]) for w in x])
         wordsDataFrame = spark.createDataFrame(rowRdd)
 
         # Creates a temporary view using the DataFrame
         wordsDataFrame.createOrReplaceTempView("words")
 
         # Do word count on table using SQL and print it
-        wordCountsDataFrame = spark.sql("select word, count(*) as total from words group by word")
+        wordCountsDataFrame = spark.sql("select word , word[1] , count(*) as total from words group by 1,2")
         print (">>>>>>>> RESULT OF wordCountsDataFrame")
         wordCountsDataFrame.show()
         wordCountsDataFrame.pprint()
@@ -50,7 +52,7 @@ if __name__ == "__main__":
     kafkaStream = KafkaUtils.createDirectStream(ssc, [topic],{"metadata.broker.list": brokers})
 
     lines = kafkaStream.map(lambda x: x[1])
-    lines_ = lines.flatMap(lambda line: line.split(","))
+    lines_ = lines.flatMap(lambda line: line.split("\n"))
     counts = lines.flatMap(lambda line: line.split(" ")) \
                   .map(lambda word: (word, 1)) \
                   .reduceByKey(lambda a, b: a+b)
