@@ -25,37 +25,32 @@ def stream_2_sql(time, rdd):
 
         # Convert RDD[String] to RDD[Row] to DataFrame
         rowRdd = rdd.map(lambda w: Row(word=[ i for i in w.split(',')[1:]]))
-        #rowRdd = rdd.map(lambda w: Row(word=w[0]))
-        wordsDataFrame = spark.createDataFrame(rowRdd)
+        taxiDataFrame = spark.createDataFrame(rowRdd)
 
         # Creates a temporary view using the DataFrame
-        wordsDataFrame.createOrReplaceTempView("words")
+        taxiDataFrame.createOrReplaceTempView("taxi")
 
         # Do word count on table using SQL and print it
-        # query="""
-        # select word[0] as Passenger_Count ,word[1] as Trip_Pickup_DateTime  , count(*) as total from words group by 1,2
-        # """
         query="""
-        SELECT 
-        word[0] AS vendor_name,
-        word[1] AS Trip_Pickup_DateTime,
-        word[2] AS Trip_Dropoff_DateTime,
-        word[3] AS Passenger_Count ,
-        word[4] AS Trip_Distance,
-        word[5] AS Start_Lon,
-        word[6] AS Start_Lat,
-        word[7] AS Rate_Code,
-        word[8] AS store_and_forward,
-        word[9] AS End_Lon,
-        word[10] AS End_Lat,
-        word[11] AS Payment_Type,
-        word[12] AS Fare_Amt,
-        word[13] AS surcharge,
-        word[14] AS mta_tax,
-        word[15] AS Tip_Amt,
-        word[16] AS Tolls_Amt,
-        word[17] AS Total_Amt
-        FROM words
+        SELECT word[0] AS vendor_name,
+               word[1] AS Trip_Pickup_DateTime,
+               word[2] AS Trip_Dropoff_DateTime,
+               word[3] AS Passenger_Count,
+               word[4] AS Trip_Distance,
+               word[5] AS Start_Lon,
+               word[6] AS Start_Lat,
+               word[7] AS Rate_Code,
+               word[8] AS store_and_forward,
+               word[9] AS End_Lon,
+               word[10] AS End_Lat,
+               word[11] AS Payment_Type,
+               word[12] AS Fare_Amt,
+               word[13] AS surcharge,
+               word[14] AS mta_tax,
+               word[15] AS Tip_Amt,
+               word[16] AS Tolls_Amt,
+               word[17] AS Total_Amt
+        FROM taxi
         """
         wordCountsDataFrame = spark.sql(query)
         print (">>>>>>>> RESULT OF wordCountsDataFrame")
