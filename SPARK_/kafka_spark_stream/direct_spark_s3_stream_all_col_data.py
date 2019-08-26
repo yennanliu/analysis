@@ -6,12 +6,6 @@ from pyspark.sql.session import SparkSession
 from pyspark.sql import Row
 from pyspark.ml.linalg import Vectors
 
-def f(x):
-    d = {}
-    for i in range(len(x)):
-        d[str(i)] = x[i]
-    return d
-
 def getSparkSessionInstance(sparkConf):
     if ('sparkSessionSingletonInstance' not in globals()):
         globals()['sparkSessionSingletonInstance'] = SparkSession\
@@ -70,6 +64,7 @@ def stream_2_sql(time, rdd):
                 'Fare_Amt','surcharge','mta_tax',
                 'Tip_Amt','Tolls_Amt','Total_Amt'])
         print('taxidf :', taxidf.collect())
+        #return taxidf 
     except Exception as e:
         print ( str(e), 'sth goes wrong')
         pass
