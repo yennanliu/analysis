@@ -4,6 +4,13 @@ from pyspark.streaming import StreamingContext
 from pyspark.streaming.kafka import KafkaUtils
 from pyspark.sql.session import SparkSession
 from pyspark.sql import Row
+from pyspark.ml.linalg import Vectors
+
+def f(x):
+    d = {}
+    for i in range(len(x)):
+        d[str(i)] = x[i]
+    return d
 
 def getSparkSessionInstance(sparkConf):
     if ('sparkSessionSingletonInstance' not in globals()):
@@ -52,9 +59,17 @@ def stream_2_sql(time, rdd):
                word[17] AS Total_Amt
         FROM taxi
         """
-        wordCountsDataFrame = spark.sql(query)
+        taxiQueryDataFrame = spark.sql(query)
         print (">>>>>>>> RESULT OF wordCountsDataFrame")
-        wordCountsDataFrame.show()
+        taxiQueryDataFrame.show()
+        taxidf =taxiQueryDataFrame.rdd.map(lambda x:x).toDF(
+                ['vendor_name','Trip_Pickup_DateTime', 'Trip_Dropoff_DateTime',
+                'Passenger_Count','Trip_Distance','Start_Lon',
+                'Start_Lat','Rate_Code','store_and_forward',
+                'End_Lon','End_Lat','Payment_Type',
+                'Fare_Amt','surcharge','mta_tax',
+                'Tip_Amt','Tolls_Amt','Total_Amt'])
+        print('taxidf :', taxidf.collect())
     except Exception as e:
         print ( str(e), 'sth goes wrong')
         pass
