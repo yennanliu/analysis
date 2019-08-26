@@ -25,15 +25,16 @@ def stream_2_sql(time, rdd):
 
         # Convert RDD[String] to RDD[Row] to DataFrame
         #rowRdd = rdd.map(lambda w: Row(word=[w[0], w[1]]))
-        rowRdd = rdd.map(lambda w: Row(word=[w[:], w.split(',')[0], w.split(',')[1]]))
+        #rowRdd = rdd.map(lambda w: Row(word=[w[:], w.split(',')[0], w.split(',')[1]]))
+        rowRdd = rdd.map(lambda w: Row(word=[ i for i in w.split(',')[1:]]))
         #rowRdd = rdd.map(lambda w: Row(word=w[0]))
         wordsDataFrame = spark.createDataFrame(rowRdd)
-        
+
         # Creates a temporary view using the DataFrame
         wordsDataFrame.createOrReplaceTempView("words")
 
         # Do word count on table using SQL and print it
-        wordCountsDataFrame = spark.sql("select word as raw_data, word[1] as Passenger_Count ,word[2] as Trip_Pickup_DateTime  , count(*) as total from words group by 1,2,3")
+        wordCountsDataFrame = spark.sql("select word[0] as Passenger_Count ,word[1] as Trip_Pickup_DateTime  , count(*) as total from words group by 1,2")
         print (">>>>>>>> RESULT OF wordCountsDataFrame")
         wordCountsDataFrame.show()
     except Exception as e:
