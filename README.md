@@ -1,4 +1,4 @@
-## analysis
+# analysis
 
 [![Build Status](https://travis-ci.org/yennanliu/analysis.svg?branch=master)](https://travis-ci.org/yennanliu/analysis)
 [![PRs](https://img.shields.io/badge/PRs-welcome-6574cd.svg)](https://github.com/yennanliu/analysis/pulls)
@@ -15,6 +15,30 @@
 * Airflow Heroku demo : [airflow-heroku-dev](https://github.com/yennanliu/airflow-heroku-dev)
 * Mlflow Heroku demo : [mlflow-heroku-dev](https://github.com/yennanliu/mlflow-heroku-dev)
 
+## Quick Start 
+[Quick_start.md](https://github.com/yennanliu/analysis/blob/master/doc/quick_start.md)<br>
+
+## File Structure 
+```
+├── DE_course       : Code for Udacity data engineer course 
+├── DL_             : Deep learning relative projects  
+├── DS_algorithms   : Build Data science model from scratch 
+├── GPU             : GPU relative code 
+├── ML_             : Machine learning relative projects  
+├── README.md
+├── R_              : R programming language relative projects 
+├── SPARK_          : Pyspark basics/op/ML/ETL notebook demo projects
+├── Statistics_     : Statistics relative projects 
+├── archived        : Archived code/projects 
+├── doc             : Doc for quick start, theory paper, pic.. and so on
+├── ml_demo.py 
+├── notebook        : Jupyter notebook relative projects (nb server/magic..)
+├── project         : Archived projects 
+├── pytorch_        : Pytorch relative projects 
+├── tensorflow_     : Tensorflow relative projects
+└── utility         : Utility scripts for ML/DL model tuning, DS plots...
+
+```
 ## Main Projects 
 
 [Machine Learning](https://github.com/yennanliu/analysis/tree/master/ML_)<br>
@@ -65,9 +89,5 @@ operations. [PTT](https://term.ptt.cc/)
 * [Pyspark Streaming demo 1](https://github.com/yennanliu/analysis/blob/master/SPARK_/Spark_stream_demo.py) -  a simple word-count app data via Pyspark stream  
 
 
-## Other Projects 
-
+## Development 
 - `dev` 
-
-## Quick start 
-[Quick_start.md](https://github.com/yennanliu/analysis/blob/master/doc/quick_start.md)<br>
