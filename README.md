@@ -2,14 +2,8 @@
 
 <h1 align="center">ANALYSIS</h1>
 
-[![Build Status](https://travis-ci.org/yennanliu/analysis.svg?branch=master)](https://travis-ci.org/yennanliu/analysis)
-[![PRs](https://img.shields.io/badge/PRs-welcome-6574cd.svg)](https://github.com/yennanliu/analysis/pulls)
-[![Binder](https://img.shields.io/badge/launch-Jupyter-5eba00.svg)](https://mybinder.org/v2/gh/yennanliu/analysis/master)
-[![Rmotr](https://img.shields.io/badge/launch-Rmotr-cd201f.svg)](https://notebooks.rmotr.com/yennanliu/analysis-63895a56)
-[![Colab](https://img.shields.io/badge/launch-Google%20Colab-45aaf2.svg)](https://colab.research.google.com/github/yennanliu/analysis/blob/master/ML_/ML_Basic_L1_L2_Regularization.ipynb)
-
 <p align="center">
-<!--- trabvis -->
+<!--- travis -->
 <a href="https://travis-ci.org/yennanliu/analysis"><img src="https://travis-ci.org/yennanliu/analysis.svg?branch=master"></a>
 <!--- PR -->
 <a href="https://github.com/yennanliu/analysis/pulls"><img src="https://img.shields.io/badge/PRs-welcome-6574cd.svg"></a>
