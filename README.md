@@ -1,5 +1,5 @@
 <p align="center">
-    <strong>ANALYSIS</strong>
+    <h1>ANALYSIS</h1>
 </p>
 
 [![Build Status](https://travis-ci.org/yennanliu/analysis.svg?branch=master)](https://travis-ci.org/yennanliu/analysis)
