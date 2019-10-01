@@ -1,4 +1,6 @@
-# analysis
+<p align="center">
+    <strong>ANALYSIS</strong>
+</p>
 
 [![Build Status](https://travis-ci.org/yennanliu/analysis.svg?branch=master)](https://travis-ci.org/yennanliu/analysis)
 [![PRs](https://img.shields.io/badge/PRs-welcome-6574cd.svg)](https://github.com/yennanliu/analysis/pulls)
