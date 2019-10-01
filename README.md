@@ -10,6 +10,9 @@
 
 <p align="center">
 <a href="https://travis-ci.org/yennanliu/analysis"><img src="https://travis-ci.org/yennanliu/analysis.svg?branch=master"></a>
+<a href="https://mybinder.org/v2/gh/yennanliu/analysis/master"><img src="https://img.shields.io/badge/launch-Jupyter-5eba00.svg"></a>
+<a href="https://notebooks.rmotr.com/yennanliu/analysis-63895a56"><img src="https://img.shields.io/badge/launch-Rmotr-cd201f.svg"></a>
+<a href="https://mybinder.org/v2/gh/yennanliu/analysis/master"><img src="https://img.shields.io/badge/launch-Jupyter-5eba00.svg"></a>
 </p>
 
 > As `DS application demo` part of the "Daas (Data as a service) repo", this repo using jupyter notebook (mainly) as media showing step-by-step analysis and ML/DL approaches on various data science subjects. The idea is : demo how does a data scientist deal with a new dataset, pre-process the data, do exploration analysis (EDA), then running suitable model and offering suggestions with business feasibility and acceptable statistical errors. (i.e. DS workflow : business understanding -> data preprocess -> EDA -> data understanding -> analysis/modeling ). Main focus of this project: 1) Statistics/ML analysis 2) ML theory/algorithms explanation 3) Spark op/ML demo
