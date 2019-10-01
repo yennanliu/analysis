@@ -70,4 +70,4 @@ operations. [PTT](https://term.ptt.cc/)
 - `dev` 
 
 ## Quick start 
-[Quick_start.md](https://github.com/yennanliu/analysis/blob/master/quick_start.md)<br>
+[Quick_start.md](https://github.com/yennanliu/analysis/blob/master/doc/quick_start.md)<br>
