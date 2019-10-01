@@ -9,10 +9,15 @@
 [![Colab](https://img.shields.io/badge/launch-Google%20Colab-45aaf2.svg)](https://colab.research.google.com/github/yennanliu/analysis/blob/master/ML_/ML_Basic_L1_L2_Regularization.ipynb)
 
 <p align="center">
+<!--- trabvis -->
 <a href="https://travis-ci.org/yennanliu/analysis"><img src="https://travis-ci.org/yennanliu/analysis.svg?branch=master"></a>
+<!--- PR -->
 <a href="https://github.com/yennanliu/analysis/pulls"><img src="https://img.shields.io/badge/PRs-welcome-6574cd.svg"></a>
+<!--- notebooks Rmotr -->
 <a href="https://notebooks.rmotr.com/yennanliu/analysis-63895a56"><img src="https://img.shields.io/badge/launch-Rmotr-cd201f.svg"></a>
+<!--- notebooks mybinder -->
 <a href="https://mybinder.org/v2/gh/yennanliu/analysis/master"><img src="https://img.shields.io/badge/launch-Jupyter-5eba00.svg"></a>
+<!--- notebooks google colab -->
 <a href="https://colab.research.google.com/github/yennanliu/analysis/blob/master/ML_/ML_Basic_L1_L2_Regularization.ipynb"><img src="https://img.shields.io/badge/launch-Google%20Colab-45aaf2.svg"></a>
 </p>
 
