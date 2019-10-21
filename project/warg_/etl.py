@@ -22,7 +22,7 @@ def main():
         elif 'usd_cost' in tmp_json_keys:
             data_cost.append(json_data[i])
         else:
-            print ('no defined event format')
+            print ('not defined event format')
     # to csv 
     print ('>>>> json to csv')
     df_battle = pd.DataFrame(data_battle)
