@@ -30,7 +30,7 @@ def main():
     df_cost = pd.DataFrame(data_cost)
     # to db 
     print ('>>>> json to db')
-    engine = create_engine('sqlite:///data/wargame.db', echo=False)
+    engine = create_engine('sqlite:///data/war_data.db', echo=False)
     df_battle.to_sql(name='battle', con= engine)
     df_session.to_sql(name='session', con= engine)
     df_cost.to_sql(name='cost', con= engine)
