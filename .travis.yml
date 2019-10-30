@@ -1,3 +1,4 @@
+
 sudo: required
 
 matrix:
@@ -7,8 +8,25 @@ services:
 
 env:
 
+before_install:
+
+install:
+
+before_script: 
+
 script:
   - echo ' -----------------  TEST PART 1 ----------------- '
-  - docker ps -a 
-  - dokcer images 
   - docker run --rm -v $PWD/analysis:/url  yennanliu/mac_ds_ml_env:v1 /bin/bash -c "git clone https://github.com/yennanliu/analysis.git ;  ls  ;  pwd ; python analysis/ml_demo.py"
+
+
+after_script:  
+
+after_success:
+
+after_failure:
+
+before_deploy:
+
+deploy:
+
+after_deploy:
