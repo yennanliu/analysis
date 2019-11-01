@@ -1,6 +1,6 @@
-### system design (V1)
+### SYSTEM DESIGN (V1)
 
-### infra 
+### INFRA 
 
 ```
 
@@ -16,3 +16,13 @@ Redshift (DW, for EDA) <---- S3 <-------↑
 			    EMR (dev env)
 
 ```
+
+### MAIN COMPONENTS 
+
+### S3 BUCKET 
+
+### EMR 
+
+### Redshift
+
+### SageMaker
