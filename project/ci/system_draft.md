@@ -1,6 +1,6 @@
-### SYSTEM DESIGN (V1)
+### 1) SYSTEM DESIGN (V1)
 
-### INFRA 
+### 2) INFRA 
 
 ```
 
@@ -17,12 +17,12 @@ Redshift (DW, for EDA) <---- S3 <-------↑
 
 ```
 
-### MAIN COMPONENTS 
+### 3) MAIN COMPONENTS 
 
-### S3 BUCKET 
+### 4) S3 BUCKET 
 
-### EMR 
+### 5) EMR 
 
-### Redshift
+### 6) Redshift
 
-### SageMaker
+### 7) SageMaker
