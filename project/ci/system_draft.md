@@ -5,14 +5,14 @@
 ```
 
 data ------------------------↓
-							 ↓
-							 ↓
-							 ↓     (train results)
+                             ↓
+			     ↓
+			     ↓     (train results)
 Redshift (DW, for EDA) <---- S3 <-------↑
-							 ↓ ↓        ↑
-							 ↓ ↓-------> SageMaker (model train, deploy)
-							 ↓ 
-							 ↓
-					   EMR (dev env)
+			     ↓ ↓        ↑
+			     ↓ ↓-------> SageMaker (model train, deploy)
+			     ↓ 
+		             ↓
+			    EMR (dev env)
 
 ```
