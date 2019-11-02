@@ -6,11 +6,16 @@
        ETL (batch dump)
 data ------------------------↓
                              ↓
-			 ETL ↓
-		       <---> ↓     (train results)
-Redshift(DW,master data) <----  S3 <-------------------↑
-Athena(ad-hoc query)     <---- ↑ ↓ ↓        	       ↑
-			       ↑ ↓ ↓---------------> SageMaker
+			     ↓
+		  ↓----------↓    
+		  ↓          
+                  ↓↑ ------> Redshift 
+		  ↓↑	     (DW,master data)             
+		  S3           ↑ ↓ ↓                (train results)
+		  ↓ ↑ <--------- ↓ ↓ --------------------↑
+		  ↓ <--------- ↑ ↓ ↓                     ↑
+            Athena  <------- ↑ ↑ ↓        	         ↑
+          (ad-hoc)           ↑ ↑ ↓---------------> SageMaker
 		           ETL ↑ ↓                    (ML train/deploy)
 		               ↑ ↓
 		               ↑ ↓
@@ -25,9 +30,9 @@ Athena(ad-hoc query)     <---- ↑ ↓ ↓        	       ↑
 ### 2) MAIN COMPONENTS 
 
 * Data storage
- - Data lake
- - Database 
- - Data warehouse 
+ -Data lake
+ -Database 
+ -Data warehouse 
 * ETL
    - EMR
 * ML
