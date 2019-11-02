@@ -23,18 +23,15 @@ Athena(ad-hoc query)     <---- ↑ ↓ ↓        	       ↑
 ```
 
 ### 2) MAIN COMPONENTS 
-```
-- Data storage
-   - Data lake
-   - Database 
-   - Data warehouse 
 
-- ETL
+* Data storage
+ - Data lake
+ - Database 
+ - Data warehouse 
+* ETL
    - EMR
-
-- ML
+* ML
    - SageMaker
-```
 
 ### 3) S3 BUCKET 
 
