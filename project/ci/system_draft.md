@@ -8,13 +8,17 @@ data ------------------------↓
                              ↓
 			 ETL ↓
 		       <---> ↓     (train results)
-Redshift (DW, for EDA) <---- S3 <-------↑
-			   ↑ ↓ ↓        ↑
-			   ↑ ↓ ↓-------> SageMaker (ML train/deploy)
-		       ETL ↑ ↓ 
-		           ↑ ↓
-			  EMR (ML dev, ETL dev)
-			  (spark, hadoop, hive)
+Redshift(DW,master data) <----  S3 <-------------------↑
+Athena(ad-hoc query)     <---- ↑ ↓ ↓        	       ↑
+			       ↑ ↓ ↓---------------> SageMaker
+		           ETL ↑ ↓                    (ML train/deploy)
+		               ↑ ↓
+		               ↑ ↓
+		               ↑ ↓
+		               ↑ ↓
+			       EMR 
+			       (ML dev, ETL dev)
+			       (spark, hadoop, hive)
 
 ```
 
