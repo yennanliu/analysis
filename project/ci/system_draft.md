@@ -1,28 +1,29 @@
-### 1) SYSTEM DESIGN (V1)
+# SYSTEM DESIGN (V1)
 
-### 2) INFRA 
+### 1) INFRA 
 
 ```
-
+       ETL (batch dump)
 data ------------------------↓
                              ↓
-			     ↓
-			     ↓     (train results)
+			 ETL ↓
+		       <---> ↓     (train results)
 Redshift (DW, for EDA) <---- S3 <-------↑
 			   ↑ ↓ ↓        ↑
-			   ↑ ↓ ↓-------> SageMaker (model train, deploy)
-		      ETl  ↑ ↓ 
+			   ↑ ↓ ↓-------> SageMaker (ML train/deploy)
+		       ETL ↑ ↓ 
 		           ↑ ↓
-			    EMR (dev env)
+			  EMR (ML dev, ETL dev)
+			  (spark, hadoop, hive)
 
 ```
 
-### 3) MAIN COMPONENTS 
+### 2) MAIN COMPONENTS 
 
-### 4) S3 BUCKET 
+### 3) S3 BUCKET 
 
-### 5) EMR 
+### 4) EMR 
 
-### 6) Redshift
+### 5) Redshift
 
-### 7) SageMaker
+### 6) SageMaker
