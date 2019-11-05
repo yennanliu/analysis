@@ -1,12 +1,13 @@
-DROP TABLE product IF EXISTS; 
+DROP TABLE product IF EXISTS;
 
 CREATE TABLE product(
-    Product_Code VARCHAR (30),
-    Product_Type_Code  VARCHAR (30),
-    Product_Classification_Code VARCHAR (30),
-    Genre_Code VARCHAR (30),
-    Kanji_Official_Name VARCHAR (50),
-    Container_Capacity_Code VARCHAR (30),
-    Hot_Cold_Classification VARCHAR (30),
-    Release_Date timestamp
+    product_code VARCHAR (30),
+    product_type_code VARCHAR (30),
+    product_classification_code VARCHAR (30),
+    genre_code VARCHAR (30),
+    kanji_official_name VARCHAR (50),
+    container_capacity_code VARCHAR (30),
+    hot_cold_classification VARCHAR (30),
+    release_date TIMESTAMP
     );
+                                                                            

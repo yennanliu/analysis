@@ -1,25 +1,25 @@
-DROP TABLE vendor_machine IF EXISTS; 
+DROP TABLE vendor_machine IF EXISTS;
 
-CREATE TABLE vendor_machine(
-      Organization_Group_Code VARCHAR (30),
-      Equipment_Code VARCHAR (30),
-      Customer_Number integer,
-      Branch_Number integer,
-      Model_Year integer,
-      Number_Of_Cell integer,
-      HOT_Selection_Number integer,
-      Number_Of_Buttons integer,
-      Number_Of_Column_Rows integer,
-      Model_500_PET_Selection VARCHAR (30),
-      Model_500_Cans_Selection VARCHAR (30),
-      Installation_Date timestamp,
-      Prefecture_Code VARCHAR (30),
-      City_Code VARCHAR (30),
-      Buying_Place_Code VARCHAR (30),
-      In_Out_Classification VARCHAR (30),
-      Open_Closed_Classification VARCHAR (30),
-      Group_Company_Code VARCHAR (30),
-      Column_No integer,
-      Column_Position_(Row) integer,
-      Column_Position_(Column) integer
-      );
+CREATE TABLE vendor_machine ( 
+    organization_group_code  VARCHAR (30), 
+    equipment_code           VARCHAR (30), 
+    customer_number          INTEGER, 
+    branch_number            INTEGER, 
+    model_year               INTEGER, 
+    number_of_cell           INTEGER, 
+    hot_selection_number     INTEGER, 
+    number_of_buttons        INTEGER, 
+    number_of_column_rows    INTEGER, 
+    model_500_pet_selection  VARCHAR (30), 
+    model_500_cans_selection VARCHAR (30), 
+    installation_date        TIMESTAMP, 
+    prefecture_code            VARCHAR (30), 
+    city_code                  VARCHAR (30), 
+    buying_place_code          VARCHAR (30), 
+    in_out_classification      VARCHAR (30), 
+    open_closed_classification VARCHAR (30), 
+    group_company_code         VARCHAR (30), 
+    column_no                  INTEGER, 
+    column_position_row        INTEGER, 
+    column_position_column     INTEGER 
+    );
