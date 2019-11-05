@@ -1,4 +1,4 @@
-DROP TABLE transaction IF NOT EXISTS 
+DROP TABLE transaction IF EXISTS; 
 
 CREATE TABLE transaction (
     Group_Company_Code VARCHAR (10),

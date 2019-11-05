@@ -1,4 +1,4 @@
-DROP TABLE vendor_machine IF NOT EXISTS 
+DROP TABLE vendor_machine IF EXISTS; 
 
 CREATE TABLE vendor_machine(
       Organization_Group_Code VARCHAR (30),
