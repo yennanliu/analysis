@@ -1,6 +1,6 @@
-DROP TABLE product IF EXISTS;
+DROP TABLE fc.product IF EXISTS;
 
-CREATE TABLE product(
+CREATE TABLE fc.product(
     product_code VARCHAR (30),
     product_type_code VARCHAR (30),
     product_classification_code VARCHAR (30),

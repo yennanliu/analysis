@@ -7,3 +7,4 @@ archive/z_demand_pre/notebook_/
 creds.json
 *.ipynb_checkpoints
 .config.yml
+data/war_data.json

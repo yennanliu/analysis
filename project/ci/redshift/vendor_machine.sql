@@ -1,6 +1,6 @@
-DROP TABLE vendor_machine IF EXISTS;
+DROP TABLE fc.vendor_machine IF EXISTS;
 
-CREATE TABLE vendor_machine ( 
+CREATE TABLE fc.vendor_machine ( 
     organization_group_code  VARCHAR (30), 
     equipment_code           VARCHAR (30), 
     customer_number          INTEGER, 

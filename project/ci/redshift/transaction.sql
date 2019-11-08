@@ -1,6 +1,6 @@
-DROP TABLE transaction if EXISTS;
+DROP TABLE fc.transaction if EXISTS;
 
-CREATE TABLE transaction( 
+CREATE TABLE fc.transaction( 
     group_company_code  VARCHAR (10),
     wireless_sales_slip_no INTEGER,
     column_no        INTEGER,
@@ -23,7 +23,7 @@ CREATE TABLE transaction(
     route_code       INTEGER, 
     customer_number  INTEGER,
     branch_number    INTEGER,
-    equipment_code   INTEGER
+    equipment_code   INTEGER,
     sales_date TIMESTAMP, 
     last_visit_date TIMESTAMP, 
     last_calibration_date VARCHAR (20), 
