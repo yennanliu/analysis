@@ -1,4 +1,4 @@
-DROP TABLE fc.contractor IF EXISTS; 
+DROP TABLE if EXISTS fc.contractor;
 
 CREATE TABLE fc.contractor(
       group_company_code VARCHAR (30),

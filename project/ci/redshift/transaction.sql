@@ -1,4 +1,4 @@
-DROP TABLE fc.transaction if EXISTS;
+DROP TABLE if EXISTS fc.transaction ;
 
 CREATE TABLE fc.transaction( 
     group_company_code  VARCHAR (10),

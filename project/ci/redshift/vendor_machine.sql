@@ -1,4 +1,4 @@
-DROP TABLE fc.vendor_machine IF EXISTS;
+DROP TABLE IF EXISTS fc.vendor_machine;
 
 CREATE TABLE fc.vendor_machine ( 
     organization_group_code  VARCHAR (30), 
