@@ -2,4 +2,6 @@
   "BUCKET":         "s3_bucket",
   "FOLDER":         "s3_folder",
   "RAW_DATA_FILE":  "data_file_name",
+  "access key" :    "",
+  "secret key" :    ""
 }
