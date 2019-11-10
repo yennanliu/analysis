@@ -23,7 +23,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS suntory.transaction (
   `branch_number` string,
   `equipment_code` string,
   `last_visit_date` timestamp,
-  `last_calibration_date` string,
+  `last_calibration_date` timestamp,
   `number_of_sales_update_failure` string,
   `buying_place_code` string,
   `sales_system_representative_code` string,
@@ -46,5 +46,5 @@ ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
 WITH SERDEPROPERTIES (
   'serialization.format' = ',',
   'field.delim' = ','
-) LOCATION 's3://suntory-data/raw_transaciton_data/'
+) LOCATION 's3://suntory-data/raw_transaciton_data_sample/'
 TBLPROPERTIES ('has_encrypted_data'='false');
