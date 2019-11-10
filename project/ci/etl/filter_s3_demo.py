@@ -30,7 +30,7 @@ def main():
   # filter data
   collected_code = ['120042', '105001']
   filter_data = data_.filter(lambda x : x[3] in collected_code)
-  return filter_data
+  filter_data.saveAsTextFile("s3a://<s3_bucket>/<s3_file>/output")
 
 if __name__ == '__main__':
     main()
