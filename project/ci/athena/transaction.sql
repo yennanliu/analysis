@@ -42,9 +42,10 @@ CREATE EXTERNAL TABLE IF NOT EXISTS suntory.transaction (
   `number_of_adjacent_vm_ot` string,
   `number_of_adjacent_vm_sf` string 
 )
+PARTITIONED BY (dt string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
 WITH SERDEPROPERTIES (
   'serialization.format' = ',',
   'field.delim' = ','
-) LOCATION 's3://suntory-data/raw_transaciton_data_partition/'
+) LOCATION 's3://suntory-data/raw_transaciton_data_partition3/'
 TBLPROPERTIES ('has_encrypted_data'='false');
