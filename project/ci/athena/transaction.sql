@@ -22,6 +22,7 @@ CREATE EXTERNAL TABLE IF NOT EXISTS suntory.transaction (
   `customer_number` string,
   `branch_number` string,
   `equipment_code` string,
+  `sales_date` string,
   `last_visit_date` string,
   `last_calibration_date` string,
   `number_of_sales_update_failure` string,
@@ -40,7 +41,8 @@ CREATE EXTERNAL TABLE IF NOT EXISTS suntory.transaction (
   `number_of_adjacent_vm_it` string,
   `number_of_adjacent_vm_po` string,
   `number_of_adjacent_vm_ot` string,
-  `number_of_adjacent_vm_sf` string 
+  `number_of_adjacent_vm_sf` string,
+  `other_num` string
 )
 PARTITIONED BY (dt string)
 ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe'
