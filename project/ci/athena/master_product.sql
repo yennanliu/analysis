@@ -4,7 +4,6 @@ CREATE EXTERNAL TABLE `master_product`(
   `product_classification_code` string, 
   `product_maker_code` string, 
   `genre_code` string, 
-  `kanji_official_name` string, 
   `container_capacity_code` string, 
   `capacity` string, 
   `hot_cold_classification_product` string, 
