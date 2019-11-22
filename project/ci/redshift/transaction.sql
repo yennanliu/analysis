@@ -1,6 +1,8 @@
-DROP TABLE if EXISTS fc.transaction ;
+-- drop 
+DROP TABLE if EXISTS transaction ;
 
-CREATE TABLE fc.transaction( 
+-- create
+CREATE TABLE transaction( 
     group_company_code  VARCHAR (10),
     wireless_sales_slip_no INTEGER,
     column_no        INTEGER,
@@ -45,3 +47,9 @@ CREATE TABLE fc.transaction(
     number_of_adjacent_vm_ot  NUMERIC, 
     number_of_adjacent_vm_sf  NUMERIC 
     );
+
+-- copy
+copy transaction
+from 's3://suntory-data/raw_transaciton_data/' 
+iam_role 'arn:aws:iam::xxxxxxx'
+IGNOREHEADER 1 delimiter ',';
