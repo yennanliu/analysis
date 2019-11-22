@@ -131,11 +131,7 @@ WITH trans AS
    FROM public.filtered_9000_vm_transaction_201905
    UNION ALL SELECT *
    FROM public.filtered_9000_vm_transaction_201906)
-SELECT equipment_code AS equipment_code_,
-       product_code AS product_code_,
-       column_no,
-       sales_date AS laste_sales_date,
-       *
+SELECT distinct *
 FROM trans
 WHERE (equipment_code,
        group_company_code,
