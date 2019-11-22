@@ -138,8 +138,14 @@ SELECT equipment_code AS equipment_code_,
        *
 FROM trans
 WHERE (equipment_code,
+       group_company_code,
+       customer_number,
+       branch_number,
        sales_date) IN
     (SELECT equipment_code,
+            group_company_code,
+            customer_number,
+            branch_number,
             max(sales_date) AS sales_date
      FROM trans
-     GROUP BY 1); 
+     GROUP BY 1,2,3,4);
