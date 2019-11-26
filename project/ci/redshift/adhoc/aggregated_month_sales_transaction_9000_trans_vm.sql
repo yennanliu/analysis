@@ -110,7 +110,7 @@ WITH filtered_vm AS
           customer_number,
           equipment_code,
           count(DISTINCT product_code)::numeric/max(column_no)::numeric AS item_ratio
-   FROM target_vm_9000_vm_transaction_201902
+   FROM target_vm_9000_vm_transaction_201812
    GROUP BY 1,
             2,
             3,
@@ -118,7 +118,7 @@ WITH filtered_vm AS
    HAVING item_ratio > 0.5),
      filtered_t AS
   (SELECT *
-   FROM target_vm_9000_vm_transaction_201902
+   FROM target_vm_9000_vm_transaction_201812
    WHERE (sales_date,
           branch_number,
           customer_number,
@@ -164,6 +164,8 @@ WITH filtered_vm AS
           number_of_adjacent_vm_sf,
           sum(sales_quantity) AS sales_quantity
    FROM filtered_t
+   WHERE number_of_sales_update_failure = 0
+     AND sales_quantity < 1000
    GROUP BY 1,
             2,
             3,
