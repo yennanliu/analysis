@@ -206,33 +206,38 @@
 -- V4
 -----------------------------------
 
-WITH filtered_vm AS
-  (SELECT sales_date,
-          nnp_group_company_code,
-          nnp_organization_group_code,
-          branch_number,
-          customer_number,
-          equipment_code
-   FROM target_vm_9000_vm_transaction_201812
-   WHERE number_of_sales_update_failure = 0
-     AND sales_quantity < 1000
-   GROUP BY 1,
-            2,
-            3,
-            4,
-            5),
+WITH master_vm AS
+  (SELECT *
+   FROM public.master_vm),
+     filtered_vm AS
+  (SELECT SUBSTRING(tr.sales_date, 1, 7) AS sales_month,
+          tr.branch_number,
+          tr.customer_number,
+          tr.equipment_code,
+          tr.group_company_code,
+          master_vm.nnp_organization_group_code as organization_group_code,
+          count(DISTINCT tr.product_code)::numeric/max(tr.column_no)::numeric AS item_ratio
+   FROM transaction_201901 tr
+   INNER JOIN master_vm ON master_vm.group_company_code = tr.group_company_code
+   AND master_vm.customer_number = tr.customer_number
+   AND master_vm.branch_number = tr.branch_number
+   AND master_vm.equipment_code = tr.equipment_code
+   WHERE tr.number_of_sales_update_failure = 0
+     AND tr.sales_quantity < 1000
+    GROUP BY 1,2,3,4,5,6 
+     HAVING item_ratio > 0.5),
      filtered_t AS
   (SELECT *
-   FROM target_vm_9000_vm_transaction_201812
-   WHERE (sales_date,
-          nnp_group_company_code,
-          nnp_organization_group_code,
+   FROM transaction_201901
+   WHERE (
           branch_number,
           customer_number,
+          group_company_code,
           equipment_code) IN
-       (SELECT sales_date,
+       (SELECT 
                branch_number,
                customer_number,
+               group_company_code,
                equipment_code
         FROM filtered_vm) ),
      aggre_t AS
@@ -240,6 +245,7 @@ WITH filtered_vm AS
           branch_number,
           customer_number,
           equipment_code,
+          organization_group_code,
           column_no,
           product_code,
           site_code,
@@ -269,7 +275,6 @@ WITH filtered_vm AS
           number_of_adjacent_vm_po,
           number_of_adjacent_vm_ot,
           number_of_adjacent_vm_sf,
-          count(DISTINCT product_code)::numeric/max(column_no)::numeric AS item_ratio,
           sum(sales_quantity) AS sales_quantity
    FROM filtered_t
    GROUP BY 1,
@@ -304,7 +309,7 @@ WITH filtered_vm AS
             30,
             31,
             32,
-            33
-      HAVING item_ratio > 0.5)
+            33,
+            34)
 SELECT *
 FROM aggre_t;
