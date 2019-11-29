@@ -215,7 +215,7 @@ WITH master_vm AS
           tr.customer_number,
           tr.equipment_code,
           tr.group_company_code,
-          master_vm.nnp_organization_group_code as organization_group_code,
+          master_vm.nnp_organization_group_code AS organization_group_code,
           count(DISTINCT tr.product_code)::numeric/max(tr.column_no)::numeric AS item_ratio
    FROM transaction_201901 tr
    INNER JOIN master_vm ON master_vm.group_company_code = tr.group_company_code
@@ -224,18 +224,26 @@ WITH master_vm AS
    AND master_vm.equipment_code = tr.equipment_code
    WHERE tr.number_of_sales_update_failure = 0
      AND tr.sales_quantity < 1000
-    GROUP BY 1,2,3,4,5,6 
-     HAVING item_ratio > 0.5),
+   GROUP BY 1,
+            2,
+            3,
+            4,
+            5,
+            6
+   HAVING item_ratio > 0.5),
      filtered_t AS
-  (SELECT *
-   FROM transaction_201901
-   WHERE (
-          branch_number,
-          customer_number,
-          group_company_code,
-          equipment_code) IN
-       (SELECT 
-               branch_number,
+  (SELECT tr.*,
+          master_vm.nnp_organization_group_code AS organization_group_code
+   FROM transaction_201901 tr
+   INNER JOIN master_vm ON master_vm.group_company_code = tr.group_company_code
+   AND master_vm.customer_number = tr.customer_number
+   AND master_vm.branch_number = tr.branch_number
+   AND master_vm.equipment_code = tr.equipment_code
+   WHERE (tr.branch_number,
+          tr.customer_number,
+          tr.group_company_code,
+          tr.equipment_code) IN
+       (SELECT branch_number,
                customer_number,
                group_company_code,
                equipment_code
