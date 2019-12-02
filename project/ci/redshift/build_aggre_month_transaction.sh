@@ -13,7 +13,7 @@ build_month_aggr_trans() {
                 customer_number,
                 equipment_code,
                 count(DISTINCT product_code)::numeric/max(column_no)::numeric AS item_ratio
-         FROM target_vm_9000_vm_transaction_
+         FROM target_vm_9000_vm_transaction_201901
          GROUP BY 1,
                   2,
                   3,
@@ -21,7 +21,7 @@ build_month_aggr_trans() {
          HAVING item_ratio > 0.5),
            filtered_t AS
         (SELECT *
-         FROM target_vm_9000_vm_transaction_
+         FROM target_vm_9000_vm_transaction_201901
          WHERE (sales_date,
                 branch_number,
                 customer_number,
@@ -103,25 +103,41 @@ build_month_aggr_trans() {
                   32,
                   33)
       SELECT *
-      FROM aggre_t;
+      FROM aggre_t limit 10;
        """
-    for i in 201901 201902 201903
-        do
-            SQL=$(echo $base_sql | sed -e "s/\target_vm_9000_vm_transaction_/target_vm_9000_vm_transaction_$i/g")
-            echo $SQL
-            echo --------
-        done 
+
+SQL2="""
+SELECT count(*) FROM public.master_product LIMIT 100;
+"""
+for i in 201901 201902 201903
+do
+#SQL=$(echo $base_sql | sed -e "s/\target_vm_9000_vm_transaction_/target_vm_9000_vm_transaction_$i/g")
+echo $base_sql
+psql -d "host=$host port=$port dbname=$dbname user=$user" << EOF
+$base_sql
+EOF
+echo --------
+done
+
 }
 
 run_sql_with_args(){
 
-base_sql="select 1;"
-psql -d "host=$host port=$port dbname=$dbname user=$user" \
-    --command="select 1;"
+base_sql="""SELECT 1;"""
+
+psql -d "host=$host port=$port dbname=$dbname user=$user" << EOF
+$base_sql
+EOF
+
 }
 
-# init your creds
-#export PGPASSWORD=<PGPASSWORD>
-#export connection_string="host=xxxxx.amazonaws.com port=5439 dbname=dbname user=user"
-#build_month_aggr_trans
+# init creds
+# export PGPASSWORD=<PGPASSWORD>
+# export host=<host> 
+# export port=<port> 
+# export dbname=<dbname 
+# export user=<user>
+# export aws_access_key_id=<aws_access_key_id>
+# export aws_secret_access_key=<aws_secret_access_key> 
 run_sql_with_args
+#build_month_aggr_trans
