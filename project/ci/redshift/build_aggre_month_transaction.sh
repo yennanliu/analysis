@@ -113,4 +113,15 @@ build_month_aggr_trans() {
         done 
 }
 
-build_month_aggr_trans
+run_sql_with_args(){
+
+base_sql="select 1;"
+psql -d "host=$host port=$port dbname=$dbname user=$user" \
+    --command="select 1;"
+}
+
+# init your creds
+#export PGPASSWORD=<PGPASSWORD>
+#export connection_string="host=xxxxx.amazonaws.com port=5439 dbname=dbname user=user"
+#build_month_aggr_trans
+run_sql_with_args
