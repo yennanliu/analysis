@@ -288,11 +288,12 @@ WITH trans AS
    UNION ALL SELECT *
    FROM public.filtered_9000_vm_transaction_201906),
 master_vm AS
-  (SELECT *
+  (SELECT nnp_organization_group_code as organization_group_code, *
    FROM public.master_vm),
 
 trans_master_vm AS (
 SELECT 
+master_vm.organization_group_code,
 trans.*
 FROM trans 
 INNER JOIN master_vm ON master_vm.group_company_code = tr.group_company_code
@@ -305,15 +306,17 @@ WHERE tr.number_of_sales_update_failure = 0
 
 SELECT distinct *
 FROM trans_master_vm
-WHERE (equipment_code,
-       group_company_code,
+WHERE (group_company_code,
+       organization_group_code,
        customer_number,
        branch_number,
+       equipment_code,
        sales_date) IN
-    (SELECT equipment_code,
-            group_company_code,
+    (SELECT group_company_code,
+            organization_group_code,
             customer_number,
             branch_number,
+            equipment_code,
             max(sales_date) AS sales_date
      FROM trans_master_vm
-     GROUP BY 1,2,3,4);
+     GROUP BY 1,2,3,4,5);
