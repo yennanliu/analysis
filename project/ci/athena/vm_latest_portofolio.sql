@@ -5,7 +5,7 @@ with latest AS
          branch_number,
          equipment_code,
          max(sales_date) AS sales_date
-    FROM "suntory"."vm_portofolio_201801_201906"
+    FROM "suntory"."vm_portofolio"
     GROUP BY  1,2,3,4,5 )
 SELECT tr.group_company_code,
          tr.organization_group_code,
@@ -13,8 +13,9 @@ SELECT tr.group_company_code,
          tr.branch_number,
          tr.equipment_code,
          tr.product_code,
+         tr.column_no,
          tr.sales_date
-FROM "suntory"."vm_portofolio_201801_201906" tr
+FROM "suntory"."vm_portofolio" tr
 INNER JOIN latest
     ON latest.group_company_code = tr.group_company_code
         AND latest.organization_group_code = tr.organization_group_code
